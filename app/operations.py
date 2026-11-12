@@ -9,7 +9,8 @@ from PySide6.QtCore import QObject, Signal, Slot
 from .ec import ECProbe, FLASH_SIZES
 from .ene import EneEC
 from .session import DeviceSession
-from .transport import PicoTransport, TransportError
+from .transport import TransportError
+from .ec_transport import ECTransport
 
 READ_SIZES = FLASH_SIZES
 
@@ -22,6 +23,7 @@ def resolve_read_size(size, profile=None):
 
 class Worker(QObject):
     progress = Signal(int)
+    transfer = Signal(int, int)
     phase = Signal(str)
     status = Signal(str)
     warning = Signal(str)
@@ -52,6 +54,10 @@ class Worker(QObject):
             return f"Programming EC flash ({name}, 64-byte Pico blocks)..."
         return f"Programming EC flash ({protocol.name}, {protocol.program_method}, USB fallback)..."
 
+    def report_progress(self, done, total):
+        self.transfer.emit(done, total)
+        self.progress.emit(done * 100 // total)
+
     def stage(self, name, operation):
         self.phase.emit(name)
         self.progress.emit(0)
@@ -62,7 +68,7 @@ class Worker(QObject):
 
     @Slot()
     def run(self):
-        session = DeviceSession(self.port, self.pins, self.profile, PicoTransport,
+        session = DeviceSession(self.port, self.pins, self.profile, ECTransport,
                                 ECProbe, EneEC, self.status.emit, self.power_cycle_needed.emit)
         destructive_started = False
         result = error = cleanup_error = None
@@ -107,7 +113,7 @@ class Worker(QObject):
                         raise RuntimeError("Read is unavailable for this family")
                     self.status.emit(f"Reading {self.read_size // 1024} KiB from address 0...")
                     data = self.stage("Read", lambda: ec.read_flash(
-                        self.read_size, lambda done,total: self.progress.emit(done*100//total)))
+                        self.read_size, self.report_progress))
                     result = identity, data
                 elif self.action in ("write", "erase"):
                     if not self.profile.read_protocol:
@@ -121,14 +127,14 @@ class Worker(QObject):
                     self.status.emit("Erasing EC flash...")
                     destructive_started = True
                     self.stage("Erase", lambda: ec.erase_flash(self.read_size, protocol,
-                        lambda done,total: self.progress.emit(done*100//total)))
+                        self.report_progress))
                     if image is not None:
                         self.status.emit(label)
                         self.stage("Programming", lambda: ec.write_flash(image, protocol,
-                            lambda done,total: self.progress.emit(done*100//total)))
+                            self.report_progress))
                         self.status.emit("Verifying every byte...")
                         self.stage("Verification", lambda: ec.verify_flash(image,
-                            lambda done,total: self.progress.emit(done*100//total)))
+                            self.report_progress))
                     result = identity
                 else:
                     raise ValueError(f"Unknown action: {self.action}")

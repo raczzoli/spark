@@ -132,7 +132,7 @@ void wave_at_power_on(void) {
         waveform(false, rates[i]);
         /* Select DBGR immediately while the entry window is open. */
         uint8_t reg = 0x07, value = 0x7f;
-        if (write_i2c(0x5a, &reg, 1) && write_i2c(0x35, &value, 1)) {
+        if (ite_write_i2c(0x5a, &reg, 1) && ite_write_i2c(0x35, &value, 1)) {
             wave_entry_rate = rates[i];
             usb_printf("WAVEPOWER %u ADDRESS_ACK\n", rates[i]);
             return;
@@ -142,11 +142,11 @@ void wave_at_power_on(void) {
 }
 
 bool dbgr_reg_write(uint8_t reg, uint8_t value) {
-    return write_i2c(0x5a, &reg, 1) && write_i2c(0x35, &value, 1);
+    return ite_write_i2c(0x5a, &reg, 1) && ite_write_i2c(0x35, &value, 1);
 }
 
 bool dbgr_reg_read(uint8_t reg, uint8_t *value) {
-    return write_i2c(0x5a, &reg, 1) && read_i2c(0x35, value, 1);
+    return ite_write_i2c(0x5a, &reg, 1) && read_i2c(0x35, value, 1);
 }
 
 void enter_dbgr_fast(void) {

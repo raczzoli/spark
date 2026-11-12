@@ -29,7 +29,10 @@ class NativeFirmwareTests(unittest.TestCase):
         cls.addClassCleanup(cls.temp.cleanup)
         cls.exe = Path(cls.temp.name) / ("firmware-test.exe" if os.name == "nt" else "firmware-test")
         sources = ["tests/native/flash_harness.c", "firmware/ite_flash.c",
-                   "firmware/ite_session.c", "firmware/usb_commands.c", "firmware/usb_output.c"]
+                   "firmware/ite_session.c", "firmware/ite_bus.c",
+                   "firmware/usb_commands.c", "firmware/usb_output.c",
+                   "firmware/ec_commands.c", "firmware/ite_commands.c",
+                   "firmware/ene_commands.c", "firmware/device_runtime.c"]
         subprocess.run(compiler + ["-std=c11", "-Wall", "-Wextra", "-Werror",
                        "-Itests/native", "-Ifirmware", *sources, "-o", str(cls.exe)],
                        cwd=ROOT, check=True, capture_output=True, text=True, timeout=180)
@@ -49,6 +52,29 @@ class NativeFirmwareTests(unittest.TestCase):
 
     def test_failed_cursor_restore_invalidates_hold(self):
         self.assertTrue(self.run_c("hold", "7")[-1].endswith("HOLD=0"))
+
+    def test_ite_cursor_is_isolated_from_generic_transfers_and_pin_changes(self):
+        trace = self.run_c("cursor")
+        self.assertIn("GENERIC_CURSOR=08", trace)
+        self.assertIn("FAILED_CURSOR=08", trace)
+        self.assertEqual(trace[-2:], ["SAME_PINS_VALID=1", "NEW_PINS_VALID=0"])
+
+    def test_legacy_split_write_still_restores_cursor_during_runtime_tick(self):
+        self.assertEqual(self.run_c("legacycursor")[-2:],
+                         ["W 5A 08", "CURSOR=08 HOLD=1"])
+
+    def test_release_keeps_debug_hold_and_end_session_stops_it(self):
+        self.assertEqual(self.run_c("lifecycle"), [
+            "RELEASE HOLD=1 BUS=1 ENE_CLOSE=1", "END HOLD=0 BUS=2 ENE_CLOSE=2"])
+
+    def test_ene_session_blocks_ite_commands_but_allows_common_commands(self):
+        for command in ("REGREAD 00", "PINS 7 6", "WRITE 5A 08"):
+            with self.subTest(command=command):
+                self.assertEqual(self.run_c("eneactive", command), ["ERR ENE_ACTIVE"])
+        self.assertEqual(self.run_c("eneactive", "HELLO"), ["OK PICO_ITE_EC_PROGRAMMER 2"])
+        for command in ("RELEASE", "ENECLOSE", "ENDSESSION"):
+            with self.subTest(command=command):
+                self.assertEqual(self.run_c("eneactive", command), ["OK"])
 
     def test_overlong_line_discards_tail_until_newline(self):
         self.assertEqual(self.run_c("overflow"), ["OVERFLOW", "OK PICO_ITE_EC_PROGRAMMER 2"])

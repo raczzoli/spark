@@ -87,7 +87,7 @@ class EneTests(unittest.TestCase):
         finished, failed = [], []
         worker.finished.connect(lambda action, result: finished.append((action, result)))
         worker.failed.connect(failed.append)
-        with patch("app.operations.PicoTransport", FakeBus):
+        with patch("app.operations.ECTransport", FakeBus):
             worker.run()
         self.assertEqual(failed, [])
         self.assertEqual(finished[0][0], "connect")
@@ -193,14 +193,14 @@ class EneTests(unittest.TestCase):
         finished, failed = [], []
         worker.finished.connect(lambda action, result: finished.append((action, result)))
         worker.failed.connect(failed.append)
-        with patch("app.operations.PicoTransport", FakeBus):
+        with patch("app.operations.ECTransport", FakeBus):
             worker.run()
         self.assertEqual(failed, [])
         self.assertEqual(len(finished[0][1][1]), 160*1024)
         worker = Worker("erase", "SIMULATED", (7, 6), FAMILIES_BY_MANUFACTURER["ITE"][-1],
                         (0x8227, 3), read_size=160*1024)
         worker.failed.connect(failed.append)
-        with patch("app.operations.PicoTransport") as transport:
+        with patch("app.operations.ECTransport") as transport:
             worker.run()
             transport.assert_not_called()
         self.assertEqual(len(failed), 1)

@@ -27,7 +27,7 @@ void dbgr_hold_tick(void) {
     }
     if (now < dbgr_next_feed_us) return;
     uint8_t saved_register;
-    bool restore = bus_selected_register(&saved_register);
+    bool restore = ite_selected_register(&saved_register);
     if (!dbgr_reg_write(0x2f, 0x1f) ||
         !dbgr_reg_write(0x2e, 0x07) ||
         !dbgr_reg_write(0x30, 0x5c)) {
@@ -36,7 +36,7 @@ void dbgr_hold_tick(void) {
     }
     /* Legacy hosts split register selection and data across USB requests.
      * Keep their cursor intact when feeding between those requests. */
-    if (restore && !write_i2c(0x5a, &saved_register, 1)) {
+    if (restore && !ite_write_i2c(0x5a, &saved_register, 1)) {
         dbgr_hold_until_us = 0;
         return;
     }

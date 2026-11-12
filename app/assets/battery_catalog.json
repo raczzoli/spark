@@ -1,0 +1,6025 @@
+{
+  "schema": 1,
+  "updated": "2026-11-12",
+  "entries": [
+    {
+      "id": "acer-ac14b8k-90a009",
+      "manufacturer": "Acer",
+      "model": "AC14B8K",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "temperature",
+          "label": "T",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "present",
+          "label": "SP",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Order from the two negative contacts (black wires) toward the two positive contacts. Match these landmarks; the cable and battery views are mirrored.",
+      "notes": "SDA, SCL and ground communication verified on an AC14B8K on 2026-11-12. Other connector revisions must be matched separately.",
+      "pin_count_inferred": false,
+      "verification": "communication_verified",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-acer-batteries/acer-ac14b8k-battery-pinout/"
+        }
+      ],
+      "present_to_ground": true
+    },
+    {
+      "id": "unspecified-40001926-208ba0",
+      "manufacturer": "Unspecified",
+      "model": "40001926",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "unspecified-755-4s4000-s1s1-ab388f",
+      "manufacturer": "Unspecified",
+      "model": "755-4S4000-S1S1",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "300R to GND",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "14.8V 4Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "unspecified-btp-34a1-a0da6b",
+      "manufacturer": "Unspecified",
+      "model": "BTP-34A1",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "gap",
+          "label": "empty",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "14.8V 4Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "unspecified-btp-s31-9ea15a",
+      "manufacturer": "Unspecified",
+      "model": "BTP-S31",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "10.8V 5.4Ah, Note2b?, stops charging >13V? Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "acer-as07b41-43477e",
+      "manufacturer": "Acer",
+      "model": "AS07B41",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "temperature",
+          "label": "10k Temp?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "acer-as10b5e-5464f9",
+      "manufacturer": "Acer",
+      "model": "AS10B5E",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "present",
+          "label": "EN",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "11.1V 6Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "acer-as10d31-7ed37f",
+      "manufacturer": "Acer",
+      "model": "AS10D31",
+      "aliases": [
+        "Travelmate 5740"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "present",
+          "label": "EN",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "temperature",
+          "label": "TEMP",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "10.8V 4.4Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "acer-as10d81-7ed37f",
+      "manufacturer": "Acer",
+      "model": "AS10D81",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "present",
+          "label": "EN",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "temperature",
+          "label": "TEMP",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "10.8V 4.4Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "acer-grape32-d05345",
+      "manufacturer": "Acer",
+      "model": "GRAPE32",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "EN(GND)",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 7,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "10.8V 4.4Ah; 11.1V 4.0Ah, Note2 Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "acer-grape34-f4bcf7",
+      "manufacturer": "Acer",
+      "model": "GRAPE34",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "EN(GND)",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 7,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "14.8V 4.8Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "apple-a1175-abe61b",
+      "manufacturer": "Apple",
+      "model": "A1175",
+      "aliases": [
+        "15-inch MacBook Pro"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "asus-7564-9115fb",
+      "manufacturer": "Asus",
+      "model": "7564 ?",
+      "aliases": [
+        "EeePC 4G-BK022"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "+V",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "present",
+          "label": "EN",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "asus-a32-k72-37dbfd",
+      "manufacturer": "Asus",
+      "model": "A32-K72",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "EN 10k V+",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "10.8V 5.2Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "asus-a41-x550a-f5549a",
+      "manufacturer": "Asus",
+      "model": "A41-X550A",
+      "aliases": [
+        "R510L"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "14,4V 2,6Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "dell-3r305-34e777",
+      "manufacturer": "Dell",
+      "model": "3R305",
+      "aliases": [
+        "D500/D600"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "ON/OFF",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Note2b Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "dell-75uyf-0ef060",
+      "manufacturer": "Dell",
+      "model": "75UYF",
+      "aliases": [
+        "C510/C610 / C840"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unused",
+          "label": "NC",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "present",
+          "label": "Sys",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Note2b Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "dell-e4300-8fba96",
+      "manufacturer": "Dell",
+      "model": "E4300",
+      "aliases": [
+        "E4300"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "BAT-",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "/Ena",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Note2b Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "dell-inspiron-6400-m70-4dcdf1",
+      "manufacturer": "Dell",
+      "model": "Inspiron 6400/M70",
+      "aliases": [
+        "Inspiron 6400/M70"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "BAT_VOLT",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "present",
+          "label": "SYSPRES#(GND)",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "BAT_PRES#",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Note2b Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "dell-m5y0x-9b607f",
+      "manufacturer": "Dell",
+      "model": "M5Y0X",
+      "aliases": [
+        "Latitude E6430"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "11.1V 9Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "elitegroup-em-g320l1-2dfdb1",
+      "manufacturer": "Elitegroup",
+      "model": "EM-G320L1",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "gap",
+          "label": "empty",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "temperature",
+          "label": "T",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "14.8V 2.2Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "fujitsu-u-a-4ur18650f-2-5-e4c852",
+      "manufacturer": "Fujitsu,U.A.",
+      "model": "4UR18650F-2-5",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "present",
+          "label": "Ena",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "14.8V 3.2Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "fujitsu-4ur18650f-2-qc-ef3-178311",
+      "manufacturer": "Fujitsu",
+      "model": "4UR18650F-2-QC-EF3",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "14.8V 4Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "fujitsu-3s4400-1c6c2a",
+      "manufacturer": "Fujitsu",
+      "model": "3S4400-*",
+      "aliases": [
+        "Amilo M1425"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "temperature",
+          "label": "TEMP",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "data",
+          "label": "SMBD",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "clock",
+          "label": "SMBC",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 9,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 10,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Note2b? Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "fujitsu-bp-8389-bf0fdf",
+      "manufacturer": "Fujitsu",
+      "model": "BP-8389",
+      "aliases": [
+        "Amilo K 7600"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "gap",
+          "label": "Key",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "temperature",
+          "label": "T",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "11.1V 6.0Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "fujitsu-btp-52ew-b0122d",
+      "manufacturer": "Fujitsu",
+      "model": "BTP-52EW",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "Bus?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "Bus?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "temperature",
+          "label": "temp?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "gap",
+          "label": "empty",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "14.8V 4.4Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "fujitsu-fpcbp59-9a312f",
+      "manufacturer": "Fujitsu",
+      "model": "FPCBP59",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "present",
+          "label": "EN",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "Bus?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "Bus?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "Bus?",
+          "uncertain": true
+        },
+        {
+          "number": 7,
+          "role": "temperature",
+          "label": "temp?",
+          "uncertain": true
+        },
+        {
+          "number": 8,
+          "role": "gap",
+          "label": "empty",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "fujitsu-fpcbp331-dbbb64",
+      "manufacturer": "Fujitsu",
+      "model": "FPCBP331",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "V+?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "temperature",
+          "label": "TEMP?",
+          "uncertain": true
+        },
+        {
+          "number": 8,
+          "role": "gap",
+          "label": "empty",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "10.8V 4.4Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "fujitsu-fpcbp429-a6b183",
+      "manufacturer": "Fujitsu",
+      "model": "FPCBP429",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "EN(3,7V)",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "EN(4V)",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "unknown",
+          "label": "x",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "10.8V 6,7Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "fujitsu-squ-809-f01-e383cb",
+      "manufacturer": "Fujitsu",
+      "model": "SQU-809-F01",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 7,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "11.1V 4.4Ah, Note1 Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "gericom-un34as1-s1-38353d",
+      "manufacturer": "Gericom",
+      "model": "UN34AS1-S1",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "temperature",
+          "label": "T",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "11.1V 6Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "hp-nc6120-fce86f",
+      "manufacturer": "HP",
+      "model": "NC6120",
+      "aliases": [
+        "364602-001",
+        "365750-001",
+        "372772-001",
+        "398854-001",
+        "HSTNN-C12C",
+        "PB994A",
+        "HSTNN-IB05",
+        "HSTNN-LB05",
+        "PB994",
+        "HSTNN-I03C",
+        "HSTNN-I05C"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "temperature",
+          "label": "T",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "10.8V/7.8Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "hp-hstnn-cb47-375d73",
+      "manufacturer": "HP",
+      "model": "HSTNN-CB47",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "temperature",
+          "label": "10k Temp?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "hp-hstnn-db30-7c6f7c",
+      "manufacturer": "HP",
+      "model": "HSTNN-DB30",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "present",
+          "label": "E",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "10.8V/43Wh Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "hp-hstnn-ib2p-a0e157",
+      "manufacturer": "HP",
+      "model": "HSTNN-IB2P",
+      "aliases": [
+        "632427-001",
+        "VH08083"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "14.8V/83Wh Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "hp-hstnn-ub73-5223cc",
+      "manufacturer": "HP",
+      "model": "HSTNN-UB73",
+      "aliases": [
+        "509459-001"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "temperature",
+          "label": "8,7k Temp?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "10.8V/55Wh Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "ibm-lenovo-42t4504-80acaa",
+      "manufacturer": "IBM Lenovo",
+      "model": "42T4504",
+      "aliases": [
+        "T60?"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "Bus?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "Bus?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "temperature",
+          "label": "temp?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "ibm-lenovo-42t4649-b82831",
+      "manufacturer": "IBM Lenovo",
+      "model": "42T4649",
+      "aliases": [
+        "X200"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "temperature",
+          "label": "temp?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "10,8V/7,8Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "ibm-lenovo-42t4653-b82831",
+      "manufacturer": "IBM Lenovo",
+      "model": "42T4653",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "temperature",
+          "label": "temp?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "10,8V/4,9Ah Note1 Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "ibm-lenovo-42t4670-b82831",
+      "manufacturer": "IBM Lenovo",
+      "model": "42T4670",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "temperature",
+          "label": "temp?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "ibm-lenovo-42t4694-80acaa",
+      "manufacturer": "IBM Lenovo",
+      "model": "42T4694",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "Bus?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "Bus?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "temperature",
+          "label": "temp?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "ibm-lenovo-42t4879-52-4c45b2",
+      "manufacturer": "IBM Lenovo",
+      "model": "42T4879 52+",
+      "aliases": [
+        "X220T"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "temperature",
+          "label": "Temp (10k)",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "ibm-lenovo-08k8039-267da9",
+      "manufacturer": "IBM Lenovo",
+      "model": "08K8039",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "temperature",
+          "label": "temp?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "Bus?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "Bus?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "ibm-lenovo-02k6817-267da9",
+      "manufacturer": "IBM Lenovo",
+      "model": "02K6817",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "temperature",
+          "label": "temp?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "Bus?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "Bus?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "lenovo-45n1001-70-4c45b2",
+      "manufacturer": "Lenovo",
+      "model": "45N1001 70+",
+      "aliases": [
+        "T430/530"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "temperature",
+          "label": "Temp (10k)",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "10.8V/5,2Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "lenovo-45n1011-70-4c45b2",
+      "manufacturer": "Lenovo",
+      "model": "45N1011 70++",
+      "aliases": [
+        "T430/530/ W530"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "temperature",
+          "label": "Temp (10k)",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "11.1V/8.4Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "lenovo-45n1775-68-4c45b2",
+      "manufacturer": "Lenovo",
+      "model": "45N1775 68",
+      "aliases": [
+        "T450s"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "temperature",
+          "label": "Temp (10k)",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "11.1V/2,09Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "medion-btp-c0bm-38ff46",
+      "manufacturer": "Medion",
+      "model": "BTP-C0BM",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "temperature",
+          "label": "10k Temp?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "11.1V/4.0Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "medion-btp-c2bm-f98166",
+      "manufacturer": "Medion",
+      "model": "BTP-C2BM",
+      "aliases": [
+        "MD96850 MD96640"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "11.1V/7.8Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "msi-a32-a15-8c710d",
+      "manufacturer": "MSI",
+      "model": "A32-A15",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "temperature",
+          "label": "TEMP?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "present",
+          "label": "EN",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "present",
+          "label": "EN",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "10,8V/4,4Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "msi-bty-l74-9873e4",
+      "manufacturer": "MSI",
+      "model": "BTY-L74",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "temperature",
+          "label": "10k Temp?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "SDA?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "SCL?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "present",
+          "label": "EN",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "present",
+          "label": "EN",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "11,1V/4,4Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "sony-pcga-bp2nx-93cb18",
+      "manufacturer": "Sony",
+      "model": "PCGA-BP2NX",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "gap",
+          "label": "empty",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "/Ena(1k zu GND)",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "14.8V/4Ah Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "toshiba-satellite-c675d-b28631",
+      "manufacturer": "Toshiba",
+      "model": "Satellite C675D",
+      "aliases": [
+        "Satellite C675D"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "temperature",
+          "label": "Temp?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "present",
+          "label": "SysPresent",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "positive",
+          "label": "BAT+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "toshiba-pa2510u-5591c5",
+      "manufacturer": "Toshiba",
+      "model": "PA2510U",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "temperature",
+          "label": "temp?",
+          "uncertain": true
+        },
+        {
+          "number": 8,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 10,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "toshiba-pa3107u-96014f",
+      "manufacturer": "Toshiba",
+      "model": "PA3107U",
+      "aliases": [
+        "Satellite Pro 4600"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "temperature",
+          "label": "temp?",
+          "uncertain": true
+        },
+        {
+          "number": 8,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "ON: beide Zusatzpins verbinden Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "toshiba-pa3480u-15905d",
+      "manufacturer": "Toshiba",
+      "model": "PA3480U",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "x",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "/Ena",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 8,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "toshiba-pa3534u-4cdaca",
+      "manufacturer": "Toshiba",
+      "model": "PA3534U",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "GND",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "temperature",
+          "label": "10k Temp?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "/Ena",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 8,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 9,
+          "role": "positive",
+          "label": "V+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source view: battery in its installed laptop orientation, with the laptop resting on a table; contacts numbered left to right. Confirm against the connector before wiring.",
+      "notes": "Note2b? Contact count follows the last described contact; trailing table padding is omitted.",
+      "pin_count_inferred": true,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "acer-um09b7d-eefd65",
+      "manufacturer": "Acer",
+      "model": "UM09B7D",
+      "aliases": [
+        "UM09F36"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "–",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "–",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "temperature",
+          "label": "T",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "present",
+          "label": "BE",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "positive",
+          "label": "++",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "++",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Looking at the connector from the narrow side of the pack, with the open edge of the contact slots facing up; left to right.",
+      "notes": "",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://powercartel.com/projects/packprobe/battery-connection/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "asus-pl32-1005-6ca641",
+      "manufacturer": "Asus",
+      "model": "PL32-1005",
+      "aliases": [
+        "AS035MD33E",
+        "AL32-1005",
+        "AS085NJ35E"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "–",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "–",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "??",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "??",
+          "uncertain": true
+        },
+        {
+          "number": 7,
+          "role": "temperature",
+          "label": "T",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "++",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "positive",
+          "label": "++",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Looking at the connector from the narrow side of the pack, with the open edge of the contact slots facing up; left to right.",
+      "notes": "",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://powercartel.com/projects/packprobe/battery-connection/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "dell-9t48v-611d70",
+      "manufacturer": "Dell",
+      "model": "9T48V",
+      "aliases": [
+        "YXVK234J",
+        "T54FJ"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "–",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "–",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "??",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "present",
+          "label": "BE",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "ground",
+          "label": "–",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "++",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "positive",
+          "label": "++",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Looking at the connector from the narrow side of the pack, with the open edge of the contact slots facing up; left to right.",
+      "notes": "",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://powercartel.com/projects/packprobe/battery-connection/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "dell-9t119-1b7c4d",
+      "manufacturer": "Dell",
+      "model": "9T119",
+      "aliases": [
+        "8T533 8BN"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "–",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "??",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "??",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "present",
+          "label": "BE",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "??",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "++",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source order, left to right. Open the source reference to match the connector view before wiring.",
+      "notes": "",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://powercartel.com/projects/packprobe/battery-connection/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "dell-xx327-44408d",
+      "manufacturer": "Dell",
+      "model": "XX327",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "–",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "ground",
+          "label": "–",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 9,
+          "role": "positive",
+          "label": "++",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source order, left to right. Open the source reference to match the connector view before wiring.",
+      "notes": "",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://powercartel.com/projects/packprobe/battery-connection/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "dell-tc030-0b65b5",
+      "manufacturer": "Dell",
+      "model": "TC030",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "–",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "??",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "BE?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "??",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "positive",
+          "label": "++",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "++",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source order, left to right. Open the source reference to match the connector view before wiring.",
+      "notes": "",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://powercartel.com/projects/packprobe/battery-connection/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "hp-hstnn-db75-1c565d",
+      "manufacturer": "HP",
+      "model": "HSTNN-DB75",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "++",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "++",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "??",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "temperature",
+          "label": "T",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "ground",
+          "label": "–",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "ground",
+          "label": "—",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Looking at the connector from the narrow side of the pack, with the open edge of the contact slots facing up; left to right.",
+      "notes": "",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://powercartel.com/projects/packprobe/battery-connection/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "hp-td06-c15dde",
+      "manufacturer": "HP",
+      "model": "TD06",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "–",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "–",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "temperature",
+          "label": "T",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "present",
+          "label": "BE",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": true
+        },
+        {
+          "number": 7,
+          "role": "positive",
+          "label": "++",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "++",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source order, left to right. Open the source reference to match the connector view before wiring.",
+      "notes": "Source could not read this pack; a later owner comment disputes the data/clock order. Bus contacts require confirmation before connecting.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://powercartel.com/projects/packprobe/battery-connection/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "hp-hpz-pp2171m-44ef5d",
+      "manufacturer": "HP",
+      "model": "HPZ PP2171M",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "–",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "??",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "gap",
+          "label": "gap",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "positive",
+          "label": "++",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source order, left to right. Open the source reference to match the connector view before wiring.",
+      "notes": "",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://powercartel.com/projects/packprobe/battery-connection/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "lenovo-ibm-ibm-92p1087-5a2ddf",
+      "manufacturer": "Lenovo / IBM",
+      "model": "IBM-92P1087",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "–",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "temperature",
+          "label": "T",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "gap",
+          "label": "gap",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "positive",
+          "label": "++",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Looking at the connector from the narrow side of the pack, with the open edge of the contact slots facing up; left to right.",
+      "notes": "",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://powercartel.com/projects/packprobe/battery-connection/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "lenovo-ibm-ibm-42t4619-65b83c",
+      "manufacturer": "Lenovo / IBM",
+      "model": "IBM-42T4619",
+      "aliases": [
+        "L11P6R01",
+        "45N1037"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "++",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "++",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "gap",
+          "label": "gap",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "temperature",
+          "label": "T",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "ground",
+          "label": "–",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "ground",
+          "label": "—",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Looking at the connector from the narrow side of the pack, with the open edge of the contact slots facing up; left to right.",
+      "notes": "",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://powercartel.com/projects/packprobe/battery-connection/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "samsung-aa-pl2nc8b-332516",
+      "manufacturer": "Samsung",
+      "model": "AA-PL2NC8B",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "–",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "gap",
+          "label": "gap",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "ground",
+          "label": "–",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "temperature",
+          "label": "T",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "data",
+          "label": "SDA",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "clock",
+          "label": "SCL",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "positive",
+          "label": "++",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "++",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Source order, left to right. Open the source reference to match the connector view before wiring.",
+      "notes": "Source reports an address acknowledgement, but no successful SBS data reading for this pack. Pinout documentation does not establish protocol compatibility.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://powercartel.com/projects/packprobe/battery-connection/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "lenovo-45n1001-2de1ee",
+      "manufacturer": "Lenovo",
+      "model": "45N1001",
+      "aliases": [
+        "ThinkPad 70+"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "gap",
+          "label": "GAP",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "temperature",
+          "label": "T",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "Eight positions include the physical key/gap at position 3. No system-present contact is reported. Some older tables omit this gap and shift subsequent numbers.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/forum-nlba1-laptop-battery-analyzer-and-repair-tool/45n1001-lenovo/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "toshiba-pa5366u-1brs-c2798a",
+      "manufacturer": "Toshiba",
+      "model": "PA5366U-1BRS",
+      "aliases": [
+        "Dynabook PA5366U"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 8,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 10,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 11,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 12,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "Uses the corrected 12-position mapping published by the pack owner; positions 4–7 are unidentified. System-present is not established.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/battery-toshiba-dynabook-pa5366u-1brs-pinout/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "dell-v6w33-db3fc0",
+      "manufacturer": "Dell",
+      "model": "V6W33",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "present",
+          "label": "SP",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 10,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "Owner-confirmed V6W33 54 Wh / 15 V variant. This is the battery's 10-position connector, not a shifted 9-pin test cable. System-present grounding is not independently established.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-for-dell-battery-gjknx/paged/2/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "dell-gjknx-99a210",
+      "manufacturer": "Dell",
+      "model": "GJKNX",
+      "aliases": [
+        "3DDDG",
+        "NGGX5",
+        "6MT4T"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 9,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 10,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "Mapping refers to the original battery cable's 10-position connector as reported by its owner. The small battery socket and other cable views may differ. Unspecified contacts remain unknown.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-for-dell-battery-gjknx/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "hp-bk03xl-072cff",
+      "manufacturer": "HP",
+      "model": "BK03XL",
+      "aliases": [
+        "BK03",
+        "HSTNN-UB7G",
+        "916811-855"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 8,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "Owner correction: clock at 3, data at 4. Do not substitute the reversed data/clock mapping used on other HP batteries.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-laptop-battery-bk03xl-battery-pack-hstnn-ub7g-916811-855-battery-pinout-correction/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "hp-pg06xl-f8ceef",
+      "manufacturer": "HP",
+      "model": "PG06XL",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 8,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 10,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 11,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 12,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "12-position connector. Owner reported successful reading with these connections; position 7 was not identified.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/pinout-request-for-laptop-battery-hp-pg06xl/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "hp-sr03xl-a00ba6",
+      "manufacturer": "HP",
+      "model": "SR03XL",
+      "aliases": [
+        "SR04XL"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 8,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "Use the positive end as the position-1 landmark. Owners report clock at 3 and data at 4; confirm the connector view because reversing the view reverses this numbering.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/forum-nlba1-laptop-battery-analyzer-and-repair-tool/hp-sr03xl-or-sr04xlnot-reading/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "hp-db03-995006",
+      "manufacturer": "HP",
+      "model": "DB03",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "Eight-position connector, from the owner's corrected DB03 mapping. Unspecified contacts have not been assigned.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "hp-la0p-e0ed5d",
+      "manufacturer": "HP",
+      "model": "LA0P",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "Published as LA0P, with the digit zero. Do not assume compatibility with similarly named LA04 packs.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "hp-np03xl-42da69",
+      "manufacturer": "HP",
+      "model": "NP03XL",
+      "aliases": [
+        "HP Envy NP03XL"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "present",
+          "label": "SP",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 10,
+          "role": "unused",
+          "label": "NC",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "The owner's T7 contact is an enable/jumper contact, explicitly linked to GND together with pin 1. It is represented as PRESENT here, not as a thermistor.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp/"
+        }
+      ],
+      "present_to_ground": true
+    },
+    {
+      "id": "hp-ht03xl-4618d7",
+      "manufacturer": "HP",
+      "model": "HT03XL",
+      "aliases": [
+        "HT03"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "present",
+          "label": "SP",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "Position numbers begin at the negative end. Source identifies its T3 as Test/System Present, not a temperature sensor. Enable connection is not automatically assigned.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/forum-nlba1-laptop-battery-analyzer-and-repair-tool/hp-ht03xl-doesnt-read-information/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "asus-b21n1329-15dff5",
+      "manufacturer": "Asus",
+      "model": "B21N1329",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "Owner traced the connector to the PCB; another owner confirmed the mapping. The blue L wire is not needed for SMBus, but its electrical function is not established here.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-asus-batteries/asus-b21n1329-battery-pack-pinout/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "asus-b31n1637-3ee42c",
+      "manufacturer": "Asus",
+      "model": "B31N1637",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "Eight-position connector; source only identifies the four bus/power contacts shown. Other contacts remain unknown.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-asus-batteries/b31n1637-pinouts/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "acer-ap11d3f-903484",
+      "manufacturer": "Acer",
+      "model": "AP11D3F",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "T (unconfirmed)",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 9,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 10,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "Owner correction accepted by the moderator: data at 4, clock at 5. The source calls position 7 T without establishing its electrical function; no jumper is prescribed.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-acer-batteries/acer-ap11d3f-wrong-pinout/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "acer-ap16j8k-44531f",
+      "manufacturer": "Acer",
+      "model": "AP16J8K",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "T (unconfirmed)",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "Uses the owner's final working mapping from January 2023, which supersedes an earlier suggestion in the same thread. Position 3's T function is not confirmed.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-acer-batteries/acer-ap16j8k-pinout-required/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "toshiba-pa3905u-28fb48",
+      "manufacturer": "Toshiba",
+      "model": "PA3905U",
+      "aliases": [
+        "PA3905U-1BRS"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "gap",
+          "label": "GAP",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 8,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 9,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 10,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 11,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "Reference only: owner and moderator report an EEPROM-only pack with no SMBus controller. Standard SBS reading is unavailable. Do not apply another Toshiba model's data/clock assignments.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/pa3905u-pinout/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "apple-a1281-f39b86",
+      "manufacturer": "Apple",
+      "model": "A1281",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 3,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "Five-position mapping reported by the pack owner Jon in February 2017. Match the original source view and ground landmark; position 2 is unidentified.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://powercartel.com/projects/packprobe/battery-connection/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "asus-a31n1302-cf4cd0",
+      "manufacturer": "Asus",
+      "model": "A31N1302",
+      "aliases": [
+        "X200MA",
+        "X200CA",
+        "X200LA"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "present",
+          "label": "BE",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "Owner-reported mapping by alex_basic in February 2018. Board revisions and replacement packs must be matched separately.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://powercartel.com/projects/packprobe/battery-connection/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "asus-a32-k55-a65739",
+      "manufacturer": "Asus",
+      "model": "A32-K55",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "present",
+          "label": "BE",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 6,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 8,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "Owner MPcko's July 2018 mapping, viewing the top of the contact slots. The battery-enable connection has not been independently established.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://powercartel.com/projects/packprobe/battery-connection/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "hp-zz08-a7ea26",
+      "manufacturer": "HP",
+      "model": "ZZ08",
+      "aliases": [
+        "HSTNN-OB89"
+      ],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 4,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "Owner MPcko's September 2018 mapping, top view of the contact slots. Data communication was reported, but battery-enable and power output were unresolved.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://powercartel.com/projects/packprobe/battery-connection/"
+        }
+      ],
+      "present_to_ground": false
+    },
+    {
+      "id": "dell-tc030-8e83fe",
+      "manufacturer": "Dell",
+      "model": "TC030",
+      "aliases": [],
+      "pins": [
+        {
+          "number": 1,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 2,
+          "role": "ground",
+          "label": "-",
+          "uncertain": false
+        },
+        {
+          "number": 3,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 4,
+          "role": "present",
+          "label": "BE",
+          "uncertain": false
+        },
+        {
+          "number": 5,
+          "role": "unknown",
+          "label": "?",
+          "uncertain": true
+        },
+        {
+          "number": 6,
+          "role": "data",
+          "label": "D",
+          "uncertain": false
+        },
+        {
+          "number": 7,
+          "role": "clock",
+          "label": "C",
+          "uncertain": false
+        },
+        {
+          "number": 8,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        },
+        {
+          "number": 9,
+          "role": "positive",
+          "label": "+",
+          "uncertain": false
+        }
+      ],
+      "orientation": "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",
+      "notes": "Nine-position 85 Wh variant reported by MPcko in July 2018, top view of slots. The same page lists a different eight-position TC030 reference; match the physical variant before wiring.",
+      "pin_count_inferred": false,
+      "verification": "documented",
+      "sources": [
+        {
+          "url": "https://powercartel.com/projects/packprobe/battery-connection/"
+        }
+      ],
+      "present_to_ground": false
+    }
+  ]
+}

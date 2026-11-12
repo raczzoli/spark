@@ -1,8 +1,11 @@
 {
   "version": "0.4.0",
-  "build_id": "5ee6bf7a2a21",
-  "source_sha256": "5ee6bf7a2a219d162eb0439e8b918ecd1ce13e17d8eb6438578f05373d819768",
+  "build_id": "b665d6bbde8a",
+  "source_sha256": "b665d6bbde8af62e7525e75139edc1eba7940869b02f8bcd83157867c86aa631",
   "hardware_validation": "pending",
+  "gui_build_id": "b665d6bbde8a",
+  "firmware_build_id": "bf378ee841d8",
+  "firmware_source_sha256": "bf378ee841d8fa85786f6b1ce27a2c7c133b4870fe06d992f251483ec1f98b15",
   "boards": [
     "pico",
     "pico_w",

@@ -1,11 +1,12 @@
-EC Programmer 0.4.0 / 5ee6bf7a2a21
+R89 Repairs - EC / Battery tools 0.4.0
+GUI: b665d6bbde8a | firmware unchanged: bf378ee841d8
 
-Automated tests passed. See docs/ENE.md for hardware validation status.
-app/ contains the Windows GUI; pico-firmwares/ contains board-specific UF2 files.
-Install only the UF2 matching your board. Pico 2 H uses Pico-2-RP2350.uf2.
-Default ITE pins: GP7 SDA, GP6 SCL, common GND. Default timing is unchanged.
-Read saves after completion. Write erases, programs and verifies; no automatic backup.
-Size: numeric/manual for ITE (64/128/192/256 KiB); automatic and locked for ENE.
-ENE is experimental. GP4 DO, GP5 CS, GP6 CLK, GP7 DI, common GND; confirm target strap/pins.
-ENE models: KB9012QF, KB9022Q, KB9028Q, KB902FQ C (provisional), KB9052QD (128 KiB).
-Source and instructions: https://github.com/raczzoli/EC-Programmer
+Run app/EC-Programmer.exe. Automatic USB discovery is shared by both EC and battery workspaces.
+Interface bar above the EC/Battery tabs: detected COM + board model + Connected. No COM selector or Refresh. Battery header: empty model search + Read and pinout; model selection is not persisted.
+General info: automatic controller identification, battery lockout status, measured cells, identity and capacities.
+Measurements: graph and Live readings. Controller: identity, operation and checks; settings and raw data under Advanced.
+Action feedback remains visible; there is no battery log panel.
+Unknown operating/cell data stays unknown. Seal/Unseal is separate from battery lockout. Cell comparison uses an explicit 50 mV display reference.
+TI bq40z50-R3 service/PF recovery is experimental and needs the battery's own keys. ID 4555 remains diagnostics-only.
+Pico is detected at startup and on USB arrival/removal. Supplied UF2s are unchanged.
+See Battery-Guide.md for setup and validation limits.

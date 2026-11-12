@@ -41,6 +41,8 @@ class WriteSafetyTests(unittest.TestCase):
         self.progress_events = []
         worker.phase.connect(lambda phase: self.progress_events.append((phase, None)))
         worker.progress.connect(lambda value: self.progress_events.append((self.phases[-1], value)))
+        self.transfers = []
+        worker.transfer.connect(lambda done, total: self.transfers.append((self.phases[-1], done, total)))
         worker.finished.connect(lambda *args: self.terminal_events.append("finished"))
         worker.failed.connect(lambda *args: self.terminal_events.append("failed"))
         worker.warning.connect(self.warnings.append)
@@ -76,7 +78,7 @@ class WriteSafetyTests(unittest.TestCase):
                     raise TransportError("write failure")
                 progress(len(data), len(data))
 
-        with patch("app.operations.PicoTransport", bus_class), patch("app.operations.ECProbe", FakeEC):
+        with patch("app.operations.ECTransport", bus_class), patch("app.operations.ECProbe", FakeEC):
             worker.run()
         return events, finished, failed
 
@@ -89,6 +91,8 @@ class WriteSafetyTests(unittest.TestCase):
             self.assertEqual(self.phases, ["Erase", "Programming", "Verification"])
             self.assertEqual(self.progress_events, [(phase, value)
                 for phase in ("Erase", "Programming", "Verification") for value in (None, 0, 100)])
+            self.assertEqual(self.transfers, [(phase, 256*1024, 256*1024)
+                                             for phase in ("Erase", "Programming", "Verification")])
 
     def test_erase_only_erases_without_read_or_verify(self):
         with tempfile.TemporaryDirectory() as directory:

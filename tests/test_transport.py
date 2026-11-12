@@ -5,6 +5,7 @@ import unittest
 from unittest.mock import patch
 
 from app import transport
+from app.ec_transport import ECTransport
 
 
 class FakeSerialError(Exception): pass
@@ -25,6 +26,80 @@ class FakePort:
     def __exit__(self, *args): self.close()
 
 
+class SharedTransportTests(unittest.TestCase):
+    def setUp(self):
+        serial_patch = patch.object(transport.serial, "Serial", FakePort)
+        serial_patch.start()
+        self.addCleanup(serial_patch.stop)
+
+    def test_shared_connection_closes_without_target_commands(self):
+        with transport.PicoTransport("COM1") as link:
+            link.port.replies.append(b"INFO test\n")
+            self.assertEqual(link.command("INFO"), "INFO test")
+        self.assertEqual(link.port.written, [b"HELLO\n", b"INFO\n"])
+        self.assertFalse(link.port.is_open)
+
+    def test_shared_framing_supports_adapters_and_rejects_late_replies(self):
+        link = transport.PicoTransport("COM1")
+        link.port.replies.append(b"CAPS TAGGED\n")
+        self.assertTrue(link.supports("TAGGED"))
+        link._sequence = 0
+        link.port.replies += [b"@00000000 OLD\n", b"@00000001 VALUE 42\n"]
+        self.assertEqual(link.command("QUERY"), "VALUE 42")
+        self.assertEqual(link.port.written[-1], b"@00000001 QUERY\n")
+        with self.assertRaisesRegex(transport.TransportError, "Timeout"):
+            link.command("QUERY")
+        written = list(link.port.written)
+        with self.assertRaisesRegex(transport.TransportError, "out of sync"):
+            link.command("QUERY")
+        link.close()
+        self.assertEqual(link.port.written, written)
+
+    def test_handshake_recovers_when_first_hello_is_lost_during_cdc_open(self):
+        class StartingPort(FakePort):
+            def __init__(self):
+                super().__init__()
+                self.replies = []
+
+            def write(self, data):
+                super().write(data)
+                if len(self.written) == 2:
+                    self.replies.append(b"OK PICO_ITE_EC_PROGRAMMER 2\n")
+
+        port = StartingPort()
+        with patch.object(transport.serial, "Serial", return_value=port):
+            link = transport.PicoTransport("COM9", timeout=3)
+        self.assertEqual(port.written, [b"HELLO\n", b"HELLO\n"])
+        self.assertEqual(port.timeout, 3)
+        link.close()
+
+    def test_handshake_accumulates_partial_lines_instead_of_losing_greeting(self):
+        port = FakePort()
+        port.replies = [b"old command reply\n", b"OK PICO_", b"ITE_EC_PROGRAMMER 2\r\n"]
+        with patch.object(transport.serial, "Serial", return_value=port):
+            link = transport.PicoTransport("COM9")
+        self.assertEqual(port.written, [b"HELLO\n"])
+        link.close()
+
+    def test_capabilities_ignores_late_hello_replies_before_negotiating_tags(self):
+        port = FakePort()
+        with patch.object(transport.serial, "Serial", return_value=port):
+            link = transport.PicoTransport("COM9")
+        port.replies = [b"OK PICO_ITE_EC_PROGRAMMER 2\n", b"CAPS INFO TAGGED SMBUS1\n"]
+        self.assertEqual(link.capabilities(), frozenset(("INFO", "TAGGED", "SMBUS1")))
+        self.assertTrue(link._tagged)
+        link.close()
+
+    def test_failed_handshake_is_bounded_closes_usb_and_sends_no_target_command(self):
+        port = FakePort()
+        port.replies = []
+        with patch.object(transport.serial, "Serial", return_value=port):
+            with self.assertRaisesRegex(transport.TransportError, "COM9.*HELLO.*incompatible firmware"):
+                transport.PicoTransport("COM9")
+        self.assertEqual(port.written, [b"HELLO\n"] * 3)
+        self.assertFalse(port.is_open)
+
+
 class TransportTests(unittest.TestCase):
     def setUp(self):
         self.serial_patch = patch.object(transport.serial, "Serial", FakePort)
@@ -32,7 +107,7 @@ class TransportTests(unittest.TestCase):
         self.addCleanup(self.serial_patch.stop)
 
     def test_echo_and_read_length(self):
-        bus = transport.PicoTransport("COM1")
+        bus = ECTransport("COM1")
         self.assertEqual(bus.port.written[0], b"HELLO\n")
         bus.port.replies.append(b"DATA AB12\n")
         self.assertEqual(bus.read(0x35, 2), b"\xAB\x12")
@@ -40,7 +115,7 @@ class TransportTests(unittest.TestCase):
         with self.assertRaises(transport.TransportError): bus.read(0x35, 2)
 
     def test_error_and_timeout(self):
-        bus = transport.PicoTransport("COM1")
+        bus = ECTransport("COM1")
         bus.port.replies.append(b"ERR I2C_ACK_OR_TIMEOUT\n")
         with self.assertRaisesRegex(transport.TransportError, "I2C"):
             bus.write(0x5A, b"\x00")
@@ -48,7 +123,7 @@ class TransportTests(unittest.TestCase):
             bus.command("READ 35 1")
 
     def test_fast_aai_capability_and_block_response(self):
-        bus = transport.PicoTransport("COM1")
+        bus = ECTransport("COM1")
         bus.port.replies.append(b"CAPS AAI64\n")
         self.assertTrue(bus.fast_aai_available())
         bus.port.replies.append(b"AAI64 000040 OK\n")
@@ -59,7 +134,7 @@ class TransportTests(unittest.TestCase):
             bus.program64(1, b"\x5a" * 64)
 
     def test_aai256_capability_and_block_response(self):
-        bus = transport.PicoTransport("COM1")
+        bus = ECTransport("COM1")
         bus.port.replies.append(b"CAPS AAI64 AAI256\n")
         self.assertTrue(bus.fast_aai256_available())
         bus.port.replies.append(b"AAI256 000100 OK\n")
@@ -70,7 +145,7 @@ class TransportTests(unittest.TestCase):
             bus.program256(0x40, b"\x5a" * 256)
 
     def test_new_programming_capabilities_and_commands(self):
-        bus = transport.PicoTransport("COM1")
+        bus = ECTransport("COM1")
         bus.port.replies.append(b"CAPS AAI64 AAI256 AAIV2_64 AAIV2_256 PAGE64\n")
         self.assertTrue(bus.fast_aai_v2_available())
         self.assertTrue(bus.fast_aai_v2_256_available())
@@ -86,14 +161,14 @@ class TransportTests(unittest.TestCase):
         self.assertTrue(bus.port.written[-1].startswith(b"AAIV2_256 000100"))
 
     def test_old_firmware_uses_legacy_writer(self):
-        bus = transport.PicoTransport("COM1")
+        bus = ECTransport("COM1")
         bus.port.replies.append(b"ERR COMMAND\n")
         self.assertFalse(bus.fast_aai_available())
         self.assertFalse(bus.fast_aai_available())
         self.assertEqual(bus.port.written.count(b"CAPS\n"), 1)
 
     def test_tagged_command_ignores_late_response(self):
-        bus = transport.PicoTransport("COM1")
+        bus = ECTransport("COM1")
         bus.port.replies.append(b"CAPS TAGGED REGIO\n")
         self.assertTrue(bus.supports("REGIO"))
         bus._sequence = 10
@@ -102,7 +177,7 @@ class TransportTests(unittest.TestCase):
         self.assertEqual(bus.port.written[-1], b"@0000000B REGREAD 02\n")
 
     def test_timeout_prevents_release_or_further_commands(self):
-        bus = transport.PicoTransport("COM1")
+        bus = ECTransport("COM1")
         with self.assertRaisesRegex(transport.TransportError, "Timeout"):
             bus.command("READPAGE 000000")
         written = list(bus.port.written)
@@ -114,7 +189,7 @@ class TransportTests(unittest.TestCase):
         self.assertEqual(bus.port.written, written)
 
     def test_partial_line_poisoned_and_no_release_queued(self):
-        bus = transport.PicoTransport("COM1")
+        bus = ECTransport("COM1")
         bus.port.replies.append(b"AAI256 000100 O")
         with self.assertRaisesRegex(transport.TransportError, "incomplete"):
             bus.program256(0x100, b"\x42" * 256)
@@ -122,7 +197,7 @@ class TransportTests(unittest.TestCase):
         self.assertNotIn(b"RELEASE\n", bus.port.written)
 
     def test_release_cannot_accept_late_data_as_success(self):
-        bus = transport.PicoTransport("COM1")
+        bus = ECTransport("COM1")
         bus.port.replies.append(b"DATA FF\n")
         with self.assertRaisesRegex(transport.TransportError, "RELEASE acknowledgement"):
             bus.close()
@@ -132,17 +207,17 @@ class TransportTests(unittest.TestCase):
         port = FakePort()
         port.replies.insert(0, b"@00000001 AAI64 000000 OK\n")
         with patch.object(transport.serial, "Serial", return_value=port):
-            bus = transport.PicoTransport("COM1")
+            bus = ECTransport("COM1")
         self.assertTrue(bus.port.is_open)
 
     def test_legacy_probe_handshake_accepts_crlf(self):
         port = FakePort()
         port.replies = [b"OK PICO_EC_PROBE 1 PROBE_ONLY\r\n"]
         with patch.object(transport.serial, "Serial", return_value=port):
-            self.assertTrue(transport.PicoTransport("COM1").port.is_open)
+            self.assertTrue(ECTransport("COM1").port.is_open)
 
     def test_bad_page_address_rejected_before_usb(self):
-        bus = transport.PicoTransport("COM1")
+        bus = ECTransport("COM1")
         before = list(bus.port.written)
         for address in (-1, 1, 0x40000):
             with self.assertRaises(ValueError):
@@ -150,14 +225,14 @@ class TransportTests(unittest.TestCase):
         self.assertEqual(bus.port.written, before)
 
     def test_context_cleanup_does_not_replace_primary_error(self):
-        bus = transport.PicoTransport("COM1")
+        bus = ECTransport("COM1")
         bus.port.replies.append(b"ERR CLEANUP\n")
         with self.assertRaisesRegex(RuntimeError, "primary failure"):
             with bus:
                 raise RuntimeError("primary failure")
 
     def test_atomic_ite_replies_are_validated(self):
-        bus = transport.PicoTransport("COM1")
+        bus = ECTransport("COM1")
         bus.port.replies += [b"STATUS 02\n", b"FLASHID FFFFFE\n",
                             b"SESSION CHIPID=8227 CHIPVER=03\n",
                             b"ERASESECTOR 000400 OK\n"]
@@ -185,7 +260,7 @@ class TransportTests(unittest.TestCase):
 
         with patch.object(transport.serial, "Serial", serial_factory), \
              patch.object(transport.time, "sleep"):
-            self.assertFalse(transport.PicoTransport.wait_power_cycle("COM1", (7, 6)))
+            self.assertFalse(ECTransport.wait_power_cycle("COM1", (7, 6)))
 
 
 if __name__ == "__main__": unittest.main()

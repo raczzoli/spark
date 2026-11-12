@@ -123,7 +123,7 @@ void program_flash_block(uint32_t address, const uint8_t *data,
     stage = "ADDRESS";
     for (int shift = 16; shift >= 0; shift -= 8) {
         uint8_t value = (address >> shift) & 0xffu;
-        if (!write_i2c(0x35, &value, 1)) goto failed;
+        if (!ite_write_i2c(0x35, &value, 1)) goto failed;
     }
     stage = "AAI_READY";
     if (!spi_wait_status(1, 0)) goto failed;
@@ -135,11 +135,11 @@ void program_flash_block(uint32_t address, const uint8_t *data,
      * I2C block transfers. Four 64-byte transfers amortize WREN, address and
      * status setup without extending one I2C transaction beyond AAI64. */
     for (size_t offset = 0; offset < count; offset += 64) {
-        if (!write_i2c(0x79, data + offset, 64)) goto failed;
+        if (!ite_write_i2c(0x79, data + offset, 64)) goto failed;
     }
     stage = "FINISH";
     uint8_t finish = 0xff;
-    if (!write_i2c(0x35, &finish, 1) ||
+    if (!ite_write_i2c(0x35, &finish, 1) ||
         !dbgr_reg_write(0x10, 0)) goto failed;
     quick_mode = false;
     stage = "WRITE_DISABLE";
@@ -151,7 +151,7 @@ failed: {
         const char *reason = i2c_error ? i2c_error : "SPI_STATUS_ERROR";
         if (quick_mode) {
             uint8_t finish = 0xff;
-            write_i2c(0x35, &finish, 1);
+            ite_write_i2c(0x35, &finish, 1);
         }
         dbgr_reg_write(0x10, 0);
         spi_short_command(0x04);
@@ -189,15 +189,15 @@ void program_flash_v2_block(uint32_t address, const uint8_t *data,
     stage = "ADDRESS";
     for (int shift = 16; shift >= 0; shift -= 8) {
         uint8_t value = (address >> shift) & 0xffu;
-        if (!write_i2c(0x35, &value, 1)) goto failed;
+        if (!ite_write_i2c(0x35, &value, 1)) goto failed;
     }
     if (page_program) {
         stage = "PAGE_DATA";
-        if (!write_i2c(0x79, data, count)) goto failed;
+        if (!ite_write_i2c(0x79, data, count)) goto failed;
     } else {
         stage = "FIRST_WORD";
-        if (!write_i2c(0x35, data, 1) ||
-            !write_i2c(0x35, data + 1, 1) ||
+        if (!ite_write_i2c(0x35, data, 1) ||
+            !ite_write_i2c(0x35, data + 1, 1) ||
             !spi_wait_status(1, 0)) goto failed;
         stage = "QUICK_MODE";
         if (!dbgr_reg_write(0x10, 0x20)) goto failed;
@@ -206,12 +206,12 @@ void program_flash_v2_block(uint32_t address, const uint8_t *data,
         for (size_t offset = 2; offset < count; ) {
             size_t chunk = count - offset;
             if (chunk > 64) chunk = 64;
-            if (!write_i2c(0x79, data + offset, chunk)) goto failed;
+            if (!ite_write_i2c(0x79, data + offset, chunk)) goto failed;
             offset += chunk;
         }
         stage = "FINISH";
         uint8_t finish = 0xff;
-        if (!write_i2c(0x35, &finish, 1) ||
+        if (!ite_write_i2c(0x35, &finish, 1) ||
             !dbgr_reg_write(0x10, 0)) goto failed;
         quick_mode = false;
     }
@@ -228,7 +228,7 @@ failed: {
         const char *reason = i2c_error ? i2c_error : "SPI_STATUS_ERROR";
         if (quick_mode) {
             uint8_t finish = 0xff;
-            write_i2c(0x35, &finish, 1);
+            ite_write_i2c(0x35, &finish, 1);
         }
         dbgr_reg_write(0x10, 0);
         spi_short_command(0x04);
@@ -259,7 +259,7 @@ void read_flash_page(uint32_t address) {
         }
     }
     const uint8_t fast_read = 0x09;
-    if (!write_i2c(0x5a, &fast_read, 1)) {
+    if (!ite_write_i2c(0x5a, &fast_read, 1)) {
         usb_printf("ERR READPAGE_START %s\n",
                i2c_error ? i2c_error : "I2C_UNKNOWN");
         return;

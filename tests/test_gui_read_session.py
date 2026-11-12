@@ -63,7 +63,7 @@ class ReadSessionTests(unittest.TestCase):
                 return SimpleNamespace(name="ITE eFlash 8315",
                                        program_method="aai_legacy")
 
-        with patch("app.operations.PicoTransport", FakeBus), \
+        with patch("app.operations.ECTransport", FakeBus), \
              patch("app.operations.ECProbe", FakeEC), \
              patch.object(FakeBus, "wait_power_cycle", create=True) as wait, \
              patch("app.session.time.sleep"):

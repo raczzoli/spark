@@ -1,5 +1,20 @@
 # Source attribution
 
+- The battery connector catalog contains factual signal assignments, model names
+  and source links from [LötLabor Jena's public battery table](https://loetlabor-jena.de/doku.php?id=projekte:pinout:laptopbatteries:start),
+  [Power Cartel's PackProbe observations and owner reports](https://powercartel.com/projects/packprobe/battery-connection/)
+  and individually reviewed public posts on the
+  [NLBA battery pinout forum](https://www.laptopu.ro/community/laptop-battery-pinout/).
+  Every record links its source; unknown contacts remain unknown. No NLBA software,
+  private database, firmware, photographs or connector artwork is bundled. The
+  connector drawings and host/device SMBus implementation are original code.
+  These community references are not manufacturer verification of every pack.
+- SBS register definitions follow the
+  [SBS Smart Battery Data Specification 1.1](https://sbs-forum.org/specs/sbdat110.pdf).
+  The experimental TI profile follows the
+  [TI bq40z50-R3 technical reference SLUUBU5A](https://www.ti.com/lit/ug/sluubu5a/sluubu5a.pdf).
+  These documents are linked, not redistributed. See [battery scope](BATTERIES.md).
+
 - The ITE DBGR register and SPI follow-mode sequences in `app/ec.py` and the
   algorithms in `firmware/ite_flash.c` and entry waveform in
   `firmware/ite_dbgr.c` were adapted from the Chromium OS EC

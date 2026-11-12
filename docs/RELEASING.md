@@ -8,6 +8,9 @@ Run `python devtools/build_release.py --sdk C:/path/to/pico-sdk`.
 Optional `--toolchain` and `--picotool` accept toolchain/configuration directories.
 The builder runs the tests, compiles all ten board profiles, validates the UF2
 board/family/build metadata and checks that the packaged GUI starts.
+Startup checks use temporary settings and do not access physical USB devices.
+UI previews/tests must also use isolated settings; do not seed the user's battery
+selection or bundle diagnostic snapshots and test reports with the application.
 
 Output is updated directly in **release/app/** and **release/pico-firmwares/**.
 No candidate folders are created. Close the GUI before replacing its executable.

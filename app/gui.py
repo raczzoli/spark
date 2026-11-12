@@ -4,14 +4,15 @@
 """Windows GUI for ITE and ENE EC flash operations."""
 
 import sys
+import time
 from datetime import datetime
 from pathlib import Path
 
-from PySide6.QtCore import QThread, QTimer, Qt
+from PySide6.QtCore import QSettings, QTimer, Qt, QUrl, QCoreApplication, QEvent, QTemporaryDir
+from PySide6.QtGui import QDesktopServices
 from PySide6.QtWidgets import (
-    QApplication, QComboBox, QDialog, QDialogButtonBox, QFileDialog, QFrame, QGroupBox, QHBoxLayout,
-    QLabel, QMainWindow, QMessageBox, QPlainTextEdit, QProgressBar, QPushButton,
-    QScrollArea, QSizePolicy, QSpinBox, QVBoxLayout, QWidget,
+    QApplication, QDialog, QDialogButtonBox, QFileDialog, QMainWindow,
+    QMessageBox, QVBoxLayout,
 )
 
 from .ec import save_new
@@ -19,23 +20,37 @@ from .models import FAMILIES_BY_MANUFACTURER
 from .ene_models import ene_model
 from .wiring_diagram import WiringDiagram
 from .style import STYLESHEET
-from .transport import ports
+from .gui_layout import build_layout, InterfaceBar, WorkspaceTabs
+from .battery_gui import BatteryPage
+from .interface import InterfaceState, InterfaceDiscovery
 
 from .operations import Worker, resolve_read_size
+from .controller import OperationController
 from .session import validate_ite_pins
 from .version import VERSION, BUILD_ID
 
 
 class Window(QMainWindow):
-    def __init__(self):
+    def __init__(self, settings=None, auto_discovery=True):
         super().__init__()
-        self.setWindowTitle(f"EC Programmer {VERSION}")
+        self.setWindowTitle(f"R89 Repairs · {VERSION}")
         self.setStyleSheet(STYLESHEET)
-        self.resize(1120, 1010)
-        self.setMinimumSize(1120, 560)
+        self.setMinimumSize(840, 560)
         available = self.screen().availableGeometry()
-        self.resize(1120, max(560, min(1010, available.height() - 60)))
-        self.thread = None
+        self.resize(min(1040, available.width() - 40), max(560, min(790, available.height() - 60)))
+        self.settings = settings if settings is not None else QSettings("R89 Repairs", "EC Programmer")
+        self.saved_path = None
+        self._phase_started = None
+        self._phase_done = self._phase_total = 0
+        self._foreground_action = None
+        self._operation_active = False
+        self._result_tone = ""
+        self.progress_timer = QTimer(self)
+        self.progress_timer.setInterval(500)
+        self.progress_timer.timeout.connect(self.update_timing)
+        self.controller = OperationController(self)
+        self.controller.started.connect(self.update_buttons)
+        self.controller.idle.connect(self.on_thread_finished)
         self._close_when_idle = False
         self._shutdown_complete = False
         self._pending_operation = None
@@ -49,209 +64,66 @@ class Window(QMainWindow):
         self.keepalive.setInterval(5000)
         self.keepalive.timeout.connect(self.refresh_debug_hold)
 
-        scroll = QScrollArea()
-        scroll.setWidgetResizable(True)
-        scroll.setFrameShape(QFrame.Shape.NoFrame)
-        self.setCentralWidget(scroll)
-        root = QWidget()
-        root.setObjectName("root")
-        scroll.setWidget(root)
-        outer = QVBoxLayout(root)
-        outer.setContentsMargins(24, 20, 24, 20)
-        outer.setSpacing(11)
-        title = QLabel("EC Programmer")
-        title.setObjectName("title")
-        outer.addWidget(title)
-        subtitle = QLabel("Select the target, connect, then choose an operation")
-        subtitle.setObjectName("subtitle")
-        outer.addWidget(subtitle)
+        self.port = InterfaceState(self)
+        self.interface_bar = InterfaceBar(self.port)
+        build_layout(self)
+        ec_page = self.takeCentralWidget()
+        self.workspaces = WorkspaceTabs(self.interface_bar)
+        self.workspaces.addTab(ec_page, "EC Programmer")
+        self.battery = BatteryPage(self.controller, self.settings, self.interface_bar)
+        self.battery.state_changed.connect(self.update_buttons)
+        self.workspaces.addTab(self.battery, "Battery Analyzer")
+        self.setCentralWidget(self.workspaces)
+        self.workspaces.currentChanged.connect(self.on_workspace_changed)
 
-        connection = QGroupBox("Connection")
-        connection_layout = QVBoxLayout(connection)
-        connection_layout.setSpacing(11)
-        outer.addWidget(connection)
-        row = QHBoxLayout()
-        row.setSpacing(10)
-        connection_layout.addLayout(row)
-        row.addWidget(QLabel("Pico / COM"))
-        self.port = QComboBox()
-        self.port.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Fixed)
-        row.addWidget(self.port, 1)
-        self.refresh_button = QPushButton("Refresh")
-        self.refresh_button.setObjectName("quiet")
-        self.refresh_button.clicked.connect(self.refresh)
-        row.addWidget(self.refresh_button)
-
-        target = QGroupBox("Target EC")
-        target_layout = QVBoxLayout(target)
-        target_layout.setSpacing(11)
-        outer.addWidget(target)
-        row = QHBoxLayout()
-        row.setSpacing(10)
-        target_layout.addLayout(row)
-        row.addWidget(QLabel("Manufacturer"))
-        self.manufacturer = QComboBox()
-        self.manufacturer.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        self.manufacturer.setFixedWidth(190)
-        self.manufacturer.setPlaceholderText("Select brand")
-        self.manufacturer.addItems(FAMILIES_BY_MANUFACTURER)
-        self.manufacturer.setCurrentIndex(-1)
-        row.addWidget(self.manufacturer)
-        row.addWidget(QLabel("Model / Family"))
-        self.model = QComboBox()
-        self.model.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        self.model.setFixedWidth(190)
-        self.model.setPlaceholderText("Select model")
-        row.addWidget(self.model)
-        self.sda_label = QLabel("SDA")
-        row.addWidget(self.sda_label)
-        self.sda = QSpinBox()
-        self.sda.setFixedWidth(82)
-        self.sda.setRange(0, 28)
-        self.sda.setValue(7)
-        self.sda.setToolTip("Pico GPIO connected to EC SDA")
-        row.addWidget(self.sda)
-        self.scl_label = QLabel("SCL")
-        row.addWidget(self.scl_label)
-        self.scl = QSpinBox()
-        self.scl.setFixedWidth(82)
-        self.scl.setRange(0, 28)
-        self.scl.setValue(6)
-        self.scl.setToolTip("Pico GPIO connected to EC SCL")
-        row.addWidget(self.scl)
-        for spin in (self.sda, self.scl):
-            spin.lineEdit().setTextMargins(10, 0, 2, 0)
-        self.ene_wiring = QLabel()
-        self.ene_wiring.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.ene_wiring.setTextInteractionFlags(Qt.TextInteractionFlag.LinksAccessibleByMouse |
-                                                Qt.TextInteractionFlag.LinksAccessibleByKeyboard)
-        self.ene_wiring.linkActivated.connect(self.show_wiring_diagram)
-        self.ene_wiring.hide()
-        row.addWidget(QLabel("Size"))
-        self.flash_size = QSpinBox()
-        self.flash_size.setFixedWidth(130)
-        self.flash_size.setRange(0, 256)
-        self.flash_size.setSingleStep(64)
-        self.flash_size.setSuffix(" KiB")
-        self.flash_size.setSpecialValueText("Set size")
-        self.flash_size.setKeyboardTracking(False)
-        self.flash_size.lineEdit().setTextMargins(10, 0, 2, 0)
-        row.addWidget(self.flash_size)
-        row.addStretch(1)
-        target_layout.addWidget(self.ene_wiring)
-        row = QHBoxLayout()
-        target_layout.addLayout(row)
-        row.addStretch(1)
-        self.detect = QPushButton("Connect to EC")
-        self.detect.setObjectName("primary")
-        self.detect.clicked.connect(lambda: self.start("connect"))
-        row.addWidget(self.detect)
-        row.addStretch(1)
-
-        self.identity = QLabel("EC: not connected | Flash size: not selected")
-        self.identity.setWordWrap(True)
-        self.identity.setObjectName("identity")
-        target_layout.addWidget(self.identity)
-
-        operations = QGroupBox("Operations")
-        operations_layout = QVBoxLayout(operations)
-        operations_layout.setSpacing(10)
-        outer.addWidget(operations)
-        row = QHBoxLayout()
-        row.setSpacing(10)
-        operations_layout.addLayout(row)
-        self.read = QPushButton("Read")
-        self.read.setObjectName("primary")
-        self.read.clicked.connect(lambda: self.start("read"))
-        row.addWidget(self.read, 1)
-        self.write = QPushButton("Write (Erase + Write)")
-        self.write.clicked.connect(lambda: self.start("write"))
-        row.addWidget(self.write, 1)
-        self.erase = QPushButton("Erase")
-        self.erase.clicked.connect(lambda: self.start("erase"))
-        row.addWidget(self.erase, 1)
-        operation_hint = QLabel(
-            "Read starts at address 0 and uses the displayed flash size. "
-            "Write verifies the programmed image."
-        )
-        operation_hint.setObjectName("hint")
-        operation_hint.setWordWrap(True)
-        operations_layout.addWidget(operation_hint)
-        self.progress = QProgressBar()
-        self.progress.setFormat("%p%")
-        operations_layout.addWidget(self.progress)
-        self.status = QLabel("Ready")
-        self.status.setWordWrap(True)
-        self.status.setObjectName("status")
-        operations_layout.addWidget(self.status)
-
-        journal = QGroupBox("Log")
-        journal_layout = QVBoxLayout(journal)
-        journal_layout.setSpacing(9)
-        outer.addWidget(journal, 1)
-        self.log = QPlainTextEdit()
-        self.log.setReadOnly(True)
-        journal_layout.addWidget(self.log, 1)
-        row = QHBoxLayout()
-        journal_layout.addLayout(row)
-        row.addStretch(1)
-        save_log = QPushButton("Save log")
-        save_log.setObjectName("quiet")
-        save_log.clicked.connect(self.save_log)
-        row.addWidget(save_log)
-
-        credit = QLabel("Software by R89 Repairs | www.r89-repairs.ro")
-        credit.setObjectName("credit")
-        credit.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.statusBar().setSizeGripEnabled(False)
-        self.statusBar().addPermanentWidget(credit, 1)
-
-        self.port.currentIndexChanged.connect(self.reset_identity)
+        self.port.changed.connect(self.on_interface_changed)
         self.manufacturer.currentIndexChanged.connect(self.on_manufacturer_changed)
         self.model.currentIndexChanged.connect(self.on_model_changed)
         self.sda.valueChanged.connect(self.reset_identity)
         self.scl.valueChanged.connect(self.reset_identity)
         self.flash_size.valueChanged.connect(self.on_flash_size_changed)
-        self.refresh()
+        self.discovery = InterfaceDiscovery(
+            self.port, self.controller, self.settings,
+            lambda: self._pending_operation is None
+            and not self._close_when_idle and not self.battery.monitoring, self)
+        self.discovery.stopped.connect(self.on_discovery_stopped)
         self.on_manufacturer_changed()
-        self.note("Select a family and connect to the EC.")
+        self.note("Select a target and connect to the EC.")
         self.log.appendPlainText(f"Application {VERSION} | Build {BUILD_ID}")
+        if auto_discovery:
+            self.discovery.start()
 
     def note(self, message):
         self.log.appendPlainText(f"{datetime.now():%Y-%m-%d %H:%M:%S}  {message}")
-        self.status.setText(message)
 
-    def refresh(self):
-        old = self.port.currentData()
-        self.port.blockSignals(True)
-        self.port.clear()
-        for device, description in ports():
-            self.port.addItem(f"{device} — {description}", device)
-        if old:
-            i = self.port.findData(old)
-            if i >= 0:
-                self.port.setCurrentIndex(i)
-        self.port.blockSignals(False)
+    def on_interface_changed(self):
+        if self.port.device:
+            self.settings.setValue("interface/port", self.port.currentData())
+            self.settings.setValue("interface/serial", self.port.device.usb.serial)
         self.reset_identity()
+        self.battery.port_changed()
 
     def update_buttons(self):
-        idle = self.thread is None
-        config_enabled = idle and self.pending_read is None
+        idle = not self.controller.busy
+        background_read = self.battery.live_read_in_progress()
+        ui_ready = idle or background_read
+        if hasattr(self, "workspaces"):
+            self.workspaces.tabBar().setEnabled(ui_ready)
+            if self.workspaces.count() > 1:
+                self.workspaces.setTabEnabled(1, self.pending_read is None)
+        config_enabled = ui_ready and self.pending_read is None and self._pending_operation is None
         port_selected = self.port.currentData() is not None
         profile = self.model.currentData()
-        for control in (self.port, self.refresh_button, self.manufacturer,
-                        self.sda, self.scl):
+        for control in (self.manufacturer, self.sda, self.scl):
             control.setEnabled(config_enabled)
         self.model.setEnabled(config_enabled and
                               self.manufacturer.currentText() in FAMILIES_BY_MANUFACTURER)
         self.flash_size.setEnabled(config_enabled and profile is not None and
                                    profile.fixed_flash_size is None)
         self.detect.setEnabled(config_enabled and port_selected and profile is not None)
-        self.read.setText("Save read…" if self.pending_read is not None else "Read")
-        self.read.setEnabled(idle and (self.pending_read is not None or
-                             (port_selected and profile is not None and
+        self.read.setEnabled(idle and self.pending_read is None and (port_selected and profile is not None and
                               profile.read_protocol and self.connected_identity is not None and
-                              self.flash_size_bytes() in profile.flash_sizes)))
+                              self.flash_size_bytes() in profile.flash_sizes))
         destructive_ready = (idle and self.pending_read is None and port_selected and
                              profile is not None and profile.read_protocol and
                              self.connected_identity is not None and
@@ -259,11 +131,178 @@ class Window(QMainWindow):
                              self.flash_size_bytes() in profile.flash_sizes)
         self.write.setEnabled(destructive_ready)
         self.erase.setEnabled(destructive_ready)
+        pending = self.pending_read is not None
+        self.result_actions.setVisible(pending or self.saved_path is not None)
+        self.save_read_button.setVisible(pending)
+        self.discard_read_button.setVisible(pending)
+        self.save_read_button.setEnabled(idle)
+        self.discard_read_button.setEnabled(idle)
+        self.open_folder_button.setVisible(not pending and self.saved_path is not None)
+        if self._operation_active:
+            hint = "Operation in progress"
+        elif pending:
+            hint = "Save the read or discard it to continue."
+        elif not port_selected:
+            hint = "Connect Pico by USB. The interface is detected automatically."
+        elif self.manufacturer.currentIndex() < 0:
+            hint = "Select a manufacturer."
+        elif profile is None:
+            hint = "Select a model / family."
+        elif self.connected_identity is None:
+            hint = "Check the wiring, then connect to the EC."
+        elif not profile.read_protocol:
+            hint = "Identification only: flash operations are not available for this family."
+        elif self.flash_size_bytes() not in profile.flash_sizes:
+            hint = "Select a supported flash size to enable operations."
+        elif self.connected_protocol is None:
+            hint = "Read is available; the write protocol could not be identified."
+        else:
+            hint = "Ready to read, write or erase."
+        self.next_step.setText(hint)
+        state = "busy" if self._operation_active else ("connected" if self.connected_identity else "idle")
+        self.connection_badge.setText("Connecting…" if self._operation_active and self._foreground_action == "connect"
+                                      else "Busy" if self._operation_active else
+                                      "Connected" if self.connected_identity else "Disconnected")
+        self.set_property(self.connection_badge, "state", state)
+
+    @staticmethod
+    def set_property(widget, key, value):
+        if widget.property(key) != value:
+            widget.setProperty(key, value)
+            widget.style().unpolish(widget)
+            widget.style().polish(widget)
+
+    def set_status(self, text, tone=""):
+        self.status.setText(text)
+        self.status.setToolTip("")
+        self._result_tone = tone
+        self.set_property(self.status, "tone", tone)
+
+    def begin_operation(self, action):
+        self._foreground_action = action
+        self._operation_active = True
+        self.saved_path = None
+        self._phase_started = None
+        self._phase_done = self._phase_total = 0
+        self.progress_timer.stop()
+        self.set_status("Connecting to EC…" if action == "connect" else "Preparing operation…")
+        self.percent.clear()
+        self.transfer.clear()
+        self.transfer.setToolTip("")
+        self.timing.clear()
+        self.progress.setRange(0, 0)
+        self.progress.setFormat("")
+        self.progress.setStyleSheet("QProgressBar::chunk { background: #226db4; }")
+        self.progress.show()
+
+    def set_progress_phase(self, phase):
+        color = {"Erase": "#dc2626", "Programming": "#ea580c"}.get(phase, "#15803d")
+        self.progress.setStyleSheet(f"QProgressBar::chunk {{ background: {color}; }}")
+        label = {"Programming": "Writing", "Verification": "Verifying", "Erase": "Erasing", "Read": "Reading"}.get(phase, phase)
+        self.set_status(label)
+        self.progress.setRange(0, 100)
+        self.progress.setValue(0)
+        self.progress.setFormat(f"{phase}: %p%")
+        self.progress.show()
+        self.percent.setText("0%")
+        self._phase_done = 0
+        self._phase_total = self.flash_size_bytes() or 0
+        self._phase_started = time.monotonic()
+        self.set_transfer(0, self._phase_total)
+        self.update_timing()
+        self.progress_timer.start()
+
+    def set_progress_value(self, value):
+        self.progress.setValue(value)
+        self.percent.setText(f"{value}%")
+
+    def set_transfer(self, done, total):
+        self._phase_done, self._phase_total = done, total
+        self.transfer.setText(f"{done / 1024:g} / {total / 1024:g} KiB")
+        self.update_timing()
+
+    def update_timing(self):
+        if self._phase_started is None:
+            return
+        elapsed = max(0, time.monotonic() - self._phase_started)
+        text = f"{elapsed:.0f} s"
+        if elapsed >= 3 and 0 < self._phase_done < self._phase_total and self._phase_done >= self._phase_total * .05:
+            remaining = elapsed * (self._phase_total - self._phase_done) / self._phase_done
+            text += f"  ·  ~{remaining:.0f} s remaining"
+        self.timing.setText(text)
+
+    def finish_progress(self, failed=False):
+        self.progress_timer.stop()
+        self.update_timing()
+        if self._phase_started is not None:
+            self.timing.setText(f"{max(0, time.monotonic() - self._phase_started):.0f} s")
+        self._phase_started = None
+        self._operation_active = False
+        if self.progress.maximum() == 0:
+            self.progress.setRange(0, 100)
+            self.progress.setValue(0)
+        if failed:
+            self.progress.setStyleSheet("QProgressBar::chunk { background: #dc2626; }")
+            self.percent.setText("Stopped")
+
+    def on_worker_status(self, message):
+        self.note(message)
+        # Transport diagnostics stay in the log; only actionable power instructions
+        # replace the current preparation status. A completed result is persistent.
+        if self._operation_active and self._phase_started is None:
+            if "Power off detected" in message:
+                self.set_status("Power off detected - reconnect target power")
+            elif "Power cycle captured" in message:
+                self.set_status("Power detected - connecting to EC…")
+            elif "Pico is armed" in message:
+                self.set_status("Waiting for target power cycle")
+
+    def failure_summary(self, message):
+        action = getattr(self.controller.worker, "action", "operation")
+        title = {"connect": "Connection failed", "read": "Read failed", "write": "Write stopped",
+                 "erase": "Erase stopped", "keepalive": "Connection lost"}.get(action, "Operation failed")
+        lower = message.lower()
+        if "after erase began" in lower:
+            return f"{title} - flash may be incomplete; see log"
+        if "nack" in lower or "no_device" in lower or "no ack" in lower:
+            return f"{title} - EC did not respond"
+        if "timeout" in lower:
+            return f"{title} - communication timed out"
+        if "usb" in lower:
+            return f"{title} - check the USB connection"
+        return f"{title} - see log for details"
+
+    def last_directory(self, kind):
+        value = self.settings.value(f"directories/{kind}", str(Path.home()))
+        path = Path(str(value))
+        return path if path.is_dir() else Path.home()
+
+    def remember_directory(self, kind, filename):
+        self.settings.setValue(f"directories/{kind}", str(Path(filename).resolve().parent))
+
+    def open_saved_folder(self):
+        if self.saved_path is not None:
+            if not QDesktopServices.openUrl(QUrl.fromLocalFile(str(self.saved_path.resolve().parent))):
+                self.note(f"Could not open folder: {self.saved_path.parent}")
+
+    def discard_read(self):
+        if self.pending_read is None or self.controller.busy:
+            return
+        if QMessageBox.question(self, "Discard unsaved read", "Discard the read held in memory?",
+                               QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                               QMessageBox.StandardButton.No) != QMessageBox.StandardButton.Yes:
+            return
+        self.pending_read = self.pending_identity = None
+        self.set_status("Read discarded")
+        self.note("Unsaved read discarded.")
+        self.update_buttons()
 
     def reset_identity(self):
         self.keepalive.stop()
         self.connected_identity = None
         self.connected_protocol = None
+        if not self._operation_active and self.status.text() == "EC connected":
+            self.set_status("Ready")
         self.update_identity_label()
         self.update_buttons()
 
@@ -274,28 +313,23 @@ class Window(QMainWindow):
         size = self.flash_size_bytes()
         profile = self.model.currentData()
         if profile is not None and profile.fixed_flash_size is not None:
-            selected = f"{size // 1024} KiB (family)"
+            source = "provisional" if profile.name == "KB902FQ C" else "model default"
+            selected = f"{size // 1024} KiB ({source})"
         elif size and profile is not None and size not in profile.flash_sizes:
             selected = f"{size // 1024} KiB (unsupported size)"
         else:
-            selected = f"{size // 1024} KiB selected" if size else "not selected"
+            selected = f"{size // 1024} KiB selected" if size else "Size not selected"
         if self.connected_identity is None:
-            self.identity.setText(f"EC: not connected | Flash size: {selected}")
+            self.identity.setText(f"EC not connected  |  {selected}")
+            self.identity_details.setText(" ")
             return
         chip, version = self.connected_identity
-        protocol = (f"{self.connected_protocol.name} "
-                    f"({self.connected_protocol.program_method})"
-                    if self.connected_protocol else "unavailable")
         if self.manufacturer.currentText() == "ENE":
-            self.identity.setText(
-                f"ENE {self.model.currentText()} (experimental) | HWVERSION 0x{chip:02X} | EDIID 0x{version:02X} | "
-                f"Flash size: {selected} | Flash protocol: {protocol}"
-            )
+            self.identity.setText(f"Connected  |  {self.model.currentText()}  |  {selected}")
+            self.identity_details.setText(f"HW 0x{chip:02X}  /  EDI 0x{version:02X}  |  Experimental ENE support")
         else:
-            self.identity.setText(
-                f"CHIPID 0x{chip:04X} | CHIPVER 0x{version:02X} | "
-                f"Flash size: {selected} | Flash protocol: {protocol}"
-            )
+            self.identity.setText(f"Connected  |  {self.model.currentText()}  |  {selected}")
+            self.identity_details.setText(f"CHIP ID 0x{chip:04X}  /  REV 0x{version:02X}")
 
     def on_flash_size_changed(self):
         profile = self.model.currentData()
@@ -311,7 +345,7 @@ class Window(QMainWindow):
             return None
         dialog = QDialog(self)
         dialog.setWindowTitle(f"{model.name} - Wiring diagram")
-        dialog.setStyleSheet("QDialog { background: #131e30; }")
+        dialog.setStyleSheet("QDialog { background: #191e26; }")
         layout = QVBoxLayout(dialog)
         diagram = WiringDiagram()
         diagram.set_model(model)
@@ -348,7 +382,7 @@ class Window(QMainWindow):
             self.flash_size.setRange(fixed // 1024, fixed // 1024)
             self.flash_size.setSpecialValueText("")
             self.flash_size.setValue(fixed // 1024)
-            self.flash_size.setToolTip("Flash size is fixed by the selected family.")
+            self.flash_size.setToolTip("Provisional 128 KiB; capacity has not been measured on this model." if profile.name == "KB902FQ C" else "Model capacity; not measured from the chip.")
         else:
             self.flash_size.setRange(0, max(profile.flash_sizes) // 1024 if profile else 256)
             self.flash_size.setSpecialValueText("Set size")
@@ -362,7 +396,7 @@ class Window(QMainWindow):
         families = FAMILIES_BY_MANUFACTURER.get(self.manufacturer.currentText(), ())
         ene = self.manufacturer.currentText() == "ENE"
         ite = self.manufacturer.currentText() == "ITE"
-        for widget in (self.sda_label, self.sda, self.scl_label, self.scl):
+        for widget in (self.sda_field, self.scl_field):
             widget.setVisible(ite)
         self.ene_wiring.setVisible(ene)
         self.model.blockSignals(True)
@@ -374,7 +408,14 @@ class Window(QMainWindow):
         self.on_model_changed()
 
     def start(self, action, image_path=None, confirmed=False):
-        if self.thread is not None:
+        if self.controller.busy:
+            if (action == "connect" and self.workspaces.currentIndex() == 0 and
+                    self.battery.live_read_in_progress() and self.model.currentData() is not None and
+                    self.port.currentData() is not None and self.pending_read is None):
+                self._pending_operation = (action, image_path)
+                self.battery.stop_monitor()
+            return
+        if self.workspaces.currentIndex() != 0 and action != "disconnect":
             return
         if action == "read" and self.pending_read is not None:
             self.save_read()
@@ -382,6 +423,8 @@ class Window(QMainWindow):
         profile = self.model.currentData()
         if not profile or not self.port.currentData():
             return
+        if action in ("connect", "read", "write", "erase"):
+            self.battery.stop_monitor()
         if profile.transport == "ite":
             try:
                 validate_ite_pins(self.sda.value(), self.scl.value())
@@ -403,11 +446,12 @@ class Window(QMainWindow):
                 return
             if action == "write" and image_path is None:
                 image_path, _ = QFileDialog.getOpenFileName(
-                    self, "Select EC firmware image", str(Path.home()),
+                    self, "Select EC firmware image", str(self.last_directory("images")),
                     "Binary image (*.bin);;All files (*)"
                 )
                 if not image_path:
                     return
+                self.remember_directory("images", image_path)
                 try:
                     image_size = Path(image_path).stat().st_size
                 except OSError as exc:
@@ -428,47 +472,33 @@ class Window(QMainWindow):
                 return
             # Native dialogs process Qt events. A keepalive may have acquired
             # USB while the user selected/confirmed the image. Queue behind it.
-            if self.thread is not None:
+            if self.controller.busy:
                 self._pending_operation = (action, image_path)
                 return
             if self.connected_identity is None:
                 return
         if action not in ("keepalive", "disconnect"):
-            self.set_progress_phase("Erase" if action in ("erase", "write") else "Read")
-            self.progress.setValue(0)
-            self.note("Connecting to EC..." if action == "connect" else
-                      ("Opening the ENE EDI session..." if profile.transport == "ene_edi"
-                       else "Checking the EC debug session..."))
-        self.thread = QThread()
-        self.worker = Worker(action, self.port.currentData(),
-                             (self.sda.value(), self.scl.value()), profile,
-                             self.connected_identity, image_path,
-                             self.flash_size_bytes())
-        self.worker.moveToThread(self.thread)
-        self.thread.started.connect(self.worker.run)
-        self.worker.progress.connect(self.progress.setValue)
-        self.worker.phase.connect(self.set_progress_phase)
-        self.worker.status.connect(self.note)
-        self.worker.power_cycle_needed.connect(self.show_power_cycle_prompt)
-        self.worker.finished.connect(self.on_finished)
-        self.worker.failed.connect(self.on_failed)
-        self.worker.warning.connect(self.on_warning)
-        self.worker.finished.connect(self.thread.quit)
-        self.worker.failed.connect(self.thread.quit)
-        self.thread.finished.connect(self.worker.deleteLater)
-        self.thread.finished.connect(self.on_thread_finished)
-        self.update_buttons()
-        self.thread.start()
-
-    def set_progress_phase(self, phase):
-        color = {"Erase": "#dc2626", "Programming": "#ea580c"}.get(phase, "#15803d")
-        self.progress.setStyleSheet(f"QProgressBar::chunk {{ background: {color}; }}")
-        label = {"Programming": "Write", "Verification": "Verify"}.get(phase, phase)
-        self.progress.setFormat(f"{label}: %p%")
+            self.begin_operation(action)
+            self.note("Connecting to EC..." if action == "connect" else "Checking the EC session...")
+        worker = Worker(action, self.port.currentData(),
+                        (self.sda.value(), self.scl.value()), profile,
+                        self.connected_identity, image_path,
+                        self.flash_size_bytes())
+        worker.interface_generation = self.port.generation
+        worker.progress.connect(self.set_progress_value)
+        worker.transfer.connect(self.set_transfer)
+        worker.phase.connect(self.set_progress_phase)
+        worker.status.connect(self.on_worker_status)
+        worker.power_cycle_needed.connect(self.show_power_cycle_prompt)
+        worker.finished.connect(self.on_finished)
+        worker.failed.connect(self.on_failed)
+        worker.warning.connect(self.on_warning)
+        self.controller.start(worker)
 
     def show_power_cycle_prompt(self):
+        self.set_status("Waiting for target power cycle")
         continuation = ("Connection will continue automatically." if
-                        self.worker.action == "connect" else
+                        self.controller.worker.action == "connect" else
                         "The operation will start automatically.")
         self.power_prompt = QMessageBox(
             QMessageBox.Icon.Information,
@@ -490,16 +520,27 @@ class Window(QMainWindow):
         if action == "disconnect":
             self.reset_identity()
             return
+        self.finish_progress()
+        current = (getattr(self.controller.worker, "interface_generation", self.port.generation)
+                   == self.port.generation and self.port.currentData() is not None)
         if action == "connect":
+            if not current:
+                self.set_status("Pico disconnected. Connect again to identify the EC.", "warning")
+                return
             (chip, version), hold_active, detected_protocol = result
             if self.manufacturer.currentText() == "ITE" and \
                     self.model.currentData().read_protocol and (chip & 0xF000) != 0x8000:
                 self.note(f"Identified 0x{chip:04X}/0x{version:02X}, outside the selected IT8xxx family.")
                 self.reset_identity()
+                self.set_status("Connection failed: chip does not match the selected family", "error")
                 return
             self.connected_identity = (chip, version)
             self.connected_protocol = detected_protocol
             self.update_identity_label()
+            self.set_status("EC connected", "success")
+            self.progress.hide()
+            if detected_protocol:
+                self.note(f"Flash protocol: {detected_protocol.name} ({detected_protocol.program_method})")
             if detected_protocol is not None and self.flash_size_bytes() in self.model.currentData().flash_sizes:
                 self.note("EC connected. Read, Write and Erase are available.")
             elif self.model.currentData().read_protocol:
@@ -517,11 +558,15 @@ class Window(QMainWindow):
             self.update_identity_label()
             self.pending_read = data
             self.pending_identity = identity
+            self.set_status("Read complete - not saved", "warning")
+            self.update_buttons()
             self.note(f"Read complete: {len(data)} bytes. Choose where to save.")
             self.save_read()
         elif action in ("write", "erase"):
+            self.set_status("Write completed - Verify OK" if action == "write" else "Erase completed", "success")
             self.note("Write complete and verified." if action == "write" else "Erase complete.")
-            self.connected_identity = result
+            if current:
+                self.connected_identity = result
             self.update_buttons()
 
     def save_read(self):
@@ -530,7 +575,7 @@ class Window(QMainWindow):
         chip = self.pending_identity[0] if self.pending_identity else 0
         prefix = (f"ENE-{self.model.currentText().replace(' ', '')}-HW{chip:02X}" if self.manufacturer.currentText() == "ENE"
                   else f"ITE-{chip:04X}")
-        suggested = Path.home() / (
+        suggested = self.last_directory("images") / (
             f"{prefix}-{len(self.pending_read) // 1024}KiB-"
             f"{datetime.now():%Y%m%d-%H%M%S}.bin"
         )
@@ -538,16 +583,25 @@ class Window(QMainWindow):
             self, "Save EC read", str(suggested), "Binary image (*.bin);;All files (*)"
         )
         if not path:
-            self.note("Read is held in memory. Press Read again to choose a save location.")
+            self.note("Read is held in memory. Use Save or Discard.")
+            self.set_status("Read complete - not saved", "warning")
+            self.update_buttons()
             return
         try:
             digest = save_new(path, self.pending_read)
         except Exception as exc:
             QMessageBox.critical(self, "Backup not saved", str(exc))
-            self.note("Backup is still in memory. Press Read to choose another location.")
+            self.note("Read is still in memory. Use Save to choose another location.")
+            self.set_status("Could not save - read is still in memory", "error")
+            self.update_buttons()
             return
         self.pending_read = None
         self.pending_identity = None
+        self.saved_path = Path(path)
+        self.remember_directory("images", path)
+        self.set_status("Read saved", "success")
+        self.transfer.setText(self.saved_path.name)
+        self.transfer.setToolTip(str(self.saved_path))
         self.note(f"Saved {path} | SHA-256 {digest}")
         self.update_buttons()
 
@@ -556,24 +610,36 @@ class Window(QMainWindow):
             self.power_prompt.close()
             self.power_prompt.deleteLater()
             self.power_prompt = None
+        self.finish_progress(failed=True)
+        self.set_status(self.failure_summary(message), "error")
+        self.status.setToolTip(message)
         self.note("ERROR: " + message)
         self.reset_identity()
-        if self.worker.action in ("write", "erase"):
+        if self.controller.worker.action in ("write", "erase"):
             QMessageBox.critical(self, "EC flash operation stopped", message)
 
     def on_warning(self, message):
+        self.finish_progress(failed=True)
+        self.set_status("Session cleanup failed - reconnect before continuing", "warning")
+        self.status.setToolTip(message)
         self.note("WARNING: " + message)
         self.reset_identity()
 
     def refresh_debug_hold(self):
-        if (self.thread is not None or self.connected_identity is None or
+        if (self.workspaces.currentIndex() != 0 or self.controller.busy or self.battery.monitoring or self.connected_identity is None or
                 self.manufacturer.currentText() == "ENE"):
             return
         self.start("keepalive")
 
+    def on_workspace_changed(self, index):
+        self.battery.stop_monitor()
+        if index == 1:
+            self.keepalive.stop()
+            if self.connected_identity is not None:
+                self.start("disconnect")
+        self.update_buttons()
+
     def on_thread_finished(self):
-        self.thread.deleteLater()
-        self.thread = None
         self.update_buttons()
         if self._close_when_idle:
             self._pending_operation = None
@@ -583,20 +649,14 @@ class Window(QMainWindow):
             self._pending_operation = None
             self.start(action, image_path, confirmed=True)
 
-    def save_log(self):
-        path, _ = QFileDialog.getSaveFileName(self, "Save log", "pico-ec-log.txt", "Text (*.txt)")
-        if path:
-            try:
-                with open(path, "x", encoding="utf-8") as file:
-                    file.write(self.log.toPlainText() + "\n")
-            except Exception as exc:
-                QMessageBox.critical(self, "Error", str(exc))
-
     def closeEvent(self, event):
-        if self.thread is not None:
-            if self.worker.action in ("keepalive", "disconnect"):
+        self.battery.stop_monitor()
+        if self.controller.busy:
+            if (self.controller.worker.action in ("keepalive", "disconnect", "interface_probe") or
+                    self.controller.worker.action.startswith("battery_")):
                 self._close_when_idle = True
                 self.keepalive.stop()
+                self.discovery.stop()
             else:
                 QMessageBox.information(self, "Operation in progress", "Wait for it to finish.")
             event.ignore()
@@ -612,21 +672,44 @@ class Window(QMainWindow):
                 self.closeEvent(event)
         else:
             self.keepalive.stop()
+            self.discovery.stop()
             if self.connected_identity is not None and not self._shutdown_complete:
                 self._shutdown_complete = True
                 self._close_when_idle = True
                 self.start("disconnect")
                 event.ignore()
+            elif self.discovery.thread is not None:
+                self._close_when_idle = True
+                event.ignore()
             else:
                 event.accept()
+
+    def on_discovery_stopped(self):
+        if self._close_when_idle and not self.controller.busy:
+            self.close()
 
 
 def main():
     app = QApplication(sys.argv)
     app.setStyle("Fusion")
-    window = Window()
+    smoke_test = "--smoke-test" in sys.argv
+    settings_directory = QTemporaryDir() if smoke_test else None
+    if settings_directory is not None and not settings_directory.isValid():
+        raise RuntimeError("Could not create isolated startup-test settings")
+    test_settings = (QSettings(str(Path(settings_directory.path()) / "startup.ini"), QSettings.Format.IniFormat)
+                     if settings_directory is not None else None)
+    window = Window(settings=test_settings, auto_discovery=not smoke_test)
     window.show()
-    if "--smoke-test" in sys.argv:
-        # Build-time startup check; only enumerates ports, never opens them.
+    if smoke_test:
+        # Startup checks never open USB or read/write the user's settings.
         QTimer.singleShot(300, window.close)
-    return app.exec()
+    result = app.exec()
+    # Dispose the widget tree while QApplication and its Qt services still
+    # exist. Python/Qt reference cycles otherwise survive into interpreter
+    # shutdown and can tear down styles/timers in the wrong order on Windows.
+    window.deleteLater()
+    QCoreApplication.sendPostedEvents(None, QEvent.Type.DeferredDelete)
+    if test_settings is not None:
+        test_settings.sync()
+        settings_directory.remove()
+    return result

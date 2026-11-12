@@ -44,5 +44,6 @@ cmake_install.cmake
 !/release/pico-firmwares/
 !/release/pico-firmwares/**
 !/release/README.txt
+!/release/Battery-Guide.md
 !/release/build-info.json
 !/release/SHA256SUMS.txt

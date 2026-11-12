@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2026 R89 Repairs and contributors
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-"""Build the current release in release/. No USB devices are accessed."""
+"""Build a local distribution. No USB devices are accessed."""
 import argparse
 import hashlib
 import importlib.metadata
@@ -100,6 +100,8 @@ def main():
     parser.add_argument("--toolchain", help="Arm GNU toolchain root, if not on PATH")
     parser.add_argument("--picotool", help="Directory containing picotoolConfig.cmake")
     parser.add_argument("--firmware-only", action="store_true")
+    parser.add_argument("--output", type=Path, default=ROOT / "release",
+                        help="Distribution directory (default: release/, updated in place)")
     args = parser.parse_args()
     if not args.firmware_only and os.name != "nt":
         parser.error("Build the Windows GUI on Windows, or use --firmware-only")
@@ -107,7 +109,7 @@ def main():
         parser.error("Pico SDK missing; provide --sdk or PICO_SDK_PATH")
     run([sys.executable, "-m", "unittest", "discover", "-s", "tests"])
     identity = source_identity()
-    output = ROOT / "release"
+    output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)
     print(f"Release: {output}", flush=True)
     boards = list(BOARDS) if args.board == "all" else [args.board]
@@ -118,6 +120,7 @@ def main():
     firmware_licenses.mkdir(parents=True, exist_ok=True)
     shutil.copy2(ROOT / "LICENSE", output / "pico-firmwares/LICENSE.txt")
     shutil.copy2(ROOT / "docs/THIRD_PARTY.md", output / "pico-firmwares/THIRD_PARTY.txt")
+    shutil.copy2(ROOT / "docs/BATTERIES.md", output / "Battery-Guide.md")
     shutil.copy2(ROOT / "docs/licenses/Chromium-OS-EC-BSD.txt", firmware_licenses)
     shutil.copy2(args.sdk / "LICENSE.TXT", firmware_licenses / "Raspberry-Pi-Pico-SDK.txt")
     shutil.copy2(args.sdk / "lib/tinyusb/LICENSE", firmware_licenses / "TinyUSB-MIT.txt")
@@ -142,11 +145,16 @@ def main():
                             for name in ("PySide6", "pyserial", "pyinstaller")}
     (output / "build-info.json").write_text(json.dumps(identity, indent=2) + "\n")
     (output / "README.txt").write_text(
-        f"EC Programmer {identity['version']} / {identity['build_id']}\n\n"
+        f"R89 Repairs - EC and Battery tools {identity['version']} / {identity['build_id']}\n\n"
         "Automated tests passed. See docs/ENE.md for hardware validation status.\n"
         "app/ contains the Windows GUI; pico-firmwares/ contains board-specific UF2 files.\n"
         "Install only the UF2 matching your board. Pico 2 H uses Pico-2-RP2350.uf2.\n"
         "Default ITE pins: GP7 SDA, GP6 SCL, common GND. Default timing is unchanged.\n"
+        "Battery tab: offline connector search, SBS readings, monitoring, PDF/JSON/CSV reports.\n"
+        "Default battery pins: GP7 DATA, GP9 CLOCK, common GND; battery B+ stays off Pico.\n"
+        "Physical pin numbers are shown only for the standard 40-pin Pico footprint.\n"
+        "TI bq40z50-R3 access profile is experimental and needs the battery's own keys.\n"
+        "Read-only SBS validated on AC14B8K; no physical TI service or new EC flash validation.\n"
         "Read saves after completion. Write erases, programs and verifies; no automatic backup.\n"
         "Size: numeric/manual for ITE (64/128/192/256 KiB); automatic and locked for ENE.\n"
         "ENE is experimental. GP4 DO, GP5 CS, GP6 CLK, GP7 DI, common GND; confirm target strap/pins.\n"
@@ -154,7 +162,7 @@ def main():
         "Source and instructions: https://github.com/raczzoli/EC-Programmer\n"
     )
     entries = []
-    release_files = [output / "README.txt", output / "build-info.json"]
+    release_files = [output / "README.txt", output / "build-info.json", output / "Battery-Guide.md"]
     for folder in ("app", "pico-firmwares"):
         release_files.extend((output / folder).rglob("*"))
     for path in sorted(release_files):

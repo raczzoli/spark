@@ -3,6 +3,14 @@
 A Windows application and Raspberry Pi Pico firmware for **ITE and ENE embedded controllers**.
 Read EC firmware, write an image with automatic erase and verification, or erase the flash.
 
+The current source also adds a **Battery Analyzer** workspace in the same window,
+using the same Pico and combined firmware. It provides an offline connector catalog
+(90 references / 149 searchable model, part and platform names), live SBS readings,
+measurement history and PDF/CSV/JSON reports. EC and battery operations share one
+exclusive worker. See [battery setup, supported operations and validation](docs/BATTERIES.md).
+The current build is updated directly in `release/app/` and `release/pico-firmwares/`
+with `devtools/build_release.py`. See [building instructions](docs/RELEASING.md).
+
 ## Manufacturers and families
 
 The names below match the **Manufacturer** and **Model / Family** selectors in the GUI.
@@ -23,7 +31,7 @@ The names below match the **Manufacturer** and **Model / Family** selectors in t
 1. Click **Code > Download ZIP** on this repository and extract the archive.
 2. Open **[release/app](release/app)** and run **EC-Programmer.exe**. No Python installation is needed.
 3. Put your Pico into **BOOTSEL** mode and copy the matching UF2 from **[release/pico-firmwares](release/pico-firmwares)** to its USB drive.
-4. Connect the Pico through its USB data port and select its COM port in the application.
+4. Connect the Pico through its USB data port. The application detects its port and board automatically.
 
 The repository includes the current application, all firmware variants and their
 licenses in **[release/](release)**. Versioned packages are also available from
@@ -77,19 +85,22 @@ See [pinout sources and package scope](docs/ENE_PINOUTS.md) and
 
 ## Using the application
 
-1. Select the **COM port**, **Manufacturer** and **Model / Family**.
+1. Wait for **Interface: COMx — Pico… | Connected**, then select **Manufacturer** and **Model / Family**.
 2. For ITE, set **SDA**, **SCL** and the numeric **Size** field. For ENE, Size is filled automatically and locked for the selected model.
 3. Click **Connect to EC** and follow any power-cycle prompt.
 4. Choose an operation:
 
-   - **Read:** reads the flash, then opens a dialog to save the file.
-   - **Write (Erase + Write):** opens an image file, erases the flash, writes the image and verifies every byte.
+   - **Read:** reads the flash, then opens a dialog to save the file. Canceling the dialog keeps the read in memory; use **Save…** or **Discard** to continue.
+   - **Write:** opens an image file, erases the flash, writes the image and verifies every byte.
    - **Erase:** erases the flash.
 
 The progress bar is **green for Read/Verify**, **red for Erase**, and
 **orange for Programming**. Each stage runs from **0 to 100%** independently; Write changes color and
 restarts the percentage for Erase, Programming and Verification. Use **Read** first if
-you want to keep a backup, and **Save log** to export the session log.
+you want to keep a backup. Progress shows the current stage, transferred KiB and elapsed time;
+the remaining time is an estimate. Connecting uses an activity indicator without a percentage.
+The compact **Log** stays visible. Select text and right-click **Copy**, or use Ctrl+C.
+Image dialogs remember the last directory; **Open folder** locates a saved read.
 
 ## Testing and feedback
 
