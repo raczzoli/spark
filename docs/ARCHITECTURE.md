@@ -38,7 +38,7 @@ the GUI's connected state; a completed read remains available even if cleanup fa
 Flash operations selected in a file/confirmation dialog wait for any in-flight
 keepalive before acquiring USB.
 
-The window starts with EC Programmer and Battery Analyzer tabs. A compact
+Spark starts with EC Programmer and Battery Analyzer tabs. A compact
 `InterfaceBar` above their `QTabBar` displays the automatically confirmed USB interface;
 `WorkspaceTabs` composes that bar with a `QStackedWidget` for the pages. The
 window owns discovery, persistence and invalidation for both tools. `app/interface.py`

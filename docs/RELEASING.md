@@ -1,4 +1,4 @@
-# Building and publishing a release
+# Building and publishing Spark
 
 Set `VERSION` to the release version. Install `requirements-release.txt` and
 `requirements-test.txt`, Pico SDK 2.3.1 with submodules, CMake, Ninja and an Arm
@@ -13,6 +13,7 @@ UI previews/tests must also use isolated settings; do not seed the user's batter
 selection or bundle diagnostic snapshots and test reports with the application.
 
 Output is updated directly in **release/app/** and **release/pico-firmwares/**.
+The Windows application is **Spark.exe**, built from **Spark.spec**.
 No candidate folders are created. Close the GUI before replacing its executable.
 The build manifest records the source ID and dependencies; it is not a claim of
 physical validation for every board or EC. Describe actual hardware results in

@@ -1,9 +1,9 @@
 # Battery workspace
 
-The same application and UF2 contain EC and battery tools. The new UI starts with
-the shared interface status above two tabs; the old EC title/version heading is removed and the EC log sits directly
-under Operations. The application name remains provisional. The current build
-is updated directly in `release/app/` and `release/pico-firmwares/`.
+Spark and its combined UF2 contain EC and battery tools. The shared interface
+status sits above the two tool tabs, and the EC log sits directly under Operations.
+Run `release/app/Spark.exe`. The current build is updated directly in
+`release/app/` and `release/pico-firmwares/`.
 
 ## Connect and read
 

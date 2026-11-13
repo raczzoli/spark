@@ -1,19 +1,50 @@
-# EC Programmer
+# Spark
 
-A Windows application and Raspberry Pi Pico firmware for **ITE and ENE embedded controllers**.
-Read EC firmware, write an image with automatic erase and verification, or erase the flash.
+**EC Programmer + Battery Analyzer. One Windows application. One Raspberry Pi Pico.**
 
-The current source also adds a **Battery Analyzer** workspace in the same window,
-using the same Pico and combined firmware. It provides an offline connector catalog
-(90 references / 149 searchable model, part and platform names), live SBS readings,
-measurement history and PDF/CSV/JSON reports. EC and battery operations share one
-exclusive worker. See [battery setup, supported operations and validation](docs/BATTERIES.md).
-The current build is updated directly in `release/app/` and `release/pico-firmwares/`
-with `devtools/build_release.py`. See [building instructions](docs/RELEASING.md).
+Spark combines laptop EC programming and SMBus smart battery diagnostics in two
+workspaces. Both use the same USB interface and combined Pico firmware. Choose
+the workspace for the connected target; each task has its own wiring and controls.
 
-## Manufacturers and families
+![Spark connection overview: ITE EC uses GP7 for SDA and GP6 for SCL; Battery Analyzer uses GP7 for DATA and GP9 for CLOCK. Both use common ground. Battery B+ stays disconnected from Pico.](docs/images/spark-connections.svg)
 
-The names below match the **Manufacturer** and **Model / Family** selectors in the GUI.
+| EC Programmer | Battery Analyzer |
+| --- | --- |
+| Identify supported ITE and ENE controllers | Read standard SBS battery information |
+| Read, erase and write supported EC flash | View voltage, current, temperature, charge and capacities |
+| Verify the complete written image | Plot live readings and save PDF, CSV or JSON reports |
+| Model-specific ENE wiring diagrams | Search connector references and see their Pico connections |
+| Stage progress, saved backups and operation log | Controller status and cell voltages where supported |
+
+[Download Spark](release/app/Spark.exe) · [Choose Pico firmware](docs/BOARD_FIRMWARES.md) ·
+[EC wiring guide](docs/HARDWARE.md) · [Battery guide](docs/BATTERIES.md)
+
+## Get started
+
+1. Download and extract the repository using **Code > Download ZIP**.
+2. Run **[release/app/Spark.exe](release/app/Spark.exe)**. No Python installation is needed.
+3. Hold **BOOTSEL** while connecting Pico, then copy the UF2 matching the exact
+   board from **[release/pico-firmwares](release/pico-firmwares)** to its USB drive.
+4. Reconnect normally and wait for **Interface: COMx — Pico… | Connected**.
+   Spark detects the interface at startup and when it is plugged in.
+5. Choose **EC Programmer** or **Battery Analyzer**, then follow that tool's
+   wiring instructions below.
+
+The same supplied UF2 supports both tools; changing workspaces does not require
+reflashing Pico. Use one target at a time and disconnect power before changing
+the wiring. Use the GPIO numbers shown in Spark rather than a board's printed
+I²C function labels. GPIO signals use **3.3 V logic**.
+
+The current application and all ten firmware variants are included in
+**[release/](release)**. [GitHub Releases](https://github.com/raczzoli/spark/releases)
+also contains versioned archives; check their version before using an older package.
+
+## EC Programmer
+
+### Supported controllers
+
+The names below match the **Manufacturer** and **Model / Family** selectors in
+the EC workspace.
 
 | Manufacturer | Model / family | Operations |
 | --- | --- | --- |
@@ -23,91 +54,142 @@ The names below match the **Manufacturer** and **Model / Family** selectors in t
 | ENE | KB9012QF | Read, Write, Erase — experimental |
 | ENE | KB9022Q | Read, Write, Erase — experimental |
 | ENE | KB9028Q | Read, Write, Erase — experimental |
-| ENE | KB902FQ C | Read, Write, Erase (provisional 128 KiB) |
+| ENE | KB902FQ C | Read, Write, Erase — provisional 128 KiB |
 | ENE | KB9052QD | Read, Write, Erase — experimental |
 
-## Download and setup
+### Connect an ITE EC
 
-1. Click **Code > Download ZIP** on this repository and extract the archive.
-2. Open **[release/app](release/app)** and run **EC-Programmer.exe**. No Python installation is needed.
-3. Put your Pico into **BOOTSEL** mode and copy the matching UF2 from **[release/pico-firmwares](release/pico-firmwares)** to its USB drive.
-4. Connect the Pico through its USB data port. The application detects its port and board automatically.
+| Pico default | Target board |
+| --- | --- |
+| **GP7** | EC **SDA** |
+| **GP6** | EC **SCL** |
+| **GND** | Board **GND** |
 
-The repository includes the current application, all firmware variants and their
-licenses in **[release/](release)**. Versioned packages are also available from
-[GitHub Releases](https://github.com/raczzoli/EC-Programmer/releases); those archives
-have `app/` and `pico-firmwares/` directly at their root.
+Confirm the target signals from the board's schematic or netlist. The EC is
+powered by its board. SDA/SCL GPIOs can be changed in the EC workspace; use an
+adjacent pair for the implemented DBGR waveform.
 
-Builds are available for:
+The [ITE wiring guide](docs/HARDWARE.md) includes a labelled Waveshare
+RP2350-USB-A photo. That photo shows **ITE EC wiring**, not the battery connection.
 
-- **Raspberry Pi:** Pico, Pico W, Pico 2 and Pico 2 W. Header-equipped variants use the corresponding base-board firmware.
+### Connect an ENE EC
+
+Select the exact model, then use **View wiring diagram** for its EC pin numbers
+and pin-1 orientation. The exposed LQFP-128 models use:
+
+| Pico | ENE signal | Physical EC pin |
+| --- | --- | --- |
+| **GP4** | EDI DO / KSI7 | **62** |
+| **GP5** | EDI CS / KSI4 | **59** |
+| **GP6** | EDI CLK / KSI5 | **60** |
+| **GP7** | EDI DI / KSI6 | **61** |
+| **GND** | Board ground | Board ground |
+| Board ground | KSO3 programming strap | **42** |
+
+Ground KSO3 before powering the target. These are **chip pin numbers**, not
+keyboard connector positions. See [ENE model pinouts](docs/ENE_PINOUTS.md) and
+[protocol and validation notes](docs/ENE.md) before wiring.
+
+### Read, write or erase
+
+1. Select **Manufacturer** and **Model / Family**.
+2. For ITE, choose the GPIOs and flash **Size**. For ENE, Size is filled from
+   the selected model.
+3. Click **Connect to EC** and follow any power-cycle prompt.
+4. Choose **Read**, **Write** or **Erase**. Write erases, programs and verifies
+   the complete image; it does not create an automatic backup.
+
+Read opens a save dialog. Canceling it keeps the backup in memory until you
+choose **Save…** or **Discard**. Progress shows the current stage, transferred
+KiB and elapsed time. The compact EC log remains visible, and **Open folder**
+locates a saved backup.
+
+## Battery Analyzer
+
+### Connect a smart battery
+
+1. Open **Battery Analyzer** and type the battery model or part number in the
+   searchable **Battery** selector.
+2. Choose the matching connector reference. Spark shows every listed contact,
+   the connector orientation and which contacts connect to Pico. Unknown
+   contacts remain marked **?**.
+3. Confirm the connector view and connect the identified signals:
+
+| Battery signal | Pico default |
+| --- | --- |
+| **DATA / D / SDA** | **GP7** |
+| **CLOCK / C / SCL** | **GP9** |
+| **B− / GND** | **GND** |
+| **B+** | **Leave disconnected from Pico** |
+| Present, temperature or other contacts | Follow that exact model's reference |
+
+The battery's connector positions vary by model. The table maps **signals to
+GPIOs**, not connector pin numbers. Present/enable contacts are linked to ground
+only when documented for that exact reference. GPIOs can be changed under
+**Controller > Advanced**.
+
+Pico is the communication interface; it does not charge or discharge the pack.
+Use suitable pull-ups to **3.3 V**, short leads and the confirmed connector
+pinout. The [battery connection guide](docs/BATTERIES.md#connect-and-read) covers
+the electrical setup and interpreting missing readings.
+
+### Read and diagnose
+
+Click **Read battery**, then choose a section:
+
+| Section | What it shows |
+| --- | --- |
+| **General info** | Identity, voltage, charge, capacities, temperature and cycles where reported; operational status and individual cells when supported |
+| **Measurements** | Voltage, current, temperature and charge graphs; **Live readings** and **Stop** |
+| **Controller** | Detected controller, available protection/cell checks and supported service operations; connection settings and raw data under **Advanced** |
+
+**Save report** exports PDF, JSON or CSV after a read. Live capture updates every
+three seconds and stops when you change a main or battery tab. The voltage graph
+follows the displayed values with **2 V below the minimum and 2 V above the maximum**.
+
+The catalog contains **90 connector references**. **64** identify DATA, CLOCK
+and GND; some references remain partial. A catalog entry is a wiring reference,
+not a guarantee of controller-specific diagnostics or unlock support. A battery
+absent from the catalog can still be read if it supports SBS and its wiring is
+independently confirmed.
+
+### Unlock and controller access
+
+**Battery lockout and Seal/Unseal are separate states.** Standard SBS readings
+do not provide a universal unlock command.
+
+| Controller profile | Current support |
+| --- | --- |
+| Standard SBS | Basic measurements and battery information; no controller-specific unlock |
+| LGC AC14B8K, ID `4555`, firmware `0003` | Verified read-only diagnostics, operational status and cell voltages; no unlock implementation |
+| TI bq40z50-R3, ID `4500`, firmware `03xx` | Experimental Seal/Unseal/Full access and PF recovery using the battery's keys when required; protocol-tested in simulation, not validated on a physically locked R3 pack |
+
+**Unlock battery** is available only for a supported, confirmed PF lockout.
+Missing diagnostics stay **Unknown**. See [controller support and recovery
+limits](docs/BATTERIES.md#battery-lockout-and-controller-memory-access) for details.
+
+## Supported Pico boards
+
+- **Raspberry Pi:** Pico, Pico W, Pico 2 and Pico 2 W. Header-equipped variants
+  use the corresponding base-board firmware.
 - **Waveshare:** RP2040-Zero, RP2350-Zero, RP2350-Tiny and RP2350-USB-A.
 - **Seeed Studio:** XIAO RP2040 and XIAO RP2350.
 
-See the [firmware map](docs/BOARD_FIRMWARES.md) for filenames and GPIO mappings.
-The firmware uses USB CDC with the standard Windows serial driver. On the
-Waveshare RP2350-USB-A, connect the PC to **USB-C**.
-
-## Wiring
-
-### ITE
-
-| Pico | EC board |
-| --- | --- |
-| GP7 | SDA |
-| GP6 | SCL |
-| GND | GND |
-
-SDA and SCL GPIOs can be changed in the GUI. Use the target board's schematic
-to identify its EC programming signals. The interface uses 3.3 V logic;
-power the EC from its board and connect a common ground.
-
-![Waveshare RP2350-USB-A: GND on the left, GP6 for EC SCL and GP7 for EC SDA on the right](docs/images/waveshare-rp2350-usb-a-wiring.png)
-
-### ENE
-
-Select the exact ENE model in **Model / Family**. Click **View wiring diagram** below the selectors to see its physical EC
-pin numbers, pin-1 orientation and Pico connections. The current catalog covers **LQFP-128**:
-
-| Pico | EC pin (KB9012QF, KB9022Q, KB9028Q, KB902FQ C, KB9052QD) |
-| --- | --- |
-| GP4 | 62 |
-| GP5 | 59 |
-| GP6 | 60 |
-| GP7 | 61 |
-| GND | Board ground |
-
-Connect **EC pin 42 (KSO3) to board ground before powering the target**.
-Wire with all power disconnected, use common ground and power the EC from
-its board. Numbers refer to the chip, **not the keyboard connector**.
-See [pinout sources and package scope](docs/ENE_PINOUTS.md) and
-[ENE protocol notes](docs/ENE.md).
-
-## Using the application
-
-1. Wait for **Interface: COMx — Pico… | Connected**, then select **Manufacturer** and **Model / Family**.
-2. For ITE, set **SDA**, **SCL** and the numeric **Size** field. For ENE, Size is filled automatically and locked for the selected model.
-3. Click **Connect to EC** and follow any power-cycle prompt.
-4. Choose an operation:
-
-   - **Read:** reads the flash, then opens a dialog to save the file. Canceling the dialog keeps the read in memory; use **Save…** or **Discard** to continue.
-   - **Write:** opens an image file, erases the flash, writes the image and verifies every byte.
-   - **Erase:** erases the flash.
-
-The progress bar is **green for Read/Verify**, **red for Erase**, and
-**orange for Programming**. Each stage runs from **0 to 100%** independently; Write changes color and
-restarts the percentage for Erase, Programming and Verification. Use **Read** first if
-you want to keep a backup. Progress shows the current stage, transferred KiB and elapsed time;
-the remaining time is an estimate. Connecting uses an activity indicator without a percentage.
-The compact **Log** stays visible. Select text and right-click **Copy**, or use Ctrl+C.
-Image dialogs remember the last directory; **Open folder** locates a saved read.
+Choose the exact UF2 in the [board-to-firmware map](docs/BOARD_FIRMWARES.md).
+Both workspaces use USB CDC with the standard Windows serial driver. On the
+Waveshare RP2350-USB-A, connect the PC through **USB-C**. Board-specific photos
+and printed pin labels do not replace the GPIO mapping for the selected task.
 
 ## Testing and feedback
 
-Tested another EC or board? Share your result in [GitHub Issues](https://github.com/raczzoli/EC-Programmer/issues).
-Include the EC marking, laptop or board model, Pico model, application and
-firmware versions, operation performed and its log. Successful tests and
-problem reports help expand compatibility.
+Report EC, battery or interface results in [GitHub Issues](https://github.com/raczzoli/spark/issues).
+Include the Pico model, application/firmware versions, target model and operation.
+For EC operations, include the log; for batteries, include the diagnostic report
+and controller ID if available. State whether the result is a read, identification
+or a completed programming/recovery operation.
+
+See [EC validation](docs/ENE.md) and [battery validation](docs/BATTERIES.md#verification-on-2026-11-12)
+for the distinction between documented support, automated tests and physical tests.
 
 ## Build from source
 
@@ -119,7 +201,7 @@ py -3 -m venv .venv
 .\.venv\Scripts\python.exe -m app
 ```
 
-For a complete package, install `requirements-release.txt` and
+To build the complete package, install `requirements-release.txt` and
 `requirements-test.txt`, the Raspberry Pi Pico SDK with submodules, CMake,
 Ninja and the Arm GNU toolchain, then run:
 
@@ -127,11 +209,9 @@ Ninja and the Arm GNU toolchain, then run:
 .\.venv\Scripts\python.exe devtools/build_release.py --sdk C:/path/to/pico-sdk
 ```
 
-The builder runs the automated tests and creates the Windows application,
-board-specific UF2 files and SHA-256 manifests in
-`release/`.
-See [build and release instructions](docs/RELEASING.md) and the
-[code map](docs/ARCHITECTURE.md) for development details.
+The builder runs the automated tests and creates **Spark.exe**, board-specific
+UF2 files and SHA-256 manifests in `release/`. See [build instructions](docs/RELEASING.md)
+and the [code map](docs/ARCHITECTURE.md) for development details.
 
 ## License and credits
 
@@ -140,7 +220,8 @@ see [LICENSE](LICENSE).
 
 ITE implementation draws on Chromium OS EC `iteflash` and the entry waveform
 from `I2C-Pico-USB-ITE-EC-prog`. ENE implementation draws on flashrom and
-Jack O'Neo's extension with contributor reports. See [source attribution](docs/THIRD_PARTY.md).
+Jack O'Neo's extension with contributor reports. Battery connector references
+link their public sources. See [source attribution](docs/THIRD_PARTY.md).
 Bundled libraries retain their own licenses; Qt/PySide6 notices are included
 with the Windows application.
 

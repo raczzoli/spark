@@ -29,7 +29,7 @@ BOARDS = {
 
 
 def source_identity():
-    files = [ROOT / "VERSION", ROOT / "EC-Programmer.spec", ROOT / "run_gui.py",
+    files = [ROOT / "VERSION", ROOT / "Spark.spec", ROOT / "run_gui.py",
              ROOT / "requirements-release.txt"]
     for folder in ("app", "firmware", "devtools", "tests"):
         files += [p for p in (ROOT / folder).rglob("*") if p.is_file()
@@ -130,9 +130,12 @@ def main():
         metadata.write_text(json.dumps(identity, indent=2) + "\n")
         env = dict(os.environ, EC_BUILD_INFO_FILE=str(metadata))
         run([sys.executable, "-m", "PyInstaller", "--noconfirm", "--distpath", output / "app",
-             "EC-Programmer.spec"], env=env)
-        run([output / "app/EC-Programmer.exe", "--smoke-test"],
+             "Spark.spec"], env=env)
+        run([output / "app/Spark.exe", "--smoke-test"],
             env=dict(os.environ, QT_QPA_PLATFORM="offscreen"), timeout=60)
+        legacy_exe = output / "app/EC-Programmer.exe"
+        if legacy_exe.exists():
+            legacy_exe.unlink()
         shutil.copy2(ROOT / "LICENSE", output / "app/LICENSE.txt")
         shutil.copy2(ROOT / "docs/THIRD_PARTY.md", output / "app/THIRD_PARTY.txt")
         shutil.copytree(ROOT / "docs/licenses", output / "app/licenses", dirs_exist_ok=True)
@@ -145,9 +148,9 @@ def main():
                             for name in ("PySide6", "pyserial", "pyinstaller")}
     (output / "build-info.json").write_text(json.dumps(identity, indent=2) + "\n")
     (output / "README.txt").write_text(
-        f"R89 Repairs - EC and Battery tools {identity['version']} / {identity['build_id']}\n\n"
+        f"Spark - EC Programmer + Battery Analyzer {identity['version']} / {identity['build_id']}\n\n"
         "Automated tests passed. See docs/ENE.md for hardware validation status.\n"
-        "app/ contains the Windows GUI; pico-firmwares/ contains board-specific UF2 files.\n"
+        "Run app/Spark.exe; pico-firmwares/ contains board-specific UF2 files.\n"
         "Install only the UF2 matching your board. Pico 2 H uses Pico-2-RP2350.uf2.\n"
         "Default ITE pins: GP7 SDA, GP6 SCL, common GND. Default timing is unchanged.\n"
         "Battery tab: offline connector search, SBS readings, monitoring, PDF/JSON/CSV reports.\n"
@@ -159,7 +162,7 @@ def main():
         "Size: numeric/manual for ITE (64/128/192/256 KiB); automatic and locked for ENE.\n"
         "ENE is experimental. GP4 DO, GP5 CS, GP6 CLK, GP7 DI, common GND; confirm target strap/pins.\n"
         "ENE models: KB9012QF, KB9022Q, KB9028Q, KB902FQ C (provisional), KB9052QD (128 KiB).\n"
-        "Source and instructions: https://github.com/raczzoli/EC-Programmer\n"
+        "Source and instructions: https://github.com/raczzoli/spark\n"
     )
     entries = []
     release_files = [output / "README.txt", output / "build-info.json", output / "Battery-Guide.md"]

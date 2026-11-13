@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Spark: EC Programmer and Battery Analyzer connections</title>
+  <desc id="desc">Two separate wiring examples. ITE EC programming uses Pico GP7 to EC SDA, GP6 to EC SCL, and common ground. Battery Analyzer uses Pico GP7 to battery DATA, GP9 to battery CLOCK, and GND to confirmed battery B minus. Battery B plus stays disconnected from Pico. ENE uses its separate EDI wiring guide. Use one target at a time; connector positions depend on the model.</desc>
+  <rect x="1" y="1" width="1198" height="518" rx="20" fill="#10161f" stroke="#2b3746" stroke-width="2"/>
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <text x="30" y="50" fill="#f1f5fb" font-size="31" font-weight="700">Spark</text>
+    <text x="30" y="81" fill="#a7b6c9" font-size="18">One app. One Pico. Two workspaces.</text>
+    <rect x="887" y="29" width="283" height="39" rx="19" fill="#172d2b" stroke="#2f5b50"/>
+    <text x="1028" y="54" fill="#83debf" font-size="16" text-anchor="middle">Choose one target at a time</text>
+
+    <rect x="24" y="108" width="564" height="337" rx="14" fill="#171f2b" stroke="#30425c"/>
+    <rect x="24" y="108" width="6" height="337" rx="3" fill="#76b8ff"/>
+    <text x="48" y="148" fill="#f1f5fb" font-size="25" font-weight="600">EC Programmer</text>
+    <text x="48" y="178" fill="#a7b6c9" font-size="16">ITE default connection</text>
+    <text x="48" y="214" fill="#8e9eb3" font-size="13" letter-spacing="1">PICO GPIO</text>
+    <text x="421" y="214" fill="#8e9eb3" font-size="13" letter-spacing="1">TARGET EC</text>
+    <g fill="none" stroke-width="3">
+      <path d="M162 244 H405" stroke="#5ed8bd"/>
+      <path d="M162 293 H405" stroke="#76b8ff"/>
+      <path d="M162 342 H405" stroke="#a7b6c9"/>
+    </g>
+    <g fill="#111821">
+      <rect x="48" y="226" width="114" height="36" rx="7" stroke="#396c61"/>
+      <rect x="48" y="275" width="114" height="36" rx="7" stroke="#3e6087"/>
+      <rect x="48" y="324" width="114" height="36" rx="7" stroke="#4b586b"/>
+    </g>
+    <g font-family="Consolas, monospace" font-size="20" font-weight="700">
+      <text x="105" y="251" fill="#5ed8bd" text-anchor="middle">GP7</text>
+      <text x="105" y="300" fill="#76b8ff" text-anchor="middle">GP6</text>
+      <text x="105" y="349" fill="#b4c1d1" text-anchor="middle">GND</text>
+    </g>
+    <text x="421" y="251" fill="#5ed8bd" font-size="20" font-weight="600">SDA</text>
+    <text x="421" y="300" fill="#76b8ff" font-size="20" font-weight="600">SCL</text>
+    <text x="421" y="349" fill="#b4c1d1" font-size="20" font-weight="600">GND</text>
+    <path d="M48 380 H564" stroke="#30425c"/>
+    <text x="48" y="405" fill="#b7c7dc" font-size="15">ENE: use the model's EDI wiring diagram.</text>
+    <text x="48" y="427" fill="#8e9eb3" font-size="14">Power the EC from its target board.</text>
+
+    <rect x="612" y="108" width="564" height="337" rx="14" fill="#171f2b" stroke="#2f514b"/>
+    <rect x="612" y="108" width="6" height="337" rx="3" fill="#5ed8bd"/>
+    <text x="636" y="148" fill="#f1f5fb" font-size="25" font-weight="600">Battery Analyzer</text>
+    <text x="636" y="178" fill="#a7b6c9" font-size="16">SMBus default connection</text>
+    <text x="636" y="214" fill="#8e9eb3" font-size="13" letter-spacing="1">PICO GPIO</text>
+    <text x="1009" y="214" fill="#8e9eb3" font-size="13" letter-spacing="1">BATTERY</text>
+    <g fill="none" stroke-width="3">
+      <path d="M750 244 H993" stroke="#5ed8bd"/>
+      <path d="M750 293 H993" stroke="#76b8ff"/>
+      <path d="M750 342 H993" stroke="#a7b6c9"/>
+    </g>
+    <g fill="#111821">
+      <rect x="636" y="226" width="114" height="36" rx="7" stroke="#396c61"/>
+      <rect x="636" y="275" width="114" height="36" rx="7" stroke="#3e6087"/>
+      <rect x="636" y="324" width="114" height="36" rx="7" stroke="#4b586b"/>
+    </g>
+    <g font-family="Consolas, monospace" font-size="20" font-weight="700">
+      <text x="693" y="251" fill="#5ed8bd" text-anchor="middle">GP7</text>
+      <text x="693" y="300" fill="#76b8ff" text-anchor="middle">GP9</text>
+      <text x="693" y="349" fill="#b4c1d1" text-anchor="middle">GND</text>
+    </g>
+    <text x="1009" y="251" fill="#5ed8bd" font-size="20" font-weight="600">DATA</text>
+    <text x="1009" y="300" fill="#76b8ff" font-size="20" font-weight="600">CLOCK</text>
+    <text x="1009" y="349" fill="#b4c1d1" font-size="20" font-weight="600">B− / GND</text>
+    <path d="M636 380 H1152" stroke="#2f514b"/>
+    <text x="636" y="405" fill="#f2bf7c" font-size="15" font-weight="600">B+ stays disconnected from Pico.</text>
+    <text x="636" y="427" fill="#8e9eb3" font-size="14">Find the connector in Spark's battery model search.</text>
+
+    <text x="30" y="478" fill="#a7b6c9" font-size="15">GPIO numbers shown. Actual connector positions depend on the target.</text>
+    <text x="30" y="501" fill="#8e9eb3" font-size="14">3.3 V signals and common ground. Disconnect power before changing the wiring.</text>
+  </g>
+</svg>

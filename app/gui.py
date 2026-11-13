@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2026 R89 Repairs and contributors
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-"""Windows GUI for ITE and ENE EC flash operations."""
+"""Spark: EC programming and battery diagnostics in one Windows application."""
 
 import sys
 import time
@@ -27,17 +27,18 @@ from .interface import InterfaceState, InterfaceDiscovery
 from .operations import Worker, resolve_read_size
 from .controller import OperationController
 from .session import validate_ite_pins
-from .version import VERSION, BUILD_ID
+from .version import APP_NAME, VERSION, BUILD_ID
 
 
 class Window(QMainWindow):
     def __init__(self, settings=None, auto_discovery=True):
         super().__init__()
-        self.setWindowTitle(f"R89 Repairs · {VERSION}")
+        self.setWindowTitle(f"{APP_NAME} · {VERSION}")
         self.setStyleSheet(STYLESHEET)
         self.setMinimumSize(840, 560)
         available = self.screen().availableGeometry()
         self.resize(min(1040, available.width() - 40), max(560, min(790, available.height() - 60)))
+        # Keep existing connection settings and directories across the Spark rename.
         self.settings = settings if settings is not None else QSettings("R89 Repairs", "EC Programmer")
         self.saved_path = None
         self._phase_started = None
@@ -89,7 +90,7 @@ class Window(QMainWindow):
         self.discovery.stopped.connect(self.on_discovery_stopped)
         self.on_manufacturer_changed()
         self.note("Select a target and connect to the EC.")
-        self.log.appendPlainText(f"Application {VERSION} | Build {BUILD_ID}")
+        self.log.appendPlainText(f"{APP_NAME} {VERSION} | Build {BUILD_ID}")
         if auto_discovery:
             self.discovery.start()
 
@@ -691,6 +692,9 @@ class Window(QMainWindow):
 
 def main():
     app = QApplication(sys.argv)
+    app.setApplicationName(APP_NAME)
+    app.setOrganizationName("R89 Repairs")
+    app.setApplicationVersion(VERSION)
     app.setStyle("Fusion")
     smoke_test = "--smoke-test" in sys.argv
     settings_directory = QTemporaryDir() if smoke_test else None

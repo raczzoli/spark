@@ -22,7 +22,7 @@ __pycache__/
 /dist/
 /dist-preview*/
 *.spec
-!/EC-Programmer.spec
+!/Spark.spec
 
 # Pico SDK / CMake generated files
 /firmware/build*/

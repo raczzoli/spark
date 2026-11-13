@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 _root = Path(__file__).resolve().parent.parent
+APP_NAME = "Spark"
 VERSION = (_root / "VERSION").read_text(encoding="utf-8").strip()
 _info = _root / "build-info.json"
 BUILD_ID = json.loads(_info.read_text(encoding="utf-8"))["build_id"] if _info.exists() else "source"

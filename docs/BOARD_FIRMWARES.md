@@ -1,7 +1,9 @@
 # Firmware files by board
 
-The local release has `app/` for the Windows GUI and `pico-firmwares/` for
-board-specific UF2 files. Choose one UF2 for the exact board:
+The local release has `app/Spark.exe` for the Windows GUI and `pico-firmwares/`
+for board-specific UF2 files. Every supplied UF2 contains both **EC Programmer**
+and **Battery Analyzer**; choose one for the exact board, not a different firmware
+for each workspace:
 
 | UF2 | Board and Pico SDK profile |
 | --- | --- |
@@ -22,8 +24,16 @@ the generated files; it cannot establish electrical operation on untested
 boards. The board used during EC protocol development was the Waveshare
 RP2350-USB-A. These exact release UF2s have not been tested on all boards.
 
-The firmware defaults to **GP7 = EC SDA** and **GP6 = EC SCL**, plus common
-GND. Use GPIO numbers rather than a board's printed I2C labels. On Seeed
+## Connections by workspace
+
+| Task | Default Pico GPIOs | Target |
+| --- | --- | --- |
+| ITE EC programming | GP7 SDA, GP6 SCL, common GND | Board's confirmed EC programming signals |
+| ENE EC programming | GP4 DO, GP5 CS, GP6 CLK, GP7 DI, common GND | Model-specific EDI pins and KSO3 strap |
+| Battery Analyzer | GP7 DATA, GP9 CLOCK, common GND | Confirmed battery D, C and B− contacts; B+ stays disconnected from Pico |
+
+The EC and battery workspaces retain their own GPIO settings. Use GPIO numbers
+rather than a board's printed I2C labels. For ITE EC defaults on Seeed
 XIAO RP2040/RP2350, D5 is GP7 and D4 is GP6, so D5 goes to EC SDA and D4
 to EC SCL with the defaults. The GUI permits another adjacent GPIO pair.
 
@@ -36,3 +46,7 @@ For ENE EDI, all builds use SPI0 on fixed **GP4 (EDI DO)**, **GP5 (EDI CS)**,
 test signal also needs the board-specific low connection. Check that those
 GPIOs are exposed on your Pico variant before choosing its UF2. See the ENE
 section in the main README for target-side signal names.
+
+For batteries, connector positions and any present/enable link are model-specific.
+Use Spark's connector search and the [battery guide](BATTERIES.md); the EC board
+photo in the [ITE guide](HARDWARE.md) does not describe battery wiring.

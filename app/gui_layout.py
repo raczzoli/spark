@@ -8,6 +8,7 @@ from PySide6.QtWidgets import (
     QTabBar, QStackedWidget,
 )
 from .models import FAMILIES_BY_MANUFACTURER
+from .version import APP_NAME
 
 
 def label(text, name="muted"):
@@ -276,7 +277,7 @@ def build_layout(w):
     journal_layout.addWidget(w.log)
     outer.addWidget(w.journal)
     outer.addStretch(1)
-    credit = label("Software by R89 Repairs | www.r89-repairs.ro", "credit")
+    credit = label(f"{APP_NAME} by R89 Repairs | www.r89-repairs.ro", "credit")
     credit.setAlignment(Qt.AlignmentFlag.AlignCenter)
     w.statusBar().setSizeGripEnabled(False)
     w.statusBar().addPermanentWidget(credit, 1)

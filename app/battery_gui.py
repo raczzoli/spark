@@ -19,6 +19,7 @@ from .battery_catalog import connection_for
 from .battery_operations import BatteryWorker
 from .battery_widgets import BatterySelector, ConnectorDiagram, MetricCard, CellVoltages, TrendPlot, ConnectionSpinBox
 from .gui_layout import label, button
+from .version import APP_NAME
 
 
 def table(headers):
@@ -947,7 +948,7 @@ class BatteryPage(QWidget):
                 operation = data["battery_status"]
                 controller = (f"<h2>Battery operation</h2><p>{e(operation['label'])}: {e(operation['reason'])}</p>"
                               f"<p>Controller memory access: {e(snapshot.controller.get('security', 'Unknown'))}</p>" + controller)
-                document=QTextDocument();document.setHtml(f"<style>body{{font-family:Segoe UI;color:#18283a}}h1{{color:#176f87}}td{{padding:7px;border-bottom:1px solid #dde3e9}}</style><h1>Battery diagnostic report</h1><p>{e(snapshot.strings.get('manufacturer',''))} {e(snapshot.strings.get('device',''))}</p><p>Read at {e(snapshot.timestamp)} · serial {snapshot.raw(0x1C)} · PEC {'verified' if snapshot.pec else 'not validated'}</p><table width='100%'>{rows}</table>{controller}<h2>Findings</h2><ul>{findings}</ul><p>{e(data['capacity_note'])}</p><p>Software by R89 Repairs</p>")
+                document=QTextDocument();document.setHtml(f"<style>body{{font-family:Segoe UI;color:#18283a}}h1{{color:#176f87}}td{{padding:7px;border-bottom:1px solid #dde3e9}}</style><h1>{APP_NAME} battery diagnostic report</h1><p>{e(snapshot.strings.get('manufacturer',''))} {e(snapshot.strings.get('device',''))}</p><p>Read at {e(snapshot.timestamp)} · serial {snapshot.raw(0x1C)} · PEC {'verified' if snapshot.pec else 'not validated'}</p><table width='100%'>{rows}</table>{controller}<h2>Findings</h2><ul>{findings}</ul><p>{e(data['capacity_note'])}</p><p>{APP_NAME} by R89 Repairs</p>")
                 writer=QPdfWriter(str(target));writer.setPageSize(QPageSize(QPageSize.PageSizeId.A4));document.print_(writer)
                 if not target.is_file() or target.stat().st_size<100:raise OSError("PDF output could not be created")
             else:raise ValueError("Choose PDF, JSON or CSV")

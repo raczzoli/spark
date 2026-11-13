@@ -1,9 +1,9 @@
 {
   "version": "0.4.0",
-  "build_id": "b665d6bbde8a",
-  "source_sha256": "b665d6bbde8af62e7525e75139edc1eba7940869b02f8bcd83157867c86aa631",
+  "build_id": "574ec1839fb5",
+  "source_sha256": "574ec1839fb5788e976ee4587ec588aab9fe93196d939ac6cbe934124f911de4",
   "hardware_validation": "pending",
-  "gui_build_id": "b665d6bbde8a",
+  "gui_build_id": "574ec1839fb5",
   "firmware_build_id": "bf378ee841d8",
   "firmware_source_sha256": "bf378ee841d8fa85786f6b1ce27a2c7c133b4870fe06d992f251483ec1f98b15",
   "boards": [
