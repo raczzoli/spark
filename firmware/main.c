@@ -9,7 +9,7 @@
 #include <stdio.h>
 static command_buffer input;
 int main(void) {
-    stdio_init_all(); set_pins(7,6);
+    stdio_init_all(); set_pins(3,2);
     while (true) {
         int c=getchar_timeout_us(5000);
         if (c==PICO_ERROR_TIMEOUT) { device_tick(); continue; }

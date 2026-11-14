@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
   <title id="title">Spark: EC Programmer and Battery Analyzer connections</title>
-  <desc id="desc">Two separate wiring examples. ITE EC programming uses Pico GP7 to EC SDA, GP6 to EC SCL, and common ground. Battery Analyzer uses Pico GP7 to battery DATA, GP9 to battery CLOCK, and GND to confirmed battery B minus. Battery B plus stays disconnected from Pico. ENE uses its separate EDI wiring guide. Use one target at a time; connector positions depend on the model.</desc>
+  <desc id="desc">Two separate wiring examples. ITE EC programming uses Pico GP3 to EC SDA, GP2 to EC SCL, and common ground. Battery Analyzer uses Pico GP7 to battery DATA, GP9 to battery CLOCK, and GND to confirmed battery B minus. Battery B plus stays disconnected from Pico. ENE uses its separate EDI wiring guide. Use one target at a time; connector positions depend on the model.</desc>
   <rect x="1" y="1" width="1198" height="518" rx="20" fill="#10161f" stroke="#2b3746" stroke-width="2"/>
   <g font-family="Segoe UI, Arial, sans-serif">
     <text x="30" y="50" fill="#f1f5fb" font-size="31" font-weight="700">Spark</text>
@@ -25,8 +25,8 @@
       <rect x="48" y="324" width="114" height="36" rx="7" stroke="#4b586b"/>
     </g>
     <g font-family="Consolas, monospace" font-size="20" font-weight="700">
-      <text x="105" y="251" fill="#5ed8bd" text-anchor="middle">GP7</text>
-      <text x="105" y="300" fill="#76b8ff" text-anchor="middle">GP6</text>
+      <text x="105" y="251" fill="#5ed8bd" text-anchor="middle">GP3</text>
+      <text x="105" y="300" fill="#76b8ff" text-anchor="middle">GP2</text>
       <text x="105" y="349" fill="#b4c1d1" text-anchor="middle">GND</text>
     </g>
     <text x="421" y="251" fill="#5ed8bd" font-size="20" font-weight="600">SDA</text>

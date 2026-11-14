@@ -26,14 +26,14 @@ The board used during EC protocol development was the Waveshare RP2350-USB-A.
 
 | Task | Default Pico GPIOs | Target |
 | --- | --- | --- |
-| ITE EC programming | GP7 SDA, GP6 SCL, common GND | Board's confirmed EC programming signals |
+| ITE EC programming | GP3 SDA, GP2 SCL, common GND | Board's confirmed EC programming signals |
 | ENE EC programming | GP2 CLK, GP3 DI, GP4 DO, GP5 CS, common GND | Model-specific EDI pins and KSO3 strap |
 | Battery Analyzer | GP7 DATA, GP9 CLOCK, common GND | Confirmed battery D, C and B− contacts; B+ stays disconnected from Pico |
 
 The EC and battery workspaces retain their own GPIO settings. Use GPIO numbers
-rather than a board's printed I2C labels. For ITE EC defaults on Seeed
-XIAO RP2040/RP2350, D5 is GP7 and D4 is GP6, so D5 goes to EC SDA and D4
-to EC SCL with the defaults. The GUI permits another adjacent GPIO pair.
+rather than a board's printed I2C labels. ITE uses the same GP2/GP3 pair as
+ENE CLK/DI: GP2 goes to EC SCL and GP3 goes to EC SDA.
+The GUI permits another adjacent GPIO pair.
 
 The header-equipped Raspberry Pi Pico variants differ physically in their
 headers and debug connector, so they use the base board UF2. See
@@ -46,5 +46,5 @@ GPIOs are exposed on your Pico variant before choosing its UF2. See the ENE
 section in the main README for target-side signal names.
 
 For batteries, connector positions and any present/enable link are model-specific.
-Use Spark's connector search and the [battery guide](BATTERIES.md); the EC board
-photo in the [ITE guide](HARDWARE.md) does not describe battery wiring.
+Use Spark's connector search and the [battery guide](BATTERIES.md); the
+[ITE guide](HARDWARE.md) describes EC wiring.

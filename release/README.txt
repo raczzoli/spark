@@ -1,9 +1,9 @@
-Spark - EC Programmer + Battery Analyzer 0.4.0 / 8b89bf6cc7c2
+Spark - EC Programmer + Battery Analyzer 0.4.0 / 9b9993d792fa
 
 Automated tests passed. See docs/ENE.md for protocol details.
 Run app/Spark.exe; pico-firmwares/ contains board-specific UF2 files.
 Install only the UF2 matching your board. Pico 2 H uses Pico-2-RP2350.uf2.
-Default ITE pins: GP7 SDA, GP6 SCL, common GND. Default timing is unchanged.
+Default ITE pins: GP3 SDA, GP2 SCL, common GND. Default timing is unchanged.
 Battery tab: offline connector search, SBS readings, monitoring, PDF/JSON/CSV reports.
 Default battery pins: GP7 DATA, GP9 CLOCK, common GND; battery B+ stays off Pico.
 Physical pin numbers are shown only for the standard 40-pin Pico footprint.

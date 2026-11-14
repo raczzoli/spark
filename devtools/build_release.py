@@ -151,7 +151,7 @@ def main():
         "Automated tests passed. See docs/ENE.md for protocol details.\n"
         "Run app/Spark.exe; pico-firmwares/ contains board-specific UF2 files.\n"
         "Install only the UF2 matching your board. Pico 2 H uses Pico-2-RP2350.uf2.\n"
-        "Default ITE pins: GP7 SDA, GP6 SCL, common GND. Default timing is unchanged.\n"
+        "Default ITE pins: GP3 SDA, GP2 SCL, common GND. Default timing is unchanged.\n"
         "Battery tab: offline connector search, SBS readings, monitoring, PDF/JSON/CSV reports.\n"
         "Default battery pins: GP7 DATA, GP9 CLOCK, common GND; battery B+ stays off Pico.\n"
         "Physical pin numbers are shown only for the standard 40-pin Pico footprint.\n"

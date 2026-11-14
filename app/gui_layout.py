@@ -164,7 +164,7 @@ def build_layout(w):
     w.model.setFixedWidth(190)
     w.model.setPlaceholderText("Select model")
     field(row, "Model / Family", w.model)
-    for name, value in (("sda", 7), ("scl", 6)):
+    for name, value in (("sda", 3), ("scl", 2)):
         spin = QSpinBox()
         spin.setFixedWidth(80)
         spin.setRange(0, 28)

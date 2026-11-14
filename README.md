@@ -6,7 +6,7 @@ Spark combines laptop EC programming and SMBus smart battery diagnostics in two
 workspaces. Both use the same USB interface and combined Pico firmware. Choose
 the workspace for the connected target; each task has its own wiring and controls.
 
-![Spark connection overview: ITE EC uses GP7 for SDA and GP6 for SCL; Battery Analyzer uses GP7 for DATA and GP9 for CLOCK. Both use common ground. Battery B+ stays disconnected from Pico.](docs/images/spark-connections.svg)
+![Spark connection overview: ITE EC uses GP3 for SDA and GP2 for SCL; Battery Analyzer uses GP7 for DATA and GP9 for CLOCK. Both use common ground. Battery B+ stays disconnected from Pico.](docs/images/spark-connections.svg)
 
 | EC Programmer | Battery Analyzer |
 | --- | --- |
@@ -68,16 +68,16 @@ complete image after programming. See [ITE protocol details](docs/ITE.md).
 
 | Pico default | Target board |
 | --- | --- |
-| **GP7** | EC **SDA** |
-| **GP6** | EC **SCL** |
+| **GP3** | EC **SDA** |
+| **GP2** | EC **SCL** |
 | **GND** | Board **GND** |
 
 Confirm the target signals from the board's schematic or netlist. The EC is
 powered by its board. SDA/SCL GPIOs can be changed in the EC workspace; use an
 adjacent pair for the implemented DBGR waveform.
 
-The [ITE wiring guide](docs/HARDWARE.md) includes a labelled Waveshare
-RP2350-USB-A photo. That photo shows **ITE EC wiring**, not the battery connection.
+ITE uses the same GPIO pair as ENE CLK/DI: **GP2 is SCL**, **GP3 is SDA**.
+See the [ITE wiring guide](docs/HARDWARE.md) for the electrical setup.
 
 ### Connect an ENE EC
 

@@ -4,29 +4,24 @@ This guide covers the **EC Programmer** workspace in Spark. For ENE, use the
 [model-specific EDI guide](ENE_PINOUTS.md). For a smart battery, use the
 [Battery Analyzer guide](BATTERIES.md); its default CLOCK GPIO is **GP9**.
 
-Connect Pico **GND** to the target board ground, Pico **GP7** to EC **SDA**,
-and Pico **GP6** to EC **SCL** for the default GUI configuration. The GPIOs
+Connect Pico **GND** to the target board ground, Pico **GP3** to EC **SDA**,
+and Pico **GP2** to EC **SCL** for the default GUI configuration. The GPIOs
 are selectable; keep SDA and SCL on adjacent GPIOs for the implemented DBGR
 waveform. Confirm the target pins from the board's schematic or netlist.
-On Seeed XIAO RP2040/RP2350, GP7 is labelled D5 and GP6 is D4. Follow the
-GPIO numbers: with the GUI defaults, D5 goes to EC SDA and D4 to EC SCL.
-The printed I2C function names on those boards use the opposite order.
+This is the same GPIO pair used for ENE CLK/DI. Follow the GPIO numbers
+rather than the board's printed I2C function labels. On a standard 40-pin
+Raspberry Pi Pico, GP2 is physical pin 4 and GP3 is physical pin 5.
 
 The target must provide its own EC power and bus pull-ups. The Pico does not
 power the EC. Measure the bus high level before connecting: the Pico GPIOs
 are 3.3 V logic, not 5 V tolerant. Do not connect an unknown voltage rail to
 a GPIO. Connect the Pico to the PC through its USB device port.
 
-<details>
-<summary>Board photo: Waveshare RP2350-USB-A, ITE EC wiring only</summary>
-
-<img src="images/waveshare-rp2350-usb-a-wiring.png" alt="ITE EC wiring on Waveshare RP2350-USB-A: common GND on the left, GP6 for EC SCL and GP7 for EC SDA on the right" width="360">
-
-The photo marks the default **ITE EC** connections. It is not a battery pinout
-and does not show the GP9 CLOCK connection used by Battery Analyzer. GPIO
-locations and board labels differ on other Pico variants.
-
-</details>
+| Pico GPIO | ITE target signal |
+| --- | --- |
+| GP2 | SCL |
+| GP3 | SDA |
+| GND | Board ground |
 
 RP2350 A2 silicon has a GPIO high-impedance erratum (E9) relevant to this
 open-drain interface; Raspberry Pi reports it fixed in A4. See the

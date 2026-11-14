@@ -149,7 +149,7 @@ class ReadSessionTests(unittest.TestCase):
         self.assertEqual(cycles, 0)
 
     def test_pin_validation_rejects_pairs_the_waveform_cannot_use(self):
-        for pair in ((7, 6), (6, 7), (27, 28), (22, 21)):
+        for pair in ((3, 2), (2, 3), (7, 6), (6, 7), (27, 28), (22, 21)):
             validate_ite_pins(*pair)
         for pair in ((7, 7), (6, 8), (22, 23), (25, 26), (-1, 0), (28, 29)):
             with self.subTest(pair=pair), self.assertRaises(ValueError):

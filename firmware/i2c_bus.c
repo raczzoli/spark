@@ -4,7 +4,7 @@
 #include "i2c_bus.h"
 #include "hardware/gpio.h"
 #define CLOCK_TIMEOUT_US 25000
-uint sda_pin = 7, scl_pin = 6;
+uint sda_pin = 3, scl_pin = 2;
 const char *i2c_error;
 static uint64_t command_deadline;
 static unsigned bit_delay_us = 5;

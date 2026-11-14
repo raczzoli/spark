@@ -9,7 +9,7 @@ from .transport import TransportError
 def validate_ite_pins(sda, scl):
     valid = lambda pin: 0 <= pin <= 22 or 26 <= pin <= 28
     if not valid(sda) or not valid(scl) or abs(sda - scl) != 1:
-        raise ValueError("ITE requires two consecutive GPIOs from 0-22 or 26-28 (for example SDA=7, SCL=6).")
+        raise ValueError("ITE requires two consecutive GPIOs from 0-22 or 26-28 (for example SDA=3, SCL=2).")
 
 
 class DeviceSession:
