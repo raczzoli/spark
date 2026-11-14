@@ -17,6 +17,32 @@ from app.ene import EneFlashProtocol
 
 
 class GuiLifecycleTests(unittest.TestCase):
+    def test_ite5_connect_exposes_all_flash_operations_without_status_labels(self):
+        from app.flash_protocols import protocol_for
+        for family, chip in (("IT51xx", 0x5122), ("IT55xx", 0x5570), ("IT51xx", 0x51526)):
+            self.window.model.setCurrentText(family)
+            identity = (chip, 2)
+            protocol = protocol_for(identity, bytes.fromhex("FFFFFE"))
+            self.window.on_finished("connect", (identity, True, protocol))
+            self.assertTrue(self.window.read.isEnabled())
+            self.assertTrue(self.window.write.isEnabled())
+            self.assertTrue(self.window.erase.isEnabled())
+            self.assertIn(f"CHIP ID 0x{chip:04X}", self.window.identity_details.text())
+            self.assertNotIn("experimental", self.window.identity_details.text().lower())
+            self.assertNotIn("untested", self.window.identity_details.text().lower())
+
+    def test_kb9548_connect_exposes_read_write_and_full_image_size(self):
+        self.window.manufacturer.setCurrentText("ENE")
+        self.window.model.setCurrentText("KB9548QF2")
+        self.assertEqual(self.window.flash_size.value(), 160)
+        self.assertFalse(self.window.flash_size.isEnabled())
+        identity = (0xA0, 0x07)
+        self.window.on_finished("connect", (identity, False, EneFlashProtocol("KB9548QF2", identity)))
+        self.assertTrue(self.window.read.isEnabled())
+        self.assertTrue(self.window.write.isEnabled())
+        self.assertTrue(self.window.erase.isEnabled())
+        self.assertIn("KB9548QF2", self.window.identity.text())
+
     @classmethod
     def setUpClass(cls):
         cls.app = QApplication.instance() or QApplication([])
@@ -97,7 +123,7 @@ class GuiLifecycleTests(unittest.TestCase):
     def test_ene_models_fixed_size_and_buttons(self):
         self.window.manufacturer.setCurrentText("ENE")
         self.assertEqual([self.window.model.itemText(i) for i in range(self.window.model.count())],
-                         ["KB9012QF", "KB9022Q", "KB9028Q", "KB902FQ C", "KB9052QD"])
+                         ["KB9012QF", "KB9022Q", "KB9028Q", "KB902FQ C", "KB9052QD", "KB9548QF2"])
         for family in ("KB9012QF", "KB9022Q", "KB9028Q", "KB902FQ C", "KB9052QD"):
             self.window.model.setCurrentText(family)
             self.assertEqual(self.window.flash_size.value(), 128)
@@ -112,7 +138,7 @@ class GuiLifecycleTests(unittest.TestCase):
         self.assertTrue(self.window.write.isEnabled())
         self.assertTrue(self.window.erase.isEnabled())
         self.assertIn("KB9052QD", self.window.identity.text())
-        self.assertIn("Experimental", self.window.identity_details.text())
+        self.assertEqual("HW 0xD0  /  EDI 0x0B", self.window.identity_details.text())
         self.assertIn("128 KiB (model default)", self.window.identity.text())
         self.assertFalse(self.window.keepalive.isActive())
         # Busy/idle transitions must not accidentally unlock a fixed size.
@@ -281,8 +307,8 @@ class GuiLifecycleTests(unittest.TestCase):
         self.assertEqual(size_x - model_right, 13)
         self.assertTrue(w.log.isVisible())
         self.assertEqual(w.ec_scroll.verticalScrollBar().maximum(), 0)
-        self.assertIn("provisional", w.identity.text())
-        self.assertIn("not been measured", w.flash_size.toolTip())
+        self.assertIn("128 KiB (model default)", w.identity.text())
+        self.assertEqual("Flash size for the selected model.", w.flash_size.toolTip())
 
 
 if __name__ == "__main__":

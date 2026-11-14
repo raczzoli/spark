@@ -2,10 +2,10 @@
 """Code-native connector, cell and history graphics for the battery workspace."""
 from datetime import datetime
 from math import ceil, floor
-from PySide6.QtCore import Qt, QRectF, Signal, QSortFilterProxyModel, QModelIndex, QEvent
-from PySide6.QtGui import QColor, QFont, QPainter, QPainterPath, QPen, QStandardItemModel, QStandardItem
-from PySide6.QtWidgets import QWidget, QFrame, QVBoxLayout, QHBoxLayout, QLabel, QComboBox, QCompleter, QSizePolicy, QSpinBox
-from .battery_catalog import ROLE_COLORS, connection_for, catalog, normalized
+from PySide6.QtCore import Qt, QRectF, QSize, Signal, QSortFilterProxyModel, QModelIndex, QEvent
+from PySide6.QtGui import QColor, QFont, QFontMetrics, QPainter, QPainterPath, QPen, QStandardItemModel, QStandardItem
+from PySide6.QtWidgets import QWidget, QFrame, QVBoxLayout, QHBoxLayout, QLabel, QComboBox, QCompleter, QSizePolicy, QSpinBox, QStyledItemDelegate, QStyle, QAbstractItemView
+from .battery_catalog import ROLE_COLORS, connection_for, catalog, normalized, has_pinout, pinout_summary
 
 
 class ConnectionSpinBox(QSpinBox):
@@ -18,21 +18,62 @@ class BatteryFilter(QSortFilterProxyModel):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.terms = []
+        self.brand = ""
 
-    def set_query(self, text):
-        terms = [normalized(term) for term in text.split() if normalized(term)]
+    def _change_filter(self, terms, brand):
         if hasattr(self, "endFilterChange"):
             self.beginFilterChange()
-            self.terms = terms
+            self.terms, self.brand = terms, brand
             self.endFilterChange(QSortFilterProxyModel.Direction.Rows)
         else:
-            self.terms = terms
+            self.terms, self.brand = terms, brand
             self.invalidateFilter()
+
+    def set_query(self, text):
+        self._change_filter([normalized(term) for term in text.split() if normalized(term)], self.brand)
+
+    def set_brand(self, brand):
+        self._change_filter(self.terms, brand.casefold())
 
     def filterAcceptsRow(self, row, parent):
         index = self.sourceModel().index(row, 0, parent)
+        entry = index.data(Qt.ItemDataRole.UserRole)
+        if self.brand and entry["manufacturer"].casefold() != self.brand:
+            return False
         keywords = index.data(Qt.ItemDataRole.UserRole + 1) or ""
         return all(term in keywords for term in self.terms)
+
+
+class BatteryResultDelegate(QStyledItemDelegate):
+    """Compact model heading with manufacturer and pinout availability underneath."""
+    SUBTITLE_ROLE = Qt.ItemDataRole.UserRole + 2
+
+    def sizeHint(self, option, index):
+        return QSize(360, 56)
+
+    def paint(self, painter, option, index):
+        selected = bool(option.state & QStyle.StateFlag.State_Selected)
+        hovered = bool(option.state & QStyle.StateFlag.State_MouseOver)
+        painter.save()
+        painter.setClipRect(option.rect)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        if selected or hovered:
+            painter.setPen(Qt.PenStyle.NoPen)
+            painter.setBrush(QColor("#203d55" if selected else "#1c2b3b"))
+            painter.drawRoundedRect(QRectF(option.rect.adjusted(2, 2, -2, -2)), 6, 6)
+        left, top, width = option.rect.left() + 14, option.rect.top(), option.rect.width() - 28
+        title_font = QFont("Segoe UI", 10, QFont.Weight.DemiBold)
+        subtitle_font = QFont("Segoe UI", 9)
+        title = QFontMetrics(title_font).elidedText(index.data() or "", Qt.TextElideMode.ElideRight, width)
+        subtitle = QFontMetrics(subtitle_font).elidedText(
+            index.data(self.SUBTITLE_ROLE) or "", Qt.TextElideMode.ElideRight, width)
+        painter.setFont(title_font)
+        painter.setPen(QColor("#f1f5fb"))
+        painter.drawText(QRectF(left, top + 6, width, 23), Qt.AlignmentFlag.AlignVCenter, title)
+        painter.setFont(subtitle_font)
+        painter.setPen(QColor("#b8ccdf" if selected else "#96a7bc"))
+        painter.drawText(QRectF(left, top + 30, width, 18), Qt.AlignmentFlag.AlignVCenter, subtitle)
+        painter.restore()
 
 
 class BatterySelector(QComboBox):
@@ -44,30 +85,50 @@ class BatterySelector(QComboBox):
         self.selected_entry = None
         self.setEditable(True)
         self.setInsertPolicy(QComboBox.InsertPolicy.NoInsert)
-        self.setMaxVisibleItems(9)
+        self.setMaxVisibleItems(7)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         self.setAccessibleName("Search battery model or part number")
         self.source = QStandardItemModel(self)
         self.entries = catalog()
         for entry in self.entries:
-            count = len(entry["pins"])
-            display = f"{entry['model']} · {entry['manufacturer']} · {count} positions"
-            item = QStandardItem(display)
+            subtitle = f"{entry['manufacturer']} · {pinout_summary(entry)}"
+            item = QStandardItem(entry["model"])
             item.setData(entry, Qt.ItemDataRole.UserRole)
+            item.setData(subtitle, BatteryResultDelegate.SUBTITLE_ROLE)
+            item.setData(f"{entry['model']}, {subtitle}", Qt.ItemDataRole.AccessibleTextRole)
             item.setData(normalized(" ".join([entry["manufacturer"], entry["model"], *entry.get("aliases", [])])), Qt.ItemDataRole.UserRole + 1)
             item.setToolTip(", ".join(entry.get("aliases", [])))
             self.source.appendRow(item)
-        self.setModel(self.source)
+        self.available = BatteryFilter(self)
+        self.available.setSourceModel(self.source)
+        self.setModel(self.available)
         self.setCurrentIndex(-1)
         self.lineEdit().setPlaceholderText("Search battery model or part number…")
         self.lineEdit().setClearButtonEnabled(False)
         self.filtered = BatteryFilter(self)
-        self.filtered.setSourceModel(self.source)
+        self.filtered.setSourceModel(self.available)
         completion = QCompleter(self.filtered, self)
         self.setCompleter(completion)
         completion.setCompletionMode(QCompleter.CompletionMode.UnfilteredPopupCompletion)
         completion.setCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
-        completion.popup().setMinimumWidth(360)
+        completion.setMaxVisibleItems(7)
+        for view in (self.view(), completion.popup()):
+            view.setItemDelegate(BatteryResultDelegate(view))
+            view.setMinimumWidth(360)
+            view.setUniformItemSizes(True)
+            view.setMouseTracking(True)
+            view.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+            view.setVerticalScrollMode(QAbstractItemView.ScrollMode.ScrollPerPixel)
+            view.setStyleSheet("""
+                QAbstractItemView {
+                    background: #151d27; color: #f1f5fb; border: 1px solid #3a4b60;
+                    padding: 4px; outline: 0;
+                }
+                QScrollBar:vertical { background: #151d27; width: 8px; margin: 2px; }
+                QScrollBar::handle:vertical { background: #45556a; border-radius: 3px; min-height: 24px; }
+                QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
+                QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical { background: transparent; }
+            """)
         completion.activated[QModelIndex].connect(self._completion_selected)
         self.activated.connect(self._combo_selected)
         self.lineEdit().textEdited.connect(self._edited)
@@ -113,22 +174,40 @@ class BatterySelector(QComboBox):
     def _combo_selected(self, index):
         self._commit(self.itemData(index))
 
+    def set_brand(self, brand):
+        self.completer().popup().hide()
+        blocked = self.blockSignals(True)
+        self.selected_entry = None
+        self.available.set_brand(brand)
+        self.filtered.set_query("")
+        self.setCurrentIndex(-1)
+        self.lineEdit().clear()
+        self.lineEdit().setPlaceholderText(
+            "Search battery model or part number…" if self.available.rowCount() else
+            "No models for this brand yet")
+        self.completer().setCompletionPrefix("")
+        self.blockSignals(blocked)
+        self.entry_selected.emit(None)
+
     def _commit(self, entry):
         if not entry:
-            return
-        index = next(i for i, value in enumerate(self.entries) if value["id"] == entry["id"])
+            return False
+        source_row = next(i for i, value in enumerate(self.entries) if value["id"] == entry["id"])
+        index = self.available.mapFromSource(self.source.index(source_row, 0))
+        if not index.isValid():
+            return False
         self.blockSignals(True)
-        self.setCurrentIndex(index)
-        self.setEditText(self.itemText(index))
+        self.setCurrentIndex(index.row())
+        self.setEditText(self.itemText(index.row()))
         self.blockSignals(False)
         self.selected_entry = entry
         self.entry_selected.emit(entry)
+        return True
 
     def select_id(self, entry_id):
         for entry in self.entries:
             if entry["id"] == entry_id:
-                self._commit(entry)
-                return True
+                return self._commit(entry)
         return False
 
 
@@ -169,17 +248,23 @@ class ConnectorDiagram(QWidget):
     def set_entry(self, entry, sda=7, scl=9):
         self.entry,self.sda,self.scl=entry,sda,scl
         self.selected=None
-        count=len(entry["pins"]) if entry else 8
+        self.rects=[]
+        self.setToolTip("")
+        count=len(entry["pins"]) if has_pinout(entry) else 8
         self.setMinimumWidth(max(220,count*31+16))
         self.setMaximumWidth(max(300,count*40+16))
+        self.setAccessibleDescription(
+            f"{count} documented connector positions" if has_pinout(entry) else
+            "Pinout not available for this model" if entry else "Select a battery to see its connector")
         self.update()
 
     def paintEvent(self, event):
         painter=QPainter(self);painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-        if not self.entry:
+        if not has_pinout(self.entry):
             painter.setPen(QColor("#9da7b5"))
             painter.setFont(QFont("Segoe UI",9))
-            painter.drawText(self.rect(),Qt.AlignmentFlag.AlignCenter,"Select a battery to see its connector")
+            text = "Pinout not available for this model" if self.entry else "Select a battery to see its connector"
+            painter.drawText(self.rect(),Qt.AlignmentFlag.AlignCenter | Qt.TextFlag.TextWordWrap,text)
             return
         pins=list(self.entry["pins"])
         if self.mirrored:pins.reverse()

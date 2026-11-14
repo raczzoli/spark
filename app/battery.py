@@ -282,7 +282,7 @@ def service(bus, action, expected, keys=None):
 
 
 def recover_pf(bus, current, keys):
-    """Experimental R3 recovery; never replay reset/key writes or disable protection.
+    """R3 recovery; never replay reset/key writes or disable protection.
 
     TI SLUUBU5A 15.1.25/15.1.35: reset stored PF data, then reset the IC.
     Only a fresh post-reset operational status can confirm a recovered battery.

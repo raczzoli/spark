@@ -91,6 +91,13 @@ class NativeEneTests(unittest.TestCase):
     def test_busy_timeout_disables_flash_and_preserves_error(self):
         self.assertIn("BUSY_TIMEOUT_WRITE_DISABLED", self.run_c(fault="busy"))
 
+    def test_valid_frames_with_stale_or_corrupt_data_are_rejected(self):
+        for fault in ("stale_latch", "reverse_corrupt"):
+            with self.subTest(fault=fault):
+                trace = self.run_c("KB9542GF", 0xA0, 7, fault, 160*1024)
+                self.assertIn("UNSTABLE_READ_REJECTED_NO_FLASH_WRITES", trace)
+                self.assertEqual(trace[-1], "CLOSE=1 PINS_RELEASED")
+
     def test_changed_identity_is_not_reused(self):
         self.assertIn("ID_CHANGED", self.run_c(fault="idchange"))
 

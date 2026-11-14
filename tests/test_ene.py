@@ -47,6 +47,34 @@ class FakeBus:
 
 
 class EneTests(unittest.TestCase):
+    def test_page_read_retries_only_complete_not_ready_replies(self):
+        answer = "ENEPAGE 00000 " + bytes(128).hex().upper()
+        with patch.object(self.bus, "command", side_effect=[TransportError("ERR EDI_NOT_READY"), answer]) as command:
+            self.assertEqual(self.ec._read_page(0), bytes(128))
+            self.assertEqual(command.call_count, 2)
+        for message, count in (("ERR EDI_NOT_READY", 3), ("ERR EDI_SESSION_LOST", 1), ("Timeout USB CDC", 1)):
+            with patch.object(self.bus, "command", side_effect=TransportError(message)) as command:
+                with self.assertRaises(TransportError):
+                    self.ec._read_page(0)
+                self.assertEqual(command.call_count, count)
+        with patch.object(self.bus, "command", side_effect=TransportError("ERR EDI_READ_UNSTABLE")) as command:
+            with self.assertRaisesRegex(FlashError, "inconsistent flash data in page 0x00000"):
+                self.ec._read_page(0)
+            self.assertEqual(command.call_count, 1)
+
+    def test_kb9548_measured_revision_and_full_image_guard(self):
+        bus = FakeBus()
+        bus.identity = (0xA0, 0x07)
+        ec = EneEC(bus, "KB9548QF2")
+        protocol = ec.flash_protocol(ec.enter_and_identify())
+        self.assertEqual(ec.family.sizes, (160 * 1024,))
+        with self.assertRaises(FlashError):
+            ec.erase_flash(128 * 1024, protocol)
+        self.assertFalse(any(c.startswith("ENEERASEPAGE") for c in bus.commands))
+        bus.identity = (0xF0, 0x07)
+        with self.assertRaises(FlashError):
+            ec.enter_and_identify()
+
     def setUp(self):
         FakeBus.commands = []
         FakeBus.identity = (0xD0, 0x0B)
@@ -66,10 +94,45 @@ class EneTests(unittest.TestCase):
         image = self.ec.read_flash(FLASH_SIZE, lambda done, total: progress.append(done))
         self.assertEqual(len(image), FLASH_SIZE)
         self.assertEqual(image[:128], bytes([0xA5]) * 128)
-        self.assertEqual(progress[-1], FLASH_SIZE)
+        self.assertEqual(progress[-1], FLASH_SIZE * 2)
+        self.assertEqual(sum(c.startswith("ENEREADPAGE ") for c in self.bus.commands), FLASH_SIZE // 128 * 2)
         self.ec.verify_flash(image)
         with self.assertRaises(FlashError):
             self.ec.verify_flash(bytes(FLASH_SIZE))
+
+    def test_read_rejects_single_wrong_byte_in_otherwise_valid_page_reply(self):
+        self.ec.enter_and_identify()
+        original = self.bus.command
+        for bad_pass in (0, 1):
+            calls = [0]
+            def command(text):
+                reply = original(text)
+                if text.startswith("ENEREADPAGE "):
+                    current_pass = calls[0] // (FLASH_SIZE // 128)
+                    calls[0] += 1
+                    if current_pass == bad_pass and text == "ENEREADPAGE 0C380":
+                        data = bytearray.fromhex(reply.split()[2])
+                        data[63] ^= 0xB4
+                        reply = "ENEPAGE 0C380 " + data.hex().upper()
+                return reply
+            with self.subTest(bad_pass=bad_pass), patch.object(self.bus, "command", side_effect=command):
+                with self.assertRaisesRegex(FlashError, "unstable at 0x0C3BF"):
+                    self.ec.read_flash(FLASH_SIZE)
+        self.assertFalse(any(c.startswith(("ENEERASEPAGE", "ENEWRITEPAGE")) for c in self.bus.commands))
+
+    def test_worker_never_returns_a_backup_after_an_unstable_read(self):
+        profile = next(p for p in FAMILIES_BY_MANUFACTURER["ENE"] if p.name == "KB9052QD")
+        worker = Worker("read", "SIMULATED", (7, 6), profile, (0xD0, 0x0B), read_size=FLASH_SIZE)
+        finished, failed = [], []
+        worker.finished.connect(lambda *args: finished.append(args))
+        worker.failed.connect(failed.append)
+        bus = FakeBus()
+        with patch("app.operations.ECTransport", return_value=bus), \
+                patch.object(EneEC, "_read_page", side_effect=FlashError("Unstable read")):
+            worker.run()
+        self.assertEqual(finished, [])
+        self.assertEqual(len(failed), 1)
+        self.assertTrue(bus.closed)
 
     def test_wrong_size_prevents_destructive_commands(self):
         self.ec.enter_and_identify()
@@ -82,7 +145,7 @@ class EneTests(unittest.TestCase):
                              for c in FakeBus.commands))
 
     def test_worker_connect_uses_ene_backend(self):
-        profile = FAMILIES_BY_MANUFACTURER["ENE"][-1]
+        profile = next(p for p in FAMILIES_BY_MANUFACTURER["ENE"] if p.name == "KB9052QD")
         worker = Worker("connect", "COM1", (7, 6), profile)
         finished, failed = [], []
         worker.finished.connect(lambda action, result: finished.append((action, result)))

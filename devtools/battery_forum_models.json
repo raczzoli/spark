@@ -1,0 +1,2664 @@
+{
+  "schema": 1,
+  "updated": "2026-11-13",
+  "entries": [
+    {
+      "manufacturer": "Acer",
+      "model": "AC14B18J",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-acer-batteries/acer-battery-ac14b18j-and-green-pin-out/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Acer",
+      "model": "AC14B8K",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-acer-batteries/acer-ac14b8k-battery-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Acer",
+      "model": "AC17A8M",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-acer-batteries/need-pinout-for-acer-ac17a8m/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Acer",
+      "model": "AP11D3F",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-acer-batteries/acer-ap11d3f-wrong-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Acer",
+      "model": "AP13B8K",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-acer-batteries/8-pins-female-connector-on-battery-ap13b8k/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Acer",
+      "model": "AP13J4K",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-acer-batteries/acer-ap13j4k-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Acer",
+      "model": "AP16J8K",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-acer-batteries/acer-ap16j8k-pinout-required/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Acer",
+      "model": "AP16M5J",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-asus-batteries/acer-ap16m5j-battery-pin-out/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Acer",
+      "model": "AS09A75",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-acer-batteries/acer-as09a75-cell-check/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/acer-as09a75/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Acer",
+      "model": "AS16B5J",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-acer-batteries/acer-as16b5j-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Acer",
+      "model": "KT.CTE00.018",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-acer-batteries/acer-kt-cte00-018-u638560pv-3s1p-sm-bus/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Apple",
+      "model": "A1713",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-apple-batteries/pinout-request-for-apple-macbook-pro-13-model-a1708-battery-model-a1713/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Apple",
+      "model": "A1953",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-apple-batteries/apple-akku-a1953/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Asus",
+      "model": "A32N1511",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-asus-batteries/pinout-request-for-laptop-battery-asus-a32n1511/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Asus",
+      "model": "B21N1329",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-asus-batteries/asus-b21n1329-battery-pack-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Asus",
+      "model": "B31N1637",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-asus-batteries/b31n1637-pinouts/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Asus",
+      "model": "C21N1634",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-asus-batteries/asus-battery-c21n1634-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Asus",
+      "model": "C21N1808",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-asus-batteries/broken-pins-asus-c21n1808-battery/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-asus-batteries/asus-c21n1808-pinout-please/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Asus",
+      "model": "C21N1818-1",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-asus-batteries/correction-needed-battery-asus-c21n1818-1/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Asus",
+      "model": "C21N1818-2",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-asus-batteries/batterie-asus-c21n1818-2-unread/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-asus-batteries/asus-c21n1818-2-a-question/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Asus",
+      "model": "C32N1305",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/laptop-battery-chip-reset-and-repair/pinout-unlock-asus-c32n1305/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Asus",
+      "model": "C41N1906-2",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-asus-batteries/asus-c41n1906-2-90wh/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Clevo",
+      "model": "M720BAT-4",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-clevo-batteries/clevo-m720bat-4-battery-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Clevo",
+      "model": "N240BAT-4",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-clevo-batteries/pinout-for-n240bat-4/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "266J9",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/anyone-know-the-pinout-for-dell-battery-266j9/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "34GKR",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pin-out-request-for-dell-34gkr/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "3DDDG",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-for-dell-9njm1-and-3dddg/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "3RNFD",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/3rnfd/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "4GVMP",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-request-for-laptop-battery-dell-4gvmp/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "4RXFK",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-battery-type-4rxfk-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "4RXFX",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-for-dell-4rxfx/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "4WNOY",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-4wnoy-reset-function-not-working/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "51KD7",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-51kd7-pinout-request/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "52TWH",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/how-to-connect-to-nlba1-dell-primary-battery-51wh-4-cell-type-52twh-nn6m8-xx3t7/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "5R9DD",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-for-dell-5r9dd/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-request-for-dell-5r9dd/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "69KF2",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-69kf2-battery-pinout/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/two-pinout-please-for-8n0t7-and-69kf2-8fctc-or-same-model/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "6GTPY",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/need-pinout-for-dell-97wh-battery-type-6gtpy/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-battery-type-6gtpy/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-battery-dell-6gtpy/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "71TG4",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/help-need-to-find-the-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "8FCTC",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/two-pinout-please-for-8n0t7-and-69kf2-8fctc-or-same-model/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "8N0T7",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/two-pinout-please-for-8n0t7-and-69kf2-8fctc-or-same-model/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "93FTF",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-baterry-93ftf-error/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "9MGCD",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-in-database-of-9mgcd-is-not-correct/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "9NJM1",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-for-dell-9njm1-and-3dddg/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "D2VF9",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-battery-dell-d2vf9/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "DJ1J0",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-battery-latitude-12-7280-type-dj1j0/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "DT9XG",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-dell-alienware-battery-dt9xg/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "F3YGT",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/request-pinout-dell-f3ygt-10-pines/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-type-f3ygt-g5m10-pinouts/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "F707H",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-f707h-pinout/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-f707h-correct-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "F7HVR",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-f7hvr-8-pin/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "G3VPN",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-battery-type-g3vpn-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "G5M10",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-type-f3ygt-g5m10-pinouts/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-e5550-typeg5m10/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "G91JO",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-request-for-dell-batery-model-g91jo/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "J590M",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-dell-j590m-wrong-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "J60J5",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/j60j5-battery-pinout-for-dell-latitude-e7270-e7470-laptops-chip-bq40320/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "JD33K",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-for-dell-jd33k/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "JD52G",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-jd52g-52wh-9-pin/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-jd52g-52wh-9-pin-needed/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "JK6Y6",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/del-jk6y6-is-wrong-pinout-t5-not-system-present/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-for-dell-jk6y6-battery/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "K5XWW",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-k5xww-10-pines/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "K916P",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-k916p-laptop-battery-pinout-needs-updating/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "M5Y1K",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/m5y1k-error/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/dell-m5y1k-charge-does-not-increase/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "MR90Y",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-battery-mr90y-2/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "MT264",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-mt264-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "MT3HJ",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-battery-model-mt3hj/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "MXV9V",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-battery-mxv9v/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "NN6M8",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/how-to-connect-to-nlba1-dell-primary-battery-51wh-4-cell-type-52twh-nn6m8-xx3t7/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "R8D7N",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-r8d7n-battery-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "T1G6P",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-for-dell-t1g6p-laptop-battery/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "TKN25",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-for-dell-tkn25/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-battery-type-tkn25-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "TM9HP",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-tm9hp/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "V6W33",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-needed-for-dell-v6w33-battery/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "V79Y0",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-v79y0-xps-14z-pin-11/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "VH748",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-vh748/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "WDX0R",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-wdx0r-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "WW12P",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-battery-pinout-2/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "X8VWF",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-x8vwf-97wh-11-1v/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "XX3T7",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/how-to-connect-to-nlba1-dell-primary-battery-51wh-4-cell-type-52twh-nn6m8-xx3t7/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "Y9N00",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-request-dell-y9n00/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "YRDD6",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pin-out-for-dell-battery-yrdd6-needed-please/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Dell",
+      "model": "YX0XH",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-battery-type-yx0xh-cable-to-connect-to-nlba/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Fujitsu",
+      "model": "CP636960-01",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-fujitsu-siemens-batteries/pinout-fujitsu-cp636960-01/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Fujitsu",
+      "model": "CP671396-01",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-fujitsu-siemens-batteries/fpcbp416-fmvnbp231-fpb0311s-cp671396-01/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Fujitsu",
+      "model": "CP700538-03",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-fujitsu-siemens-batteries/fpcbp424-fmvbp233-fpb0307s-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Fujitsu",
+      "model": "CP753143-01",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-fujitsu-siemens-batteries/fpcbp528-fmvbp245-fpb0337s-cp753143-01-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Fujitsu",
+      "model": "CP760721-01",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-fujitsu-siemens-batteries/fpcbp519-fmvnbp242-battery-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Fujitsu",
+      "model": "CP784743-03",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-fujitsu-siemens-batteries/fujitsu-cp784743-03-fmvnbp251-fpb0351s-fpcbp577/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Fujitsu",
+      "model": "FPCBP145",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-fujitsu-siemens-batteries/fujitsu-battery-pinout-fpcbp145/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Fujitsu",
+      "model": "FPCBP176",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-fujitsu-siemens-batteries/fujitsu-fpcbp176-battery-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Fujitsu",
+      "model": "FPCBP202",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-fujitsu-siemens-batteries/fujistu-u820-fpcbp202-battery-pinout-request/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Fujitsu",
+      "model": "FPCBP250",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-fujitsu-siemens-batteries/pinout-request-for-fujitsu-battery-fpcbp250/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Fujitsu",
+      "model": "FPCBP282",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-fujitsu-siemens-batteries/fpcbp282-pinout/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-fujitsu-siemens-batteries/i-need-help-to-fund-pins-off-fujitsu-battery/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Fujitsu",
+      "model": "FPCBP334",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-fujitsu-siemens-batteries/fujitsu-battery-pinout-no-fpcbp334/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Fujitsu",
+      "model": "FPCBP412",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-fujitsu-siemens-batteries/pinot-for-fujitsu-fpcbp412-laptop-battery/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Fujitsu",
+      "model": "FPCBP416",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-fujitsu-siemens-batteries/fpcbp416-fmvnbp231-fpb0311s-cp671396-01/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Fujitsu",
+      "model": "FPCBP424",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-fujitsu-siemens-batteries/fpcbp424-fmvbp233-fpb0307s-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Fujitsu",
+      "model": "FPCBP519",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-fujitsu-siemens-batteries/fpcbp519-fmvnbp242-battery-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Fujitsu",
+      "model": "FPCBP528",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-fujitsu-siemens-batteries/fpcbp528-fmvbp245-fpb0337s-cp753143-01-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Fujitsu",
+      "model": "FPCBP577",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-fujitsu-siemens-batteries/fujitsu-cp784743-03-fmvnbp251-fpb0351s-fpcbp577/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "AB06XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-ab06xl-7-7v-6962mah-hp-spare-921438-55-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "AD03XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/battery-pinout-for-hp-ad03xl-battery/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "AE03XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-ae03xl-hp-255-g10/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "AO02XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-battery-ao02xl-need-pinout/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-ao02xl-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "AT02XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/pinout-request-for-hp-at02xl/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "BK03XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-laptop-battery-bk03xl-battery-pack-hstnn-ub7g-916811-855-battery-pinout-correction/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "BL06XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/pinout-for-hp-battery-bl06xl/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "CC03XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/pinouts-for-hp-cc03xl-battry/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "CP03XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/i-need-hp-battery-cp03xl-battery-model-pinout-please/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "DB03",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/pinouts-for-hp-db03-battry/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/pinout-error-in-database-hp-db03/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "DG06XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-model-dg06xl-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "ET04XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/pinout-for-hp-et04xl/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "FM08",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-fm08-pinout-hstnn-lb8b/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "HS04",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/alguien-con-pin-out-de-battery-hs04-hp-por-favor/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "HSTNN-DB4P",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/request-for-hp-hstnn-db4p-internal-battery/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "HSTNN-DB6S",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/pin-out-for-hp-pk03xl-hstnn-db6s-bq4050/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "HSTNN-LB6K",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-hstnn-lb6k-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "HSTNN-LB8B",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-fm08-pinout-hstnn-lb8b/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "HSTNN-UB7G",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-laptop-battery-bk03xl-battery-pack-hstnn-ub7g-916811-855-battery-pinout-correction/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "HW03XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/pinout-request-for-laptop-battery-hp-hw03xl/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "LK03XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-lk03xl-pin-out/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "LP03XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/laptop-battery-pinouts-hp-lp03xl/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "MB04XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-mb04xl-pinout/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/pinout-for-hp-mb04xl-844204-850/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "MC96",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/need-pinout-for-hp-mc96-server-battery/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "ME03XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-me03xl/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "MG04XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-battery-model-mg04xl-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "ON03XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-on03xl-pinout-needed/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "PG06XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/pinout-request-for-laptop-battery-hp-pg06xl/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "PK03XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/pin-out-for-hp-pk03xl-hstnn-db6s-bq4050/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "PP2060",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/pinout-for-compaq-pp2060-pp2061e-series/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "PP2061E",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/pinout-for-compaq-pp2060-pp2061e-series/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "PX03XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-px03xl-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "RR03XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-rr03xl-pinout-needed-for-an-experiment/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "RR04XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-pin-out-for-rr04xl/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "SO04XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/pinout-request-for-laptop-battery-hp-so04xl-spare-844199-850/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "SS03",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/need-pinout-for-hp-ss03-please/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "TR03XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-tr03xl-hp-pn-723922-1b1/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "HP",
+      "model": "VR03XL",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/vr03xl-10-pin-battery/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "LG",
+      "model": "LBL111XE",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/other-laptop-battery-brand/please-tell-me-the-pin-assignment-of-the-lg-laptop-battery-please-do-it-urgently-there-is-no-information-in-the-program-search/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "01AV421",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-t470-01av421-sb10k97578-internal-battery-pinout/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-sb10k97578-fru-01av421/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-01av421-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "01AV489",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-t470-internal-battery-01av489-sb10k97577/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/help-need-to-find-the-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "01AV493",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/01av493-lenovo-battery-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "01AV494",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-x1-carbon-5th-gen-internal-battery-fru-01av494-asm-sb10k97586/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "02K6620",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/ibm-battery-02k6627-02k6620-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "02K6627",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/ibm-battery-02k6627-02k6620-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "45N1125",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-lnv-45n1125/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L12S4A02",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-l12s4a02-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L13S6P71",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/pinout-correction-for-lenovo-l13s6p71-battery/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L14M3P24",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-l14m3p24-12-pins/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/other-laptop-battery-brand/lenovo-l14m3p24/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L14M4PB0",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/help-me-to-find-pinout-for-this-l14m4pb0/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/help-l14m4pb0-pin-out/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L14S4E01",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/why-lenovo-battery-l14s4e01-4inr19-66/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L14S4P22",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-l14s4p22-12-pin/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L15L4A01",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/pinout-request-for-lenovo-4inr19-66l15l4a01-battery/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L15S4A01",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-l15s4a01-4inr19-65/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-l15s4a01-4inr19-65-8-pin-connector-pinout-required/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L17C3PB0",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/l17c3pb0/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L17M2PB3",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-l17m2pb3/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L17M3PG1",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-l17m3pg1/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L18L3PG2",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-l18l3pg2-battery-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L18L4P71",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-l18l4p71/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L18M4P72",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/l18m4p72-please-tell-me-how-to-connect-the-cable/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L19C4PH2",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/l19c4ph2-12-pin/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L19L3PDA",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/no-connector-and-pinout-request-for-laptop-battery-lenovo-l19l3pda-3icp7-59-67/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L19M3PD5",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/need-help-with-l19m3pd5-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L20C4P73",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/l20c4p73-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L20L2PF0",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/pinagem-l20l2pf0-br-lenovo/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L20M3PC2",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-ideapad-gaming-3-2022-battery-pinout-l20m3pc2/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "L23D4PK4",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/l23d4pk4-help-to-know-pin-out-please/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "SB10F46460",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/battery-for-lenovo-t470s-sb10f46460-does-not-allow-to-read/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/sb10f46460-cant-read/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-sb10f46460/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "SB10K97577",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-t470-internal-battery-01av489-sb10k97577/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "SB10K97578",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-t470-01av421-sb10k97578-internal-battery-pinout/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-sb10k97578-fru-01av421/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "SB10K97586",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-x1-carbon-5th-gen-internal-battery-fru-01av494-asm-sb10k97586/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Lenovo",
+      "model": "SB10K97593",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-sb10k97593-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "MSI",
+      "model": "BTY-M491",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-msi-batteries/pinout-msi-bty-m491/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Panasonic",
+      "model": "CF-VZSU10",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-panasonic-batteries/cf-vzsu10/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Panasonic",
+      "model": "CF-VZSU18B",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-panasonic-batteries/panasonic-cf-vzsu18b-111-volt/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Panasonic",
+      "model": "CF-VZSU58U",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-panasonic-batteries/panasonic-cf-vzsu58u/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Panasonic",
+      "model": "CF-VZSU66U",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-panasonic-batteries/panasonic-cf-vzsu66u-pinout-request/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Panasonic",
+      "model": "CF-VZSU79JS",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-panasonic-batteries/pinout-for-panasonic-cf-vzsu79js-laptop-battery/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Panasonic",
+      "model": "FZ-VZSU84A2U",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-panasonic-batteries/panasonic-fz-vzsu84a2u-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Panasonic",
+      "model": "FZ-VZSU84U",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-panasonic-batteries/panasonic-fz-vzsu84u-pinout-request/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Panasonic",
+      "model": "FZ-VZSU94W",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-panasonic-batteries/panasonic-fz-vzsu94w/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Panasonic",
+      "model": "FZ-VZSU95W",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-panasonic-batteries/panasonic-fz-vzsu95w/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Samsung",
+      "model": "AA-PBYN4AB",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-samsung-batteries/samsung-aa-pbyn4ab-battery-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Samsung",
+      "model": "AA-PBYN8AB",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-samsung-batteries/samsung-aa-pbyn8ab-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Samsung",
+      "model": "AA-PBZN2TP",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-samsung-batteries/samsung-aa-pbzn2tp-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Samsung",
+      "model": "AA-PL0NC8G",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-samsung-batteries/samsung-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Sony",
+      "model": "VGP-BPS22",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-sony-batteries/sony-laptop-battery-pack-vgp-bps22-11-1v-39wh/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Sony",
+      "model": "VGP-BPS26",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-sony-batteries/sony-vaio-vgp-bps26-new-and-packed-problem/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PA3055",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/toshiba-pa3055-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PA3356U-1BRS",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/toshiba-battery-pa3356u-1brs/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PA3465U",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/toshiba-pa3465u-pin-code/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PA3475U-1BRS",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/toshiba-pa3475u-1brs/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PA3533U-1BRS",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/toshiba-pa3533u-1brs/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PA3757U",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/toshiba-pa3757u-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PA3788-1BRS",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/pa3788-1brs-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PA3832U",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/toshiba-pa3832u/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PA3904U-1BRS",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/toshiba-pa3905u-1brs-aka-pa3904u-1brs/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PA3905U",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/pa3905u-pinout/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/toshiba-pa3905u-battery-reset/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PA3905U-1BRS",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/toshiba-pa3905u-1brs-aka-pa3904u-1brs/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PA3929U-1BRS",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/batterie-toshiba-pa3929u-1brs-not-readable/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PA5013U-1BRS",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/pinout-toshiba-pa5013u-1brs-laptop-battery/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PA5043U-1BRS",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/pinout-for-toshiba-pa5043u-1brs/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PA5136U-1BRS",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/toshiba-2/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PA5157U-1BRS",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/toshiba-pa5157u-1brs/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PA5209U-1BRS",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/pinout-for-toshiba-pa5209u-1brs/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PA5214U-1BRS",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/pinout-for-toshiba-pa5214u-1brs/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PA5267U-1BRS",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/toshiba-pa5267u-1brs/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/toshiba-pa5267u-1brs-pinout/"
+        },
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/toshiba-pa5267u-1brs-pinout-2/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PA5366U-1BRS",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/battery-toshiba-dynabook-pa5366u-1brs-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PABAS069",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/pinout-for-toshiba-pa34565u-1brs-pabas069/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Toshiba",
+      "model": "PABAS265",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/pinout-for-toshiba-pabas265-laptop-battery/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Xiaomi",
+      "model": "G15B01W",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/other-laptop-battery-brand/xiaomi-g15b01w-pinout/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Microsoft",
+      "model": "G3HTA049H",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/other-laptop-battery-brand/surface-book-2-keyboard-battery-g3hta049h/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Advent",
+      "model": "A14-S5-4S1P2200-0",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/other-laptop-battery-brand/advent-laptop-battery-a14-s5-4s1p2200-0-battery-pinout-required/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Unspecified",
+      "model": "NTSN1415-00-01-4S1P-0",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/other-laptop-battery-brand/tongfang-ntsn1415-00-01-4s1p-0-battery-pinout-required/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Unspecified",
+      "model": "SQU-1406",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/other-laptop-battery-brand/monster-casper-excalibur-squ-1406/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Unspecified",
+      "model": "GE5SN-00-01-3S2P-1",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/other-laptop-battery-brand/ge5sn-00-01-3s2p-1-laptop-battery-for-machenike-x7ti-x7ti-s-x6ti-s-f117-f6k-t2-z7-kp7gt-z7-kp7d2-t1ti-781sn3-t50ti-10-8v-47-52wh/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Simplo",
+      "model": "UT40-3S3900-S1C1",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/pinouts-for-clevo-batteries/pinout-for-simplo-ut40-3s3900-s1c1/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    }
+  ]
+}

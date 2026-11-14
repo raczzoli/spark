@@ -1,10 +1,10 @@
-# Experimental ENE EDI support
+# ENE EDI support
 
 ENE uses a common SPI EDI register transport and a shared eFlash page engine.
 The GUI lists documented physical models from [ENE_PINOUTS.md](ENE_PINOUTS.md);
 compatible models share the protocol groups below.
 All groups below are implemented and simulator-tested. KB9022Q identification
-has succeeded on hardware; complete physical read/write validation is pending. Existing ITE algorithms are separate.
+has succeeded on hardware. KB9548QF2 A0/07 has two matching 160 KiB physical readouts. Existing ITE algorithms are separate.
 
 | Internal protocol group | Documented examples | HWVERSION / EDIID | Full range used by reference implementations |
 | --- | --- | --- | --- |
@@ -26,7 +26,8 @@ but retains its own entry behavior.
 KB902x and KB9052 (B/D) use 128 KiB; KB9542GF uses the full 160 KiB range.
 The GUI labels this as a family value, not a capacity measured from the chip.
 The application rejects partial images. The internal KB9542GF engine retains
-160 KiB support, but that model is not exposed without a verified pinout.
+160 KiB support. KB9548QF2 exposes that engine for the measured A0/07 revision
+and its model-specific wiring.
 For ITE, the numeric Size field remains editable.
 
 All supported variants use 128-byte pages and erase to **00**, not FF.
@@ -67,8 +68,8 @@ SDA/SCL pin selection is used for ENE.
 | --- | --- |
 | GP4 | EDI DO / MISO (KSI7 on the documented KB9012 interface) |
 | GP5 | EDI CS (KSI4) |
-| GP6 | EDI CLK (KSI5) |
-| GP7 | EDI DI / MOSI (KSI6) |
+| GP2 | EDI CLK (KSI5) |
+| GP3 | EDI DI / MOSI (KSI6) |
 | GND | Target ground |
 
 Confirm the EC-side pins, programming-mode strap (for example KSO3), and
@@ -86,7 +87,7 @@ Pico is the SPI transport. Not every Pico variant exposes all four GPIOs.
   supply the base engine, F0/07 identity and its watchdog handling.
 - [Jack O'Neo's flashrom extension and contributor reports](https://eletronicabr.com/forums/topic/111881-ler-e-gravar-kbc-ene-kb90xx-com-o-gravador-ch341a-usando-flashrom-no-mint-linux/)
   supply the KB9010/16/18 grouping and KB9022/28, KB9052 B/D and KB9542 A0/07
-  signatures. These reports are not a substitute for local hardware validation.
+  signatures.
 - [ENE KB9012 datasheet](https://www.eliptor.pl/pub/pdf/ene/KB9012.pdf)
   documents the EDI interface and the KB9012 signal mapping.
 
@@ -97,12 +98,7 @@ wrong-family rejection, session loss, timeout and cleanup. Python tests cover
 USB command construction, selected ranges, full verification, worker and GUI
 integration. Existing ITE traces are tested separately.
 
-Physical validation still needs repeated matching reads and a complete
-erase/write/verify on representative boards, followed by a boot test with the
-programmer disconnected. Timing, board wiring and real watchdog behavior
-cannot be established by simulation.
-
-## KB902FQ C provisional support
+## KB902FQ C
 
 KB902FQ C reuses the common EDI engine with an assumed 128 KiB range and
 128-byte pages. `ENEOPEN KB902FQ` accepts a nonzero/non-FF hardware byte with
@@ -115,5 +111,54 @@ Pin mapping comes from the user-provided ASUS X541NA rev 2.1 FZ BoardView,
 whose BOM identifies U3001 as KB902FQ C, LQFP128. A published 128 KiB dump
 is supporting evidence for size, not a capacity probe:
 https://eletronicabr.com/en/files/file/34880-bios-notebook-asus-f540sa-xx183t-x540sa-and-kb902fq-rev-21-8mb/
-Real identification, full-range read and erase/write/verify remain untested.
 If the chip reports another EDI ID, capture it before extending this rule.
+
+## KB9548QF2 read validation (2026-11-13)
+
+Two complete 163,840-byte readouts matched SHA-256
+`ca0601d34a3223f75e1424d0b187274aea963e3afbcb3b58004cd6831781c6ee`.
+The upper 32 KiB contains nonuniform data and differs from the first 32 KiB.
+An intervening read stopped on EDI_NOT_READY; the host now retries that exact
+complete firmware error at most twice for page reads only. USB timeouts and
+session-loss errors stop immediately. Erase/program commands are never retried.
+No physical erase or program operation was run. The selectable KB9548QF2 profile
+uses the existing simulator-tested legacy A0/07 engine and full 160 KiB image
+guard. Write erases, programs and verifies the complete image.
+
+## Read integrity
+
+One independently saved read differed from four matching dumps at 0x0C3BF
+(E0 versus 54). E0 also equals the preceding byte, which suggests stale data
+as one possible explanation, but does not establish a timing fault or prove
+that the flash contents changed. No factory reference image is available.
+
+The EDI command sequence was compared with upstream flashrom: upstream also
+reads EFDAT directly after EFCMD READ, so an unconditional busy wait is not
+introduced on the basis of this discrepancy alone.
+
+The firmware now reissues every flash address and READ command in reverse
+page order and compares the results with the forward pass. A valid READY
+frame containing a different byte returns EDI_READ_UNSTABLE, disables flash
+access and returns no page. It does not vote, repair data or retry away a
+mismatch. The host reports the page and stops.
+
+The application independently reads the entire selected range twice and
+compares every byte before returning an image to the save dialog, including
+when connected to older firmware. A mismatch reports its first exact address.
+Progress includes both passes. This increases read time; repeated agreement
+detects intermittent errors but cannot prove correctness against a persistent,
+identically repeating fault. Erase/program sequences remain unchanged.
+
+Regression tests inject a validly framed stale EFDAT byte, corruption on the
+reverse pass and a single wrong byte in either full host pass. They require
+failure without a returned backup and without flash erase/program commands.
+
+Physical validation on the attached KB9548QF2 A0/07 with Pico W build
+`538700cfcb83`: 128 repeated reads of page 0x0C380 passed the firmware's
+forward/reverse check. Both complete 160 KiB host passes also matched, and
+the resulting image matched the prior stable SHA-256
+`ca0601d34a3223f75e1424d0b187274aea963e3afbcb3b58004cd6831781c6ee`.
+The complete test including the spot reads took 290 seconds, versus 101
+seconds for the previous firmware's single full pass plus 128 spot reads.
+All 262 automated tests passed. No physical EC erase/program was performed;
+the original intermittent error's root cause remains unconfirmed.

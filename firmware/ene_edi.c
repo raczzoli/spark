@@ -10,8 +10,8 @@
 #include "pico/stdlib.h"
 #include "hardware/spi.h"
 #define EDI_CS 5u
-#define EDI_CLK 6u
-#define EDI_MOSI 7u
+#define EDI_CLK 2u
+#define EDI_MOSI 3u
 #define EDI_MISO 4u
 #define EDI_HWVERSION 0xff00u
 #define EDI_EDIID 0xff24u
@@ -256,6 +256,20 @@ bool ene_read_page(uint32_t address, uint8_t data[EDI_PAGE]) {
     for (unsigned i = 0; i < EDI_PAGE && okay; ++i) {
         okay = flash_address(address + i) && edi_write(EDI_EFCMD, 0x03) &&
                edi_read(EDI_EFDAT, &data[i]);
+    }
+    /* READY validates framing, not the flash byte. Reissue every address and
+     * command in reverse order: a stale previous-byte latch then has different
+     * neighbours. Never return a silently repaired or majority-voted page.
+     */
+    for (unsigned remaining = EDI_PAGE; remaining && okay; --remaining) {
+        unsigned i = remaining - 1;
+        uint8_t check;
+        okay = flash_address(address + i) && edi_write(EDI_EFCMD, 0x03) &&
+               edi_read(EDI_EFDAT, &check);
+        if (okay && check != data[i]) {
+            error_text = "EDI_READ_UNSTABLE";
+            okay = false;
+        }
     }
     return finish_page(okay);
 }

@@ -23,7 +23,7 @@ class DeviceSession:
 
     @staticmethod
     def unavailable(exc):
-        return any(code in str(exc) for code in ("ADDRESS_NACK", "DATA_NACK", "SCL_LOW_TIMEOUT"))
+        return any(code in str(exc) for code in ("ADDRESS_NACK", "DATA_NACK", "SCL_LOW_TIMEOUT", "ITE_SESSION_INACTIVE"))
 
     def _open(self):
         self.bus = self.bus_factory(self.port, timeout=5)
@@ -38,6 +38,8 @@ class DeviceSession:
                 if self.bus.command("I2CTIMING 5") != "OK":
                     raise TransportError("Cannot select the validated I2C timing")
             self.ec = self.ite_factory(self.bus, page_mode=self.profile.read_protocol)
+            if hasattr(self.ec, "configure_family"):
+                self.ec.configure_family(getattr(self.profile, "name", "IT8xxx"))
 
     def _power_status(self, message):
         self.status(message)

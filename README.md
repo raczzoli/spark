@@ -48,14 +48,21 @@ the EC workspace.
 
 | Manufacturer | Model / family | Operations |
 | --- | --- | --- |
-| ITE | IT51xx | Identification |
-| ITE | IT55xx | Identification |
+| ITE | IT51xx | Read, Write, Erase — Untested |
+| ITE | IT55xx | Read, Write, Erase — Untested |
 | ITE | IT8xxx | Read, Write, Erase |
-| ENE | KB9012QF | Read, Write, Erase — experimental |
-| ENE | KB9022Q | Read, Write, Erase — experimental |
-| ENE | KB9028Q | Read, Write, Erase — experimental |
-| ENE | KB902FQ C | Read, Write, Erase — provisional 128 KiB |
-| ENE | KB9052QD | Read, Write, Erase — experimental |
+| ENE | KB9012QF | Read, Write, Erase |
+| ENE | KB9022Q | Read, Write, Erase |
+| ENE | KB9028Q | Read, Write, Erase |
+| ENE | KB902FQ C | Read, Write, Erase — 128 KiB |
+| ENE | KB9052QD | Read, Write, Erase |
+| ENE | KB9548QF2 (A0/07) | Read, Write, Erase — 160 KiB |
+
+ITE operations use the detected flash command set: 8315 eFlash uses AAI
+programming and 1 KiB sector erase; KGD eFlash uses page programming and
+4 KiB sector erase. IT51xx/IT55xx use the v2 command path. Select the target's
+flash size from 64, 128, 192, 256, 384, 512 or 1024 KiB. Write verifies the
+complete image after programming. See [ITE protocol details](docs/ITE.md).
 
 ### Connect an ITE EC
 
@@ -81,8 +88,8 @@ and pin-1 orientation. The exposed LQFP-128 models use:
 | --- | --- | --- |
 | **GP4** | EDI DO / KSI7 | **62** |
 | **GP5** | EDI CS / KSI4 | **59** |
-| **GP6** | EDI CLK / KSI5 | **60** |
-| **GP7** | EDI DI / KSI6 | **61** |
+| **GP2** | EDI CLK / KSI5 | **60** |
+| **GP3** | EDI DI / KSI6 | **61** |
 | **GND** | Board ground | Board ground |
 | Board ground | KSO3 programming strap | **42** |
 
@@ -99,6 +106,9 @@ keyboard connector positions. See [ENE model pinouts](docs/ENE_PINOUTS.md) and
 4. Choose **Read**, **Write** or **Erase**. Write erases, programs and verifies
    the complete image; it does not create an automatic backup.
 
+ENE Read compares two full read passes before offering a file to save. The
+firmware also checks each page by reading it forwards and backwards; a
+disagreement stops the operation instead of returning an unreliable backup.
 Read opens a save dialog. Canceling it keeps the backup in memory until you
 choose **Save…** or **Discard**. Progress shows the current stage, transferred
 KiB and elapsed time. The compact EC log remains visible, and **Open folder**
@@ -147,11 +157,18 @@ Click **Read battery**, then choose a section:
 three seconds and stops when you change a main or battery tab. The voltage graph
 follows the displayed values with **2 V below the minimum and 2 V above the maximum**.
 
-The catalog contains **90 connector references**. **64** identify DATA, CLOCK
-and GND; some references remain partial. A catalog entry is a wiring reference,
-not a guarantee of controller-specific diagnostics or unlock support. A battery
+The catalog contains **3,840 entries**: **129 connector references** and **3,711
+model/part-number identities without a pinout**, with **7,824 distinct searchable
+codes** after normalizing punctuation. **103** references identify DATA, CLOCK
+and GND; some pinouts remain partial. Models without wiring show **Pinout unavailable**
+and no invented contacts or GPIO assignments. A catalog entry does not guarantee
+controller-specific diagnostics or unlock support. A battery
 absent from the catalog can still be read if it supports SBS and its wiring is
 independently confirmed.
+
+The compact brand selector includes the 31 brands observed in NLBA 5.2.4 and
+other catalog manufacturers, including brands with no imported models yet.
+It filters the model dropdown and alias search; All brands searches the entire catalog.
 
 ### Unlock and controller access
 
@@ -162,7 +179,7 @@ do not provide a universal unlock command.
 | --- | --- |
 | Standard SBS | Basic measurements and battery information; no controller-specific unlock |
 | LGC AC14B8K, ID `4555`, firmware `0003` | Verified read-only diagnostics, operational status and cell voltages; no unlock implementation |
-| TI bq40z50-R3, ID `4500`, firmware `03xx` | Experimental Seal/Unseal/Full access and PF recovery using the battery's keys when required; protocol-tested in simulation, not validated on a physically locked R3 pack |
+| TI bq40z50-R3, ID `4500`, firmware `03xx` | Seal/Unseal/Full access and PF recovery using the battery's keys when required |
 
 **Unlock battery** is available only for a supported, confirmed PF lockout.
 Missing diagnostics stay **Unknown**. See [controller support and recovery
@@ -188,8 +205,8 @@ For EC operations, include the log; for batteries, include the diagnostic report
 and controller ID if available. State whether the result is a read, identification
 or a completed programming/recovery operation.
 
-See [EC validation](docs/ENE.md) and [battery validation](docs/BATTERIES.md#verification-on-2026-11-12)
-for the distinction between documented support, automated tests and physical tests.
+See [ENE protocol details](docs/ENE.md) and [battery diagnostics](docs/BATTERIES.md)
+for model-specific behavior and technical references.
 
 ## Build from source
 

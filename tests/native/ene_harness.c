@@ -18,6 +18,7 @@ static uint8_t regs[65536], flash[160*1024], latch[128];
 static uint64_t now;
 static unsigned output_mask, functions[8], reads, reset_writes, wdt_writes;
 static unsigned flash_commands, latches, erases, programs, release_attempts;
+static unsigned suspect_reads;
 static bool initialized, cs_high = true, busy;
 static const char *fault;
 static bool is(const char *name) { return !strcmp(fault,name); }
@@ -28,10 +29,10 @@ bool time_reached(absolute_time_t deadline) { return now >= deadline; }
 void gpio_init(unsigned pin) { assert(pin==5); functions[pin]=GPIO_FUNC_SIO; }
 void gpio_put(unsigned pin,bool value) { assert(pin==5); cs_high=value; }
 void gpio_set_dir(unsigned pin,bool output) {
-    assert(pin>=4 && pin<=7);
+    assert(pin>=2 && pin<=5);
     if(output) output_mask|=1u<<pin; else output_mask&=~(1u<<pin);
 }
-void gpio_set_function(unsigned pin,unsigned function) { assert(pin>=4 && pin<=7); functions[pin]=function; }
+void gpio_set_function(unsigned pin,unsigned function) { assert(pin>=2 && pin<=5); functions[pin]=function; }
 unsigned spi_init(spi_inst_t *spi,unsigned baud) { assert(spi==spi0 && baud==2000000); initialized=true; return baud; }
 void spi_deinit(spi_inst_t *spi) { assert(spi==spi0); initialized=false; }
 void spi_set_format(spi_inst_t *spi,unsigned bits,unsigned cpol,unsigned cpha,unsigned order) {
@@ -59,7 +60,10 @@ int spi_write_blocking(spi_inst_t *spi,const uint8_t *src,size_t len) {
         /* Real targets may ignore commands after an asynchronous reset. */
         if(!(regs[0xff14]&1) || !(regs[0xfead]&8)) return 5;
         if(value==0x03) {
-            regs[0xfeab]=flash[addr];
+            bool stale=is("stale_latch") && addr==63 && ++suspect_reads==1;
+            if(!stale) regs[0xfeab]=flash[addr];
+            if(is("reverse_corrupt") && addr==63 && ++suspect_reads==2)
+                regs[0xfeab]^=0xb4;
             if(is("midreset")) { regs[0xff14]&=~1u; regs[0xfead]=0; }
         } else if(value==0x20) {
             assert(!(addr%128)); memset(flash+addr,0,128); ++erases; busy=is("busy");
@@ -93,7 +97,7 @@ int spi_write_read_blocking(spi_inst_t *spi,const uint8_t *src,uint8_t *dst,size
 }
 static void released(void) {
     assert(!initialized && output_mask==0 && !ene_is_open());
-    for(unsigned i=4;i<=7;++i) assert(functions[i]==GPIO_FUNC_SIO);
+    for(unsigned i=2;i<=5;++i) assert(functions[i]==GPIO_FUNC_SIO);
 }
 int main(int argc,char **argv) {
     if(argc<5) return 2;
@@ -111,7 +115,13 @@ int main(int argc,char **argv) {
     printf("OPEN %02X/%02X WDT=%u VALUE=%02X\n",hw,id,wdt_writes,regs[0xfe80]);
     unsigned capacity=argc>5 ? (unsigned)strtoul(argv[5],NULL,0) : 128*1024;
     unsigned before=flash_commands;
-    if(is("lost")) {
+    if(is("stale_latch") || is("reverse_corrupt")) {
+        for(unsigned i=0;i<128;++i) flash[i]=(uint8_t)(i*17+3);
+        assert(!ene_read_page(0,data) && !strcmp(ene_error(),"EDI_READ_UNSTABLE"));
+        assert(!(regs[0xfead]&8) && !erases && !programs);
+        assert(ene_read_page(0,data) && !memcmp(data,flash,128));
+        puts("UNSTABLE_READ_REJECTED_NO_FLASH_WRITES");
+    } else if(is("lost")) {
         regs[0xff14]=0;
         assert(!ene_read_page(0,data) && !strcmp(ene_error(),"EDI_SESSION_LOST"));
         assert(!ene_erase_page(0) && !ene_write_page(0,data));

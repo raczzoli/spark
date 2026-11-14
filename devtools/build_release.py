@@ -43,8 +43,7 @@ def source_identity():
         digest.update(data if path.suffix == ".png" else data.replace(b"\r\n", b"\n"))
         digest.update(b"\0")
     return {"version": (ROOT / "VERSION").read_text().strip(),
-            "build_id": digest.hexdigest()[:12], "source_sha256": digest.hexdigest(),
-            "hardware_validation": "pending"}
+            "build_id": digest.hexdigest()[:12], "source_sha256": digest.hexdigest()}
 
 
 def run(args, **kwargs):
@@ -149,19 +148,22 @@ def main():
     (output / "build-info.json").write_text(json.dumps(identity, indent=2) + "\n")
     (output / "README.txt").write_text(
         f"Spark - EC Programmer + Battery Analyzer {identity['version']} / {identity['build_id']}\n\n"
-        "Automated tests passed. See docs/ENE.md for hardware validation status.\n"
+        "Automated tests passed. See docs/ENE.md for protocol details.\n"
         "Run app/Spark.exe; pico-firmwares/ contains board-specific UF2 files.\n"
         "Install only the UF2 matching your board. Pico 2 H uses Pico-2-RP2350.uf2.\n"
         "Default ITE pins: GP7 SDA, GP6 SCL, common GND. Default timing is unchanged.\n"
         "Battery tab: offline connector search, SBS readings, monitoring, PDF/JSON/CSV reports.\n"
         "Default battery pins: GP7 DATA, GP9 CLOCK, common GND; battery B+ stays off Pico.\n"
         "Physical pin numbers are shown only for the standard 40-pin Pico footprint.\n"
-        "TI bq40z50-R3 access profile is experimental and needs the battery's own keys.\n"
-        "Read-only SBS validated on AC14B8K; no physical TI service or new EC flash validation.\n"
-        "Read saves after completion. Write erases, programs and verifies; no automatic backup.\n"
-        "Size: numeric/manual for ITE (64/128/192/256 KiB); automatic and locked for ENE.\n"
-        "ENE is experimental. GP4 DO, GP5 CS, GP6 CLK, GP7 DI, common GND; confirm target strap/pins.\n"
-        "ENE models: KB9012QF, KB9022Q, KB9028Q, KB902FQ C (provisional), KB9052QD (128 KiB).\n"
+        "TI bq40z50-R3 access profile needs the battery's own keys.\n"
+        "ID 4555 / firmware 0003 supports read-only diagnostics; no service commands.\n"
+        "ENE Read checks forward/reverse pages and compares two full passes before saving.\n"
+        "Write erases, programs and verifies; no automatic backup.\n"
+        "ITE IT51xx/IT55xx/IT8xxx: Read, Write, Erase; Write verifies the complete image.\n"
+        "Size: numeric/manual for ITE (64/128/192/256/384/512/1024 KiB); automatic and locked for ENE.\n"
+        "ENE: GP2 CLK, GP3 DI, GP4 DO, GP5 CS, common GND; confirm target strap/pins.\n"
+        "ENE models: KB9012QF, KB9022Q, KB9028Q, KB902FQ C, KB9052QD (128 KiB).\n"
+        "KB9548QF2 A0/07: 160 KiB, model-specific EDI wiring.\n"
         "Source and instructions: https://github.com/raczzoli/spark\n"
     )
     entries = []

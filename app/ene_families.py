@@ -21,7 +21,7 @@ class EneFamily:
 
     def accepts_identity(self, identity):
         if self.command == "KB902FQ":
-            # Provisional EDI-07 compatibility, not a measured chip signature.
+            # EDI-07 compatibility rule; excludes known 160 KiB signatures.
             hw, ediid = identity
             return 0 < hw < 0xff and ediid == 0x07 and hw not in (0xA0, 0xF0)
         return identity in self.identities

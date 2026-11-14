@@ -11,7 +11,7 @@ from pathlib import Path
 from PySide6.QtCore import QSettings, QTimer, Qt, QUrl, QCoreApplication, QEvent, QTemporaryDir
 from PySide6.QtGui import QDesktopServices
 from PySide6.QtWidgets import (
-    QApplication, QDialog, QDialogButtonBox, QFileDialog, QMainWindow,
+    QApplication, QDialog, QDialogButtonBox, QFileDialog,
     QMessageBox, QVBoxLayout,
 )
 
@@ -28,9 +28,10 @@ from .operations import Worker, resolve_read_size
 from .controller import OperationController
 from .session import validate_ite_pins
 from .version import APP_NAME, VERSION, BUILD_ID
+from .window_chrome import SparkWindow
 
 
-class Window(QMainWindow):
+class Window(SparkWindow):
     def __init__(self, settings=None, auto_discovery=True):
         super().__init__()
         self.setWindowTitle(f"{APP_NAME} · {VERSION}")
@@ -152,7 +153,7 @@ class Window(QMainWindow):
         elif self.connected_identity is None:
             hint = "Check the wiring, then connect to the EC."
         elif not profile.read_protocol:
-            hint = "Identification only: flash operations are not available for this family."
+            hint = "Reads chip ID and revision only. Flash read/write/erase are not implemented for this family."
         elif self.flash_size_bytes() not in profile.flash_sizes:
             hint = "Select a supported flash size to enable operations."
         elif self.connected_protocol is None:
@@ -314,7 +315,7 @@ class Window(QMainWindow):
         size = self.flash_size_bytes()
         profile = self.model.currentData()
         if profile is not None and profile.fixed_flash_size is not None:
-            source = "provisional" if profile.name == "KB902FQ C" else "model default"
+            source = "model default"
             selected = f"{size // 1024} KiB ({source})"
         elif size and profile is not None and size not in profile.flash_sizes:
             selected = f"{size // 1024} KiB (unsupported size)"
@@ -327,7 +328,7 @@ class Window(QMainWindow):
         chip, version = self.connected_identity
         if self.manufacturer.currentText() == "ENE":
             self.identity.setText(f"Connected  |  {self.model.currentText()}  |  {selected}")
-            self.identity_details.setText(f"HW 0x{chip:02X}  /  EDI 0x{version:02X}  |  Experimental ENE support")
+            self.identity_details.setText(f"HW 0x{chip:02X}  /  EDI 0x{version:02X}")
         else:
             self.identity.setText(f"Connected  |  {self.model.currentText()}  |  {selected}")
             self.identity_details.setText(f"CHIP ID 0x{chip:04X}  /  REV 0x{version:02X}")
@@ -383,7 +384,7 @@ class Window(QMainWindow):
             self.flash_size.setRange(fixed // 1024, fixed // 1024)
             self.flash_size.setSpecialValueText("")
             self.flash_size.setValue(fixed // 1024)
-            self.flash_size.setToolTip("Provisional 128 KiB; capacity has not been measured on this model." if profile.name == "KB902FQ C" else "Model capacity; not measured from the chip.")
+            self.flash_size.setToolTip("Flash size for the selected model.")
         else:
             self.flash_size.setRange(0, max(profile.flash_sizes) // 1024 if profile else 256)
             self.flash_size.setSpecialValueText("Set size")
@@ -529,12 +530,6 @@ class Window(QMainWindow):
                 self.set_status("Pico disconnected. Connect again to identify the EC.", "warning")
                 return
             (chip, version), hold_active, detected_protocol = result
-            if self.manufacturer.currentText() == "ITE" and \
-                    self.model.currentData().read_protocol and (chip & 0xF000) != 0x8000:
-                self.note(f"Identified 0x{chip:04X}/0x{version:02X}, outside the selected IT8xxx family.")
-                self.reset_identity()
-                self.set_status("Connection failed: chip does not match the selected family", "error")
-                return
             self.connected_identity = (chip, version)
             self.connected_protocol = detected_protocol
             self.update_identity_label()

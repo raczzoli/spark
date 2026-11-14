@@ -9,9 +9,22 @@
   private database, firmware, photographs or connector artwork is bundled. The
   connector drawings and host/device SMBus implementation are original code.
   These community references are not manufacturer verification of every pack.
+- The separate battery brand registry includes the 31 factual brand labels
+  observed in NLBA 5.2.4's visible Battery Pinout selector. Only these names and
+  provenance metadata are bundled; no vendor program code or pinout database
+  is included. Spark also lists manufacturers found in its own model catalog.
+- Additional model/part-number identities come from
+  [Lenovo's Battery Information Finder](https://www.lenovo.com/content/dam/lenovo/site-design/esg-document-library/global/battery-msds/BatteryInformationFinder.xlsx),
+  [HP's Notebook/Tablet battery SDS library](https://h20195.www2.hp.com/v2/library.aspx?doctype=103),
+  [HP's supplier battery-name table](https://h20195.www2.hp.com/v2/getpdf.aspx/c07284208.pdf),
+  [Dell's BYD battery SDS](https://i.dell.com/sites/csdocuments/Legal_Docs/en/BYDSDS20210101.pdf)
+  and the [public Creeson supplier catalog](https://www.laptopu.ro/wp-content/uploads/wpforo/default_attachments/1612006850-laptopS-PINOUT.pdf).
+  Only factual identifiers and source links are bundled from these model lists;
+  no connector wiring is inferred from them. Original spreadsheets/PDFs remain
+  linked source documents rather than redistributed application assets.
 - SBS register definitions follow the
   [SBS Smart Battery Data Specification 1.1](https://sbs-forum.org/specs/sbdat110.pdf).
-  The experimental TI profile follows the
+  The TI profile follows the
   [TI bq40z50-R3 technical reference SLUUBU5A](https://www.ti.com/lit/ug/sluubu5a/sluubu5a.pdf).
   These documents are linked, not redistributed. See [battery scope](BATTERIES.md).
 
@@ -24,7 +37,7 @@
   and [Chromium OS EC license](https://chromium.googlesource.com/chromiumos/platform/ec/+/main/LICENSE).
   A copy of the BSD license is included at
   [Chromium-OS-EC-BSD.txt](licenses/Chromium-OS-EC-BSD.txt).
-- The DBGR entry pattern was also informed by
+- The DBGR entry pattern and IT5570 v2 command selection were also informed by
   [JohnDoe150489's I2C-Pico-USB-ITE-EC-prog](https://github.com/JohnDoe150489/I2C-Pico-USB-ITE-EC-prog),
   Copyright 2026 JohnDoe150489, MIT license. No GPIO or USB implementation
   from that fork is bundled here.

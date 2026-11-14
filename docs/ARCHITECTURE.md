@@ -3,11 +3,18 @@
 The supported ITE flash algorithms are selected from numeric EC revision and
 flash-command signatures in `app/flash_protocols.py`. There is no whitelist of
 laptop boards or individual ITE part numbers. Capacity remains a user selection.
+IT51xx/IT55xx use the v2 path with legacy or extended numeric identity handling;
+IT8xxx retains revision-based selection. Host and firmware ranges extend to
+1 MiB. See [ITE.md](ITE.md) for session commands and flash geometry.
 
 ## Host
 
 - `app/gui.py`, `app/gui_layout.py`: the EC tool's widgets, progress, save/open
   dialogs and UI state. EC keepalive policy remains with this tool.
+- `app/window_chrome.py`: themed Spark title bar and native Windows frame handling.
+  Caption dragging, edge resizing, maximize/restore and Snap hit testing stay with
+  the OS; maximized client bounds respect the monitor work area. Close always
+  delegates to the existing operation and unsaved-backup guards in `Window.closeEvent`.
 - `app/controller.py`: shared operation ownership. One worker runs at a time;
   the controller stays busy until the worker thread has exited, including cleanup.
   It has no EC commands, target models or widget dependencies.
@@ -27,7 +34,7 @@ laptop boards or individual ITE part numbers. Capacity remains a user selection.
   in `app/ene.py`, using the same EC adapter and cleanup.
 - `app/ec.py`: ITE operations and compatibility paths for older Pico firmware.
 - `app/geometry.py`: common supported capacities and page geometry.
-- `app/ene.py`: common experimental ENE EDI flash engine; compatibility groups
+- `app/ene.py`: common ENE EDI flash engine; compatibility groups
   and selected ranges are in `app/ene_families.py`. Physical models, pinouts and
   identity restrictions are in `app/ene_models.py`. See [ENE](ENE.md).
 
@@ -74,7 +81,7 @@ startup/busy/incompatible firmware as possibilities rather than asserting that
 a previous command is still running.
 
 `app/battery.py` implements SBS decoding, PEC negotiation and the explicit,
-experimental TI bq40z50-R3 profile. `battery_controllers.py` implements automatic
+TI bq40z50-R3 profile. `battery_controllers.py` implements automatic
 diagnostics for verified live SBS identities, independently of connector selection.
 For LGC AC14B8K it confirms DeviceType 4555 against the embedded big-endian
 FirmwareVersion ID and accepts the verified 0003 revision. Diagnostic selectors
@@ -85,8 +92,11 @@ the read. Diagnostics never enable the 4555 controller's unimplemented service
 operations. The SBS-only option remains available. `battery_operations.py` owns complete battery
 transactions and closes SMBus before reporting success. `battery_gui.py` and
 `battery_widgets.py` provide wiring guidance, measurements, trend plotting and
-reports. `battery_catalog.py` reads the bundled factual connector references;
-pinout selection never selects a controller or sends a manufacturer command.
+reports. `battery_catalog.py` reads the bundled factual connector references and
+model-only identities. An empty pin list means pinout unavailable: the selector
+and header show that state and clear any previous connector hit targets. Model
+sources never supply guessed pin counts, GPIO assignments or controller profiles.
+Pinout selection never selects a controller or sends a manufacturer command.
 The battery header contains a searchable model combo/Read and a compact
 GPIO-only connector. The shared Interface bar is outside both tool pages and
 remains readable during a worker, pending EC backup or live battery capture.
@@ -102,7 +112,7 @@ a previous reading and cannot enable controller service with changed settings.
 inhibition and FET flags. Memory SEC bits never determine Locked/Unlocked. Missing
 diagnostics remain unknown; temporary protection and disabled output are distinct
 from PF lockout. General info and Controller share this result and PF recovery
-handler. Seal/Unseal remains a separate Advanced operation. The experimental R3
+handler. Seal/Unseal remains a separate Advanced operation. The R3
 recovery handler validates identity/PEC, supplied access keys and current faults,
 sends PF-data reset/device reset once, and reports success only after a fresh
 Unlocked result. ID 4555 remains diagnostic-only. Identification methods, connection settings and

@@ -1,0 +1,749 @@
+[
+  {
+    "maker": "Acer",
+    "model": "AC14B18J",
+    "aliases": [],
+    "pins": ["-", "?", "D", "C", "?", "SP", "?", "+"],
+    "url": "https://www.laptopu.ro/community/pinouts-for-acer-batteries/acer-battery-ac14b18j-and-green-pin-out/",
+    "notes": "Moderator's numbered battery mapping: ground 1, data 3, clock 4, system present 6, positive 8. The contact count follows the highest published contact and is not independently confirmed. Other contacts stay unknown; SP grounding is not established by this reply. The external adapter connector is a separate interface.",
+    "orientation": "Numbering follows the battery-side mapping in the source: ground landmark 1 and positive landmark 8. Match the source connector and its view; do not reuse cable-end numbering.",
+    "reviewed": "2026-11-13",
+    "pin_count_inferred": true
+  },
+  {
+    "maker": "Dell",
+    "model": "WDX0R",
+    "aliases": [],
+    "pins": ["-", "?", "?", "SP", "?", "D", "C", "?", "?", "+"],
+    "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-wdx0r-pinout/",
+    "notes": "Uses the moderator's ground-1/SP-4/data-6/clock-7/positive-10 battery mapping. The owner's initial nine-contact cable mapping is not used; the administrator explicitly distinguishes battery-side and translated cable pinouts. Contact count is inferred from the highest published position. Other positions and the SP grounding policy are not established; no wiring is inferred for the related FW8KR identity.",
+    "orientation": "Battery-side numbering from the source, with ground landmark 1 and positive landmark 10. A laptop cable can translate these positions; match the battery connector and source view before wiring.",
+    "reviewed": "2026-11-13",
+    "pin_count_inferred": true
+  },
+  {
+    "maker": "Acer",
+    "model": "AS10D41",
+    "aliases": [],
+    "pins": [
+      "+",
+      "?",
+      "-",
+      "?",
+      "C",
+      "D",
+      "-",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-acer-batteries/acer/",
+    "notes": "Uses the first contributor's numbered mapping: positive 1, grounds 3/7/8, clock 5 and data 6. A later reply omits every ground and is explicitly questioned by the administrator; that reply is not used. Unspecified contacts remain unknown.",
+    "reviewed": "2026-11-13",
+    "pin_count_inferred": true
+  },
+  {
+    "maker": "Acer",
+    "model": "AL12A32",
+    "aliases": [],
+    "pins": [
+      "+",
+      "?",
+      "T (unconfirmed)",
+      "?",
+      "C",
+      "D",
+      "T (unconfirmed)",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-acer-batteries/acer/",
+    "notes": "The owner reports obtaining communication with this final mapping in the January 2021 replies. The earlier suggested SP/thermistor sequence did not work and is not used. T3/T7 functions are not established. The AL15A32 title of a different topic is not treated as an alias.",
+    "reviewed": "2026-11-13",
+    "pin_count_inferred": true
+  },
+  {
+    "maker": "Acer",
+    "model": "AS09C71",
+    "aliases": [],
+    "pins": [
+      "-",
+      "?",
+      "D",
+      "C",
+      "?",
+      "T (unconfirmed)",
+      "?",
+      "+"
+    ],
+    "url": "https://www.laptopu.ro/community/other-laptop-battery-brand/more-battery-pinouts-including-corrections-please-update/",
+    "notes": "Contributor-reported working mapping. Position 6 is called T without establishing whether it is a sensor or an enable contact. Only the explicitly identified contacts are assigned.",
+    "reviewed": "2026-11-13",
+    "pin_count_inferred": true
+  },
+  {
+    "maker": "Apple",
+    "model": "A1322",
+    "aliases": [],
+    "pins": [
+      "+",
+      "+",
+      "+",
+      "D",
+      "?",
+      "C",
+      "-",
+      "-",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-apple-batteries/macbook-a1322/",
+    "notes": "Owner-reported data 4 and clock 6. The owner also connects position 5 to ground, but its electrical function is not established; it remains unknown rather than being declared a ground or jumper.",
+    "reviewed": "2026-11-13",
+    "pin_count_inferred": true
+  },
+  {
+    "maker": "Apple",
+    "model": "A1382",
+    "aliases": [],
+    "pins": [
+      "+",
+      "+",
+      "+",
+      "D",
+      "T (unconfirmed)",
+      "C",
+      "-",
+      "-",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-apple-batteries/apple-a1382-battery-pin-out-needs-updating/",
+    "notes": "Corrected mapping confirmed by two contributors: data 4, clock 6. The older data-6/clock-4 mapping is explicitly rejected. Position 5 is labelled T but its electrical function is not established.",
+    "reviewed": "2026-11-13"
+  },
+  {
+    "maker": "Apple",
+    "model": "A1493",
+    "aliases": [
+      "MacBook Pro A1502"
+    ],
+    "pins": [
+      "-",
+      "-",
+      "-",
+      "SP",
+      "D",
+      "C",
+      "?",
+      "?",
+      "+"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-apple-batteries/pinout-request-for-a1493-battery/",
+    "notes": "Nine-position connector, viewed left to right from the negative end as described by the owner. The final reply identifies system present at 4. Positions 7/8 are not separately identified in this source.",
+    "reviewed": "2026-11-13",
+    "orientation": "Owner's nine-position view, left to right: negative contacts at 1/2/3, positive landmark at 9. Match the source photo before wiring."
+  },
+  {
+    "maker": "Apple",
+    "model": "A1375",
+    "aliases": [],
+    "pins": [
+      "+",
+      "+",
+      "+",
+      "C",
+      "D",
+      "?",
+      "-",
+      "-",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-apple-batteries/a1375-9-pin/",
+    "notes": "Owner reports successful operation with the stated nine-position mapping. The function of pin 6 was still being investigated; it is not automatically assigned as system present.",
+    "reviewed": "2026-11-13"
+  },
+  {
+    "maker": "Apple",
+    "model": "A1245",
+    "aliases": [],
+    "pins": [
+      "+",
+      "+",
+      "+",
+      "-",
+      "-",
+      "-",
+      "?",
+      "D",
+      "C"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-apple-batteries/apple-a1245-battery-pinout/",
+    "notes": "Owner opened the pack and published this nine-position mapping. Position 7 is not identified. Do not substitute the different signal order of other nine-position Apple packs.",
+    "reviewed": "2026-11-13"
+  },
+  {
+    "maker": "Apple",
+    "model": "A1494",
+    "aliases": [],
+    "pins": [
+      "+",
+      "+",
+      "+",
+      "+",
+      "C",
+      "D",
+      "T (unconfirmed)",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-apple-batteries/apple/",
+    "notes": "Eleven-position battery connector explicitly listed by the contributor. The accompanying test-adapter example inconsistently refers to pin 1 as ground and is not used. Battery grounds are 8-11; T7 function is left unconfirmed.",
+    "reviewed": "2026-11-13"
+  },
+  {
+    "maker": "Apple",
+    "model": "A1582",
+    "aliases": [],
+    "pins": [
+      "+",
+      "+",
+      "+",
+      "C",
+      "D",
+      "SP",
+      "-",
+      "-",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-apple-batteries/battery-pinout-required-apple-a1582/",
+    "notes": "The A1582 owner confirms the responder's mapping works on this model. Pin 6 is explicitly required to enable charge/discharge. This is a connector reference, not evidence that Spark supports this controller's recovery.",
+    "reviewed": "2026-11-13",
+    "orientation": "Source view has negative contacts 7/8/9 toward the centre of the battery and positive contacts 1/2/3 at the other end. Match the photograph and polarity landmarks."
+  },
+  {
+    "maker": "Asus",
+    "model": "A32N1511",
+    "aliases": [],
+    "pins": [
+      "-",
+      "-",
+      "-",
+      "D",
+      "C",
+      "+",
+      "+",
+      "+"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-asus-batteries/pinout-request-for-laptop-battery-asus-a32n1511/",
+    "notes": "Complete eight-position sequence published by the moderator and confirmed by the owner. No system-present contact is listed.",
+    "reviewed": "2026-11-13"
+  },
+  {
+    "maker": "Asus",
+    "model": "C32N1305",
+    "aliases": [],
+    "pins": [
+      "-",
+      "-",
+      "-",
+      "D",
+      "C",
+      "+",
+      "+",
+      "+"
+    ],
+    "url": "https://www.laptopu.ro/community/laptop-battery-chip-reset-and-repair/pinout-unlock-asus-c32n1305/",
+    "notes": "Complete eight-position sequence confirmed by the moderator. The source explicitly says this model has no system-present contact.",
+    "reviewed": "2026-11-13"
+  },
+  {
+    "maker": "Asus",
+    "model": "A32-F82",
+    "aliases": [],
+    "pins": [
+      "-",
+      "?",
+      "TEMP",
+      "D",
+      "C",
+      "SP",
+      "SP",
+      "?",
+      "+"
+    ],
+    "url": "https://www.laptopu.ro/community/other-laptop-battery-brand/more-battery-pinouts-including-corrections-please-update/",
+    "notes": "Uses the correction in the replies: position 3 is a thermistor; positions 6/7 are CONT1/CONT2 system-present contacts and both must be linked to battery ground. The original T3-as-jumper suggestion is explicitly rejected.",
+    "reviewed": "2026-11-13",
+    "present_to_ground": true,
+    "pin_count_inferred": true
+  },
+  {
+    "maker": "Dell",
+    "model": "6GTPY",
+    "aliases": [],
+    "pins": [
+      "-",
+      "-",
+      "-",
+      "-",
+      "T (unconfirmed)",
+      "?",
+      "D",
+      "C",
+      "+",
+      "+",
+      "+",
+      "+"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-battery-dell-6gtpy/",
+    "notes": "Contributor states this mapping was personally verified; two other public topics repeat it. Position 5 is labelled T without establishing its function here; position 6 is not identified.",
+    "reviewed": "2026-11-13",
+    "pin_count_inferred": true
+  },
+  {
+    "maker": "Dell",
+    "model": "K916P",
+    "aliases": [],
+    "pins": [
+      "+",
+      "?",
+      "T (unconfirmed)",
+      "?",
+      "D",
+      "C",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-k916p-laptop-battery-pinout-needs-updating/",
+    "notes": "Corrected polarity and signal mapping independently repeated by a second owner. Positive is position 1 and negative is position 7; the older opposite-polarity entry is rejected. T3 function remains unconfirmed.",
+    "reviewed": "2026-11-13",
+    "pin_count_inferred": true
+  },
+  {
+    "maker": "Dell",
+    "model": "9MGCD",
+    "aliases": [],
+    "pins": [
+      "-",
+      "SP",
+      "?",
+      "D",
+      "C",
+      "+"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/pinout-in-database-of-9mgcd-is-not-correct/",
+    "notes": "Owner correction explicitly identifies system present at position 2. Position 3 is not identified; no grounding instruction is inferred solely from the T notation.",
+    "reviewed": "2026-11-13",
+    "pin_count_inferred": true
+  },
+  {
+    "maker": "Dell",
+    "model": "VH748",
+    "aliases": [],
+    "pins": [
+      "+",
+      "+",
+      "?",
+      "?",
+      "D",
+      "C",
+      "-",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-vh748/",
+    "notes": "Owner-published mapping; positions 3/4 are not identified. Numbering starts at the two positive contacts.",
+    "reviewed": "2026-11-13",
+    "pin_count_inferred": true
+  },
+  {
+    "maker": "Dell",
+    "model": "4RXFK",
+    "aliases": [],
+    "pins": [
+      "+",
+      "?",
+      "?",
+      "C",
+      "D",
+      "?",
+      "?",
+      "T (unconfirmed)",
+      "?",
+      "?",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/dell-battery-type-4rxfk-pinout/",
+    "notes": "Moderator-published sparse mapping. The last numbered position is 11; contact count is inferred. T8 function is not established and unlisted positions remain unknown.",
+    "reviewed": "2026-11-13",
+    "pin_count_inferred": true
+  },
+  {
+    "maker": "Dell",
+    "model": "J60J5",
+    "aliases": [
+      "Latitude E7270",
+      "Latitude E7470"
+    ],
+    "pins": [
+      "-",
+      "-",
+      "-",
+      "SP",
+      "-",
+      "D",
+      "C",
+      "+",
+      "+",
+      "+"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-dell-batteries/j60j5-battery-pinout-for-dell-latitude-e7270-e7470-laptops-chip-bq40320/",
+    "notes": "Ten-position battery connector, not the four-position test adapter. Uses the moderator correction: grounds 1/2/3/5, system present 4, data 6, clock 7 and positive 8/9/10. Pin 4 must be linked externally to ground; it is not an internal ground.",
+    "reviewed": "2026-11-13",
+    "present_to_ground": true
+  },
+  {
+    "maker": "HP",
+    "model": "MB04XL",
+    "aliases": [],
+    "pins": [
+      "-",
+      "-",
+      "-",
+      "+",
+      "+",
+      "+",
+      "?",
+      "C",
+      "D",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-mb04xl-pinout/",
+    "notes": "Owner-published ten-position mapping. Position 7 is unidentified. Its clock-8/data-9 order differs from the LP03XL; the two models are not treated as aliases.",
+    "reviewed": "2026-11-13",
+    "pin_count_inferred": true
+  },
+  {
+    "maker": "HP",
+    "model": "BL06XL",
+    "aliases": [],
+    "pins": [
+      "+",
+      "?",
+      "D",
+      "C",
+      "?",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/pinout-for-hp-battery-bl06xl/",
+    "notes": "Published six-position sparse mapping: positive 1, data 3, clock 4 and ground 6. Positions 2/5 are not identified; count follows the last described contact.",
+    "reviewed": "2026-11-13",
+    "pin_count_inferred": true
+  },
+  {
+    "maker": "HP",
+    "model": "RR03XL",
+    "aliases": [],
+    "pins": [
+      "-",
+      "-",
+      "Battery detect",
+      "NC",
+      "C",
+      "D",
+      "+",
+      "+"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-rr03xl-pinout-needed-for-an-experiment/",
+    "notes": "Eight-position mapping transcribed by the owner from ProBook 440 G4 schematics/boardview. Position 3 is motherboard battery detection, not an established system-present jumper. Position 4 is described as empty.",
+    "reviewed": "2026-11-13",
+    "orientation": "Bottom of battery facing the viewer, connector in the upper-left corner; positions run left to right. Match the printed negative and positive markings."
+  },
+  {
+    "maker": "HP",
+    "model": "BI03XL",
+    "aliases": [],
+    "pins": [
+      "-",
+      "D",
+      "C",
+      "+",
+      "NC",
+      "+",
+      "RTC 3V",
+      "TEMP",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/hp-rr03xl-pinout-needed-for-an-experiment/",
+    "notes": "Nine-position mapping transcribed from HP Stream 14 AX schematics/boardview. Position 7 is a separate RTC supply, not pack B+; it remains an unassigned auxiliary contact. No temperature-pin grounding instruction is prescribed.",
+    "reviewed": "2026-11-13",
+    "orientation": "Bottom of battery facing the viewer, connector in the upper-right corner; positions run left to right. Match the polarity markings on the label side."
+  },
+  {
+    "maker": "HP",
+    "model": "LP03XL",
+    "aliases": [],
+    "pins": [
+      "-",
+      "-",
+      "-",
+      "+",
+      "+",
+      "+",
+      "?",
+      "D",
+      "C",
+      "?"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-hp-batteries/laptop-battery-pinouts-hp-lp03xl/",
+    "notes": "Owner's final solved reply explicitly gives a ten-position connector and data 8/clock 9. Contacts 7/10 are not assigned in that final mapping; an earlier quoted suggestion for ground 10 is not treated as a confirmation.",
+    "reviewed": "2026-11-13"
+  },
+  {
+    "maker": "Medion",
+    "model": "BP3S3P2150",
+    "aliases": [
+      "40030063"
+    ],
+    "pins": [
+      "-",
+      "-",
+      "-",
+      "D",
+      "C",
+      "?",
+      "+",
+      "+"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-medion-batteries/medion-model-bp3s3p2150-pinout-is-1-2-3d4c578/",
+    "notes": "Owner-published mapping for part 40030063. Position 6 is not identified.",
+    "reviewed": "2026-11-13",
+    "pin_count_inferred": true
+  },
+  {
+    "maker": "Samsung",
+    "model": "AA-PBYN4AB",
+    "aliases": [],
+    "pins": [
+      "+",
+      "+",
+      "+",
+      "C",
+      "D",
+      "T (unconfirmed)",
+      "-",
+      "-",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-samsung-batteries/samsung-aa-pbyn4ab-battery-pinout/",
+    "notes": "Contributor-published nine-position mapping. The source itself marks T6 with a question mark; it is not treated as a confirmed thermistor or system-present contact.",
+    "reviewed": "2026-11-13"
+  },
+  {
+    "maker": "Samsung",
+    "model": "AA-PB5NC6B",
+    "aliases": [],
+    "pins": [
+      "-",
+      "GAP",
+      "?",
+      "D",
+      "C",
+      "+"
+    ],
+    "url": "https://www.laptopu.ro/community/other-laptop-battery-brand/more-battery-pinouts-including-corrections-please-update/",
+    "notes": "Contributor reports testing this mapping. X2 is an absent contact/gap in the source notation; position 3 is unidentified. The contact count follows the last specified position.",
+    "reviewed": "2026-11-13",
+    "pin_count_inferred": true
+  },
+  {
+    "maker": "Sony",
+    "model": "VGP-BPS22",
+    "aliases": [],
+    "pins": [
+      "+",
+      "?",
+      "D",
+      "C",
+      "?",
+      "T (unconfirmed)",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-sony-batteries/sony-laptop-battery-pack-vgp-bps22-11-1v-39wh/",
+    "notes": "Owner confirms this positive-first seven-position variant with a reading screenshot. The same source quotes an opposite-view/variant mapping; match the positive-at-1 and negative-at-7 landmarks. T6 function is left unconfirmed.",
+    "reviewed": "2026-11-13",
+    "pin_count_inferred": true
+  },
+  {
+    "maker": "Toshiba",
+    "model": "PA5267U-1BRS",
+    "aliases": [
+      "Portege X20W-D-14G"
+    ],
+    "pins": [
+      "-",
+      "-",
+      "-",
+      "C",
+      "D",
+      "?",
+      "SP",
+      "?",
+      "+",
+      "+",
+      "+"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/toshiba-pa5267u-1brs-pinout/",
+    "notes": "Owner explicitly confirms this final mapping and identifies T7 as system present. Unspecified contacts remain unknown. A later no-reading report does not establish a different pinout or controller support.",
+    "reviewed": "2026-11-13",
+    "pin_count_inferred": true
+  },
+  {
+    "maker": "Toshiba",
+    "model": "PA5214U-1BRS",
+    "aliases": [],
+    "pins": [
+      "-",
+      "C",
+      "D",
+      "?",
+      "?",
+      "?",
+      "+"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/pinout-for-toshiba-pa5214u-1brs/",
+    "notes": "Moderator supplies this mapping and the owner subsequently reports obtaining battery readings. The additional enable contacts were not conclusively identified; they remain unknown.",
+    "reviewed": "2026-11-13",
+    "pin_count_inferred": true
+  },
+  {
+    "maker": "Toshiba",
+    "model": "PA5136U-1BRS",
+    "aliases": [],
+    "pins": [
+      "+",
+      "NC",
+      "-",
+      "NC",
+      "D",
+      "C",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/pinouts-for-toshiba-batteries/toshiba-2/",
+    "notes": "Owner-published seven-position connector mapping. Positions 2/4 are explicitly N/C, not data/clock or a guessed enable connection.",
+    "reviewed": "2026-11-13"
+  },
+  {
+    "maker": "Lenovo",
+    "model": "L12S4A02",
+    "aliases": [],
+    "pins": [
+      "+",
+      "?",
+      "GAP",
+      "C",
+      "D",
+      "?",
+      "?",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-l12s4a02-pinout/",
+    "notes": "Source explicitly gives eight positions; a linked moderator reply explains that position 3 is physically absent. Unspecified positions 2/6/7 remain unknown.",
+    "reviewed": "2026-11-13"
+  },
+  {
+    "maker": "Lenovo",
+    "model": "L13S6P71",
+    "aliases": [],
+    "pins": [
+      "+",
+      "?",
+      "GAP",
+      "?",
+      "C",
+      "D",
+      "?",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/pinout-correction-for-lenovo-l13s6p71-battery/",
+    "notes": "Owner correction: clock 5 and data 6, replacing the old clock-4/data-5 mapping. Position 3 is a gap; other unlisted positions remain unknown.",
+    "reviewed": "2026-11-13",
+    "pin_count_inferred": true
+  },
+  {
+    "maker": "Lenovo",
+    "model": "L14M3P24",
+    "aliases": [],
+    "pins": [
+      "+",
+      "+",
+      "+",
+      "+",
+      "C",
+      "D",
+      "?",
+      "?",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/other-laptop-battery-brand/lenovo-l14m3p24/",
+    "notes": "Owner explicitly lists twelve positions. Positive contacts are 1-4, clock 5, data 6 and grounds 9-12. Positions 7/8 are not identified.",
+    "reviewed": "2026-11-13"
+  },
+  {
+    "maker": "Lenovo",
+    "model": "L17M2PB3",
+    "aliases": [],
+    "pins": [
+      "+",
+      "?",
+      "C",
+      "D",
+      "?",
+      "?",
+      "?",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/pinputs-for-ibm-lenovo-batteries/lenovo-l17m2pb3/",
+    "notes": "Owner and moderator confirm these numbered signals match the PCB. The thread does not establish successful ordinary SBS reading; this pack may need controller-specific addressing/protocol support. Pinout selection does not configure that support.",
+    "reviewed": "2026-11-13"
+  },
+  {
+    "maker": "Lenovo",
+    "model": "42T4752",
+    "aliases": [
+      "ThinkPad Edge"
+    ],
+    "pins": [
+      "-",
+      "-",
+      "T (unconfirmed)",
+      "D",
+      "C",
+      "GAP",
+      "+",
+      "+"
+    ],
+    "url": "https://www.laptopu.ro/community/laptop-battery-pinout/laptop-battery-pinout-request/",
+    "notes": "Moderator supplies this eight-position top-view sequence for the explicitly requested 42T4752. Position 6 is a physical gap. The T3 function is not independently established.",
+    "reviewed": "2026-11-13",
+    "orientation": "Battery top view in the source: negative contacts at 1/2, gap at 6 and positive contacts at 7/8. Cable-side views are mirrored."
+  },
+  {
+    "maker": "Unspecified",
+    "model": "BTP-D4BM",
+    "aliases": [],
+    "pins": [
+      "?",
+      "+",
+      "D",
+      "C",
+      "?",
+      "?",
+      "GAP",
+      "-"
+    ],
+    "url": "https://www.laptopu.ro/community/laptop-battery-pinout/laptop-battery-pinout-request/paged/2/",
+    "notes": "The moderator explicitly answers the BTP-D4BM request with positive 2, data 3, clock 4, gap 7 and ground 8. The brand is not established in that request; nearby Fujitsu replies are not used to guess it. Contact count follows the last described position.",
+    "reviewed": "2026-11-13",
+    "pin_count_inferred": true
+  }
+]

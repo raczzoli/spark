@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2026 R89 Repairs and contributors
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-"""Recognize ITE IT8xxx flash command sets from live protocol responses.
+"""Recognize ITE flash command sets from live protocol responses.
 
 These are command signatures and algorithms, not a whitelist of EC models.
 Capacity is selected separately by the user.
@@ -21,9 +21,12 @@ class FlashProtocol:
 
 def protocol_for(identity, flash_id):
     chip_id, chip_version = identity
-    if not 0x8000 <= chip_id <= 0x8FFF or len(flash_id) != 3:
+    ite5 = (chip_id & 0xFF00) in (0x5100, 0x5500) or (chip_id >> 16) == 5
+    if not (ite5 or 0x8000 <= chip_id <= 0x8FFF) or len(flash_id) != 3:
         return None
-    v2 = (chip_version & 0x0F) >= 3
+    # The Pico ITE reference uses v2 block erase/program for IT5570 even
+    # below revision 3. Chromium also selects v2 for extended IT5xxxx IDs.
+    v2 = ite5 or (chip_version & 0x0F) >= 3
     if flash_id == bytes.fromhex("FF FF FE"):
         return FlashProtocol("ITE eFlash 8315", 1024, 0xD7,
                              "aai_v2" if v2 else "aai_legacy", flash_id)

@@ -10,6 +10,7 @@ protocol does not establish the same physical pinout.
 | KB9022Q | LQFP-128 | KB902x | B1 / 07 | 128 KiB |
 | KB9028Q | LQFP-128 (documented C revision) | KB902x | C0 / 07 | 128 KiB |
 | KB9052QD | LQFP-128 (Q-D) | KB9052 | D0 / 0B | 128 KiB |
+| KB9548QF2 | LQFP-128, bench-tested wiring | KB9542GF legacy engine | A0 / 07 | 160 KiB reference range |
 
 These entries share this physical EDI wiring:
 
@@ -17,8 +18,8 @@ These entries share this physical EDI wiring:
 | --- | --- | --- |
 | GP4 | 62 | KSI7 / EDI DO |
 | GP5 | 59 | KSI4 / EDI CS |
-| GP6 | 60 | KSI5 / EDI CLK |
-| GP7 | 61 | KSI6 / EDI DI |
+| GP2 | 60 | KSI5 / EDI CLK |
+| GP3 | 61 | KSI6 / EDI DI |
 | GND | Board ground | Common ground |
 | Board ground | 42 | KSO3 programming strap |
 
@@ -44,8 +45,7 @@ matrix signals for programming. Do not ground KSO2 as an additional strap.
   KSO3 at 42. The Q-D schematic marking is displayed as KB9052QD.
 
 Protocol identities and capacities come from the separate references in
-[ENE.md](ENE.md). Pinout documentation does not establish hardware-tested
-read/write support. The other listed models still need physical validation.
+[ENE.md](ENE.md).
 
 KB9542GF remains implemented internally, but is absent from the GUI until its
 exact package pinout is documented. A KB9542Q schematic does not establish the
@@ -57,11 +57,20 @@ physical mapping. Reuse the protocol groups in `app/ene_families.py`.
 
 ## KB902FQ C
 
-The GUI also exposes KB902FQ C, LQFP-128, with a provisional 128 KiB range.
+The GUI also exposes KB902FQ C, LQFP-128, with a 128 KiB range.
 The supplied ASUS X541NA REV 2.1 BoardView File.fz BOM identifies U3001 as
 KB902FQ C. U3001 pins 59/60/61/62 are KSI4/5/6/7; pin 42 is KSO3.
 The same Pico wiring and diagram therefore apply. Board-specific alternate
 points are C2912.1 (59), C2913.5 (60), C2913.3 (61), C2914.7 (62), C2913.7 (42).
 Confirm continuity before applying X541NA component references to X541SA.
-The supplied BoardView is not redistributed. See ENE.md for the provisional
-identity rule; no KB902FQ hardware signature or successful flash test is claimed.
+The supplied BoardView is not redistributed. See ENE.md for the
+EDI-07 compatibility rule and accepted signatures.
+
+## KB9548QF2
+
+The user-identified KB9548QF2 returned A0/07 on 2026-11-13 with EC pins
+59/60/61/62 connected to GP5/GP2/GP3/GP4 and KSO3 (42) grounded before power.
+Only this measured revision is accepted. The profile uses the existing 160 KiB
+legacy EDI range, not a capacity register measurement.
+Write uses the existing erase/program/verify flow
+and requires a complete 163,840-byte image. Other revisions are rejected.

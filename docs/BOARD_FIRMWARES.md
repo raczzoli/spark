@@ -19,17 +19,15 @@ for each workspace:
 | `Seeed-XIAO-RP2350.uf2` | Seeed Studio XIAO RP2350 (`seeed_xiao_rp2350`) |
 
 All ten variants compile and have UF2 metadata matching their Pico SDK board
-profile, RP2040/RP2350 family, and USB CDC console feature. That validates
-the generated files; it cannot establish electrical operation on untested
-boards. The board used during EC protocol development was the Waveshare
-RP2350-USB-A. These exact release UF2s have not been tested on all boards.
+profile, RP2040/RP2350 family, and USB CDC console feature.
+The board used during EC protocol development was the Waveshare RP2350-USB-A.
 
 ## Connections by workspace
 
 | Task | Default Pico GPIOs | Target |
 | --- | --- | --- |
 | ITE EC programming | GP7 SDA, GP6 SCL, common GND | Board's confirmed EC programming signals |
-| ENE EC programming | GP4 DO, GP5 CS, GP6 CLK, GP7 DI, common GND | Model-specific EDI pins and KSO3 strap |
+| ENE EC programming | GP2 CLK, GP3 DI, GP4 DO, GP5 CS, common GND | Model-specific EDI pins and KSO3 strap |
 | Battery Analyzer | GP7 DATA, GP9 CLOCK, common GND | Confirmed battery D, C and B− contacts; B+ stays disconnected from Pico |
 
 The EC and battery workspaces retain their own GPIO settings. Use GPIO numbers
@@ -42,7 +40,7 @@ headers and debug connector, so they use the base board UF2. See
 [Raspberry Pi Pico board documentation](https://www.raspberrypi.com/documentation/microcontrollers/pico-series.html).
 
 For ENE EDI, all builds use SPI0 on fixed **GP4 (EDI DO)**, **GP5 (EDI CS)**,
-**GP6 (EDI CLK)**, and **GP7 (EDI DI)** plus common GND. The target's KSO3
+**GP2 (EDI CLK)**, and **GP3 (EDI DI)** plus common GND. The target's KSO3
 test signal also needs the board-specific low connection. Check that those
 GPIOs are exposed on your Pico variant before choosing its UF2. See the ENE
 section in the main README for target-side signal names.

@@ -46,6 +46,22 @@ class NativeFirmwareTests(unittest.TestCase):
             with self.subTest(command=args):
                 self.assertEqual(self.run_c(*args.split()), expected)
 
+    def test_ite5_register_model_runs_full_flash_cycles(self):
+        for chip, size, kgd in (("5122", 128*1024, 0), ("5570", 256*1024, 1),
+                                ("51526", 512*1024, 0), ("51626", 1024*1024, 1)):
+            with self.subTest(chip=chip, size=size):
+                trace = self.run_c("model", chip, str(size), str(kgd))
+                self.assertIn("ERR ITE_SESSION_INACTIVE", trace)
+                self.assertEqual(trace[-1], "ITE5_FULL_CYCLE_OK")
+                self.assertTrue(any(f"CHIPID={chip} CHIPVER=02" in line for line in trace))
+                self.assertEqual(sum(line.startswith("PAGE ") for line in trace), size//256)
+                self.assertEqual(sum(line.startswith("ERR ") for line in trace), 1)
+                pages = {line.split()[1]: line.split()[2] for line in trace if line.startswith("PAGE ")}
+                for address in (0, 0x100, 0x3ff00, 0x40000, size-256):
+                    if address >= size: continue
+                    expected = bytes((i ^ (i >> 16)) & 255 for i in range(address, address+256))
+                    self.assertEqual(pages[f"{address:06X}"], expected.hex().upper())
+
     def test_watchdog_restores_register_cursor(self):
         trace = self.run_c("hold")
         self.assertEqual(trace[-2:], ["W 5A 08", "CURSOR=08 HOLD=1"])
@@ -88,7 +104,7 @@ class NativeFirmwareTests(unittest.TestCase):
     def test_reject_bad_commands_before_bus_access(self):
         commands = ["REGREAD 00 garbage", "REGWRITE 100 20", "READ 35 65",
                     "WRITE 35 " + "FF" * 65, "ERASESECTOR 000001 D7",
-                    "ERASESECTOR 000000 1D7", "READPAGE 040000",
+                    "ERASESECTOR 000000 1D7", "READPAGE 100000",
                     "AAI64 000000 " + "00" * 65, "AAI256 000000 " + "00" * 257,
                     "PINS 6 6", "REGWRITE 00 01 WRITE 35 FF", "READPAGE 100000000",
                     "@Z234ABCD HELLO", "PAGE64 000001 " + "00" * 64,

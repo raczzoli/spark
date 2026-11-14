@@ -242,6 +242,11 @@ void read_flash_page(uint32_t address) {
         usb_puts("ERR READPAGE_ADDRESS"); return;
     }
     static uint8_t page[ITE_FLASH_PAGE_SIZE];
+    /* Extended targets need the F0 bank before watchdog access. Keep the
+     * legacy setup order byte-for-byte for existing IT8xxx targets. */
+    if (dbgr_extended && !dbgr_reg_write(0x80, 0xf0)) {
+        usb_puts("ERR READPAGE_BANK"); return;
+    }
     const uint8_t setup[][2] = {
         /* Keep watchdog alive, then issue only SPI FAST_READ (0x0B). */
         {0x2f, 0x1f}, {0x2e, 0x07}, {0x30, 0x5c},

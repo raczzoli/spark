@@ -36,7 +36,7 @@ open-drain interface; Raspberry Pi reports it fixed in A4. See the
 2. Connect GND, SDA, and SCL; power the target board as required by its design.
 3. Wait for the shared **Interface** bar to show Connected. Open **EC Programmer**,
    then select ITE, the EC family, the two GPIO numbers, and **Size**
-   (64, 128, 192, or 256 KiB).
+   (64, 128, 192, 256, 384, 512 or 1024 KiB).
 4. Click **Connect to EC**. If asked, remove target power for about five
    seconds and reconnect it while keeping the Pico attached.
 5. **Read** starts at address 0 and saves exactly the selected range. Select
@@ -51,3 +51,7 @@ displayed flash size is the user's selection; the flash command set is
 recognized from CHIPVER and the flash ID, without a model whitelist. A correct
 size selection is required
 for a full image operation.
+
+All three ITE selectors support Read, Write and Erase. IT51xx/IT55xx select
+the v2 flash command path; IT8xxx retains revision-based algorithm selection.
+See [ITE protocol details](ITE.md) for the flash signatures and session layout.

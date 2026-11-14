@@ -219,7 +219,7 @@ class TransportTests(unittest.TestCase):
     def test_bad_page_address_rejected_before_usb(self):
         bus = ECTransport("COM1")
         before = list(bus.port.written)
-        for address in (-1, 1, 0x40000):
+        for address in (-1, 1, 0x100000):
             with self.assertRaises(ValueError):
                 bus.read_page(address)
         self.assertEqual(bus.port.written, before)
@@ -243,6 +243,19 @@ class TransportTests(unittest.TestCase):
         bus.port.replies.append(b"ERASESECTOR 000000 OK\n")
         with self.assertRaises(transport.TransportError):
             bus.erase_sector(0x400, 0xd7)
+
+    def test_ite5_configuration_extended_identity_and_last_page(self):
+        bus = ECTransport("COM1")
+        page = bytes(range(256))
+        bus.port.replies += [b"OK\n",
+            b"ENTERDBGR RATE=200000 CHIPID=51526 CHIPVER=02 WDT=30\n",
+            b"SESSION CHIPID=51526 CHIPVER=02\n",
+            b"PAGE 0FFF00 " + page.hex().upper().encode() + b"\n"]
+        bus.select_ite_family("IT51xx")
+        self.assertEqual(bus.enter_dbgr(), (0x51526, 2))
+        self.assertEqual(bus.session(), (0x51526, 2))
+        self.assertEqual(bus.read_page(0xfff00), page)
+        self.assertIn(b"ITEFAMILY IT51XX\n", bus.port.written)
 
     def test_power_cycle_nack_allows_direct_entry_attempt(self):
         calls = []

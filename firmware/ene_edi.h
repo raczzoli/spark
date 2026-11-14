@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-/* SPI0: GP4=MISO, GP5=CS, GP6=CLK, GP7=MOSI. */
+/* SPI0: GP4=MISO, GP5=CS, GP2=CLK, GP3=MOSI. */
 bool ene_open(uint8_t *hwversion, uint8_t *ediid);
 bool ene_open_family(const char *family, uint8_t *hwversion, uint8_t *ediid);
 bool ene_close(void);

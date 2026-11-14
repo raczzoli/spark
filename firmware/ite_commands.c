@@ -14,6 +14,11 @@
 
 bool ite_command(char *cmd) {
     unsigned a, b; char hex[MAX_XFER*2+1]; uint8_t buf[MAX_XFER]; size_t len; int used;
+    if (!strcmp(cmd, "ITEFAMILY IT51XX") || !strcmp(cmd, "ITEFAMILY IT55XX") ||
+        !strcmp(cmd, "ITEFAMILY IT8XXX")) {
+        dbgr_select_family(strcmp(cmd, "ITEFAMILY IT8XXX") != 0);
+        usb_puts("OK"); return true;
+    }
     if ((sscanf(cmd,"I2CTIMING %3u%n",&a,&used)==1 && cmd[used] == 0)) {
         usb_puts(bus_set_timing(a) ? "OK" : "ERR I2CTIMING"); return true;
     }
@@ -31,14 +36,16 @@ bool ite_command(char *cmd) {
         return true;
     }
     if (!strcmp(cmd,"SESSION")) {
-        uint8_t high, low, ver;
-        if (!dbgr_reg_read(0x02,&ver) || !dbgr_reg_read(0x00,&high) ||
-            !dbgr_reg_read(0x01,&low)) {
+        if (dbgr_ite5 && !dbgr_hold_until_us) {
+            usb_puts("ERR ITE_SESSION_INACTIVE"); return true;
+        }
+        uint8_t ver;
+        uint32_t id;
+        if (!dbgr_target_identity(&id, &ver)) {
             usb_printf("ERR %s\n", i2c_error ? i2c_error : "SESSION_ID"); return true;
         }
-        if ((high & 0xf0u) != 0x80u) { usb_puts("ERR SESSION_ID"); return true; }
         dbgr_hold_refresh();
-        usb_printf("SESSION CHIPID=%02X%02X CHIPVER=%02X\n", high,low,ver);
+        usb_printf("SESSION CHIPID=%04lX CHIPVER=%02X\n", (unsigned long)id,ver);
         return true;
     }
     if (!strcmp(cmd,"SPISTATUS")) { flash_status(); return true; }

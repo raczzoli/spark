@@ -80,6 +80,52 @@ class BatteryGuiTests(unittest.TestCase):
         finally:
             page.deleteLater()
 
+    def test_brand_filters_both_popups_and_preserves_alias_search_and_selection(self):
+        brand=self.b.brand_choice
+        combo=self.b.battery_choice
+        self.assertEqual(brand.currentData(), "")
+        self.assertEqual(combo.currentText(), "")
+        self.assertLessEqual(brand.maximumWidth(),150)
+        self.w.show();self.app.processEvents()
+        brand.showPopup();self.app.processEvents()
+        self.assertLessEqual(brand.view().height(),350)
+        brand.hidePopup()
+        brand.setCurrentIndex(brand.findData("HP"))
+        self.assertGreater(combo.count(),0)
+        self.assertTrue(all(combo.itemData(i)['manufacturer']=='HP' for i in range(combo.count())))
+        self.assertFalse(combo.select_id(search('AC14B8K')[0]['id']))
+        combo.lineEdit().setText('916811855')
+        combo._edited('916811855')
+        self.assertEqual(combo.filtered.rowCount(),1)
+        QTest.keyClick(combo.lineEdit(),Qt.Key.Key_Return)
+        self.assertEqual(self.b.entry['model'],'BK03XL')
+        self.assertEqual(combo.currentData()['id'],self.b.entry['id'])
+        brand.setCurrentIndex(brand.findData("Lenovo"))
+        self.assertEqual(combo.currentText(), "")
+        self.assertIsNone(self.b.entry)
+        self.assertIsNone(self.b.diagram.entry)
+        self.assertTrue(all(combo.itemData(i)['manufacturer']=='Lenovo' for i in range(combo.count())))
+        combo._combo_selected(0)
+        self.assertEqual(self.b.entry['id'],combo.itemData(0)['id'])
+
+    def test_empty_brand_clears_wiring_and_cannot_select_another_brands_first_model(self):
+        self.choose('AC14B8K')
+        self.b.brand_choice.setCurrentIndex(self.b.brand_choice.findData('DJI'))
+        combo=self.b.battery_choice
+        self.assertEqual(combo.count(),0)
+        self.assertEqual(combo.filtered.rowCount(),0)
+        self.assertIn('No models',combo.lineEdit().placeholderText())
+        self.assertEqual(combo.currentText(),'')
+        self.assertIsNone(self.b.entry)
+        self.assertIsNone(self.b.diagram.entry)
+        QTest.keyClick(combo.lineEdit(),Qt.Key.Key_Return)
+        self.assertIsNone(self.b.entry)
+        self.b.brand_choice.setCurrentIndex(0)
+        self.assertGreater(combo.count(),0)
+        self.assertEqual(combo.currentText(),'')
+        self.assertIn('Search battery',combo.lineEdit().placeholderText())
+        self.assertIsNone(self.b.entry)
+
     def test_catalog_combo_filters_aliases_and_accepts_keyboard_selection(self):
         self.w.show()
         self.w.activateWindow()
@@ -124,6 +170,30 @@ class BatteryGuiTests(unittest.TestCase):
         self.b.mirror_view()
         self.assertTrue(self.b.diagram.mirrored)
         self.assertEqual(entry["pins"][0]["number"], 1)
+
+    def test_model_without_pinout_clears_previous_wiring_and_stays_readable(self):
+        from app.battery_widgets import BatteryResultDelegate
+        self.w.show()
+        self.choose("AC14B8K")
+        self.app.processEvents()
+        self.assertTrue(self.b.diagram.rects)
+        entry=self.choose("L22D2PG2")
+        self.app.processEvents()
+        self.assertEqual(entry["pins"],[])
+        self.assertEqual(self.b.diagram.rects,[])
+        self.assertIn("pinout unavailable",self.b.wiring_meta.text().lower())
+        self.assertNotIn("GP",self.b.connection_hint.text())
+        subtitle=self.b.battery_choice.currentData(BatteryResultDelegate.SUBTITLE_ROLE)
+        self.assertEqual(subtitle,"Lenovo · Pinout unavailable")
+        self.assertNotIn("0 pins",subtitle)
+        self.assertTrue(self.b.read_button.isEnabled())
+        self.b.mirror_view()
+        self.assertFalse(self.b.diagram.mirrored)
+        self.assertFalse(self.b.settings.contains("battery/reference"))
+        self.choose("AC14B8K")
+        self.app.processEvents()
+        self.assertEqual(len(self.b.diagram.rects),8)
+        self.assertIn("CLOCK GP9",self.b.connection_hint.text())
 
     def test_saved_gpio_settings_update_header_without_an_extra_settings_button(self):
         settings = QSettings(str(Path(self.temp.name) / "other.ini"), QSettings.Format.IniFormat)
@@ -676,6 +746,16 @@ class BatteryGuiTests(unittest.TestCase):
             self.b.export_report("json")
         data = json.loads(target.read_text(encoding="utf8"))
         self.assertEqual(data["connector_reference"]["model"], "AC14B8K")
+
+    def test_model_only_report_does_not_claim_a_connector_pinout(self):
+        self.choose("L22D2PG2")
+        self.b.on_finished("battery_read",sample())
+        target=Path(self.temp.name)/"model-only.json"
+        with patch("app.battery_gui.QFileDialog.getSaveFileName",return_value=(str(target),"JSON diagnostic snapshot (*.json)")):
+            self.b.export_report("json")
+        data=json.loads(target.read_text(encoding="utf8"))
+        self.assertFalse(data["connector_reference"]["pinout_available"])
+        self.assertEqual(data["connector_reference"]["verification"],"model_listed")
 
 
 if __name__ == "__main__":

@@ -25,6 +25,12 @@ class ECProbe:
         self.bus = bus
         self.page_mode = page_mode
 
+    def configure_family(self, family):
+        if self._supports("ITE5"):
+            self.bus.select_ite_family(family)
+        elif family in ("IT51xx", "IT55xx"):
+            raise TransportError("Install the matching Pico firmware from release/pico-firmwares to use IT51xx/IT55xx.")
+
     def _supports(self, capability):
         return hasattr(self.bus, "supports") and self.bus.supports(capability)
 
@@ -315,7 +321,7 @@ class ECProbe:
             raise ValueError("Size must be a multiple of 256 bytes, up to 1 MiB")
         if self.page_mode:
             if size > MAX_FLASH_SIZE:
-                raise ValueError("Current page reader is limited to 256 KiB")
+                raise ValueError("Current page reader is limited to 1 MiB")
             result = bytearray()
             for address in range(0, size, 256):
                 result.extend(self.bus.read_page(address))

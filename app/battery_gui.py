@@ -15,7 +15,7 @@ from PySide6.QtWidgets import (
 )
 from .battery import WORDS, diagnose, signed
 from .battery_status import battery_status, recovery_unavailable
-from .battery_catalog import connection_for
+from .battery_catalog import connection_for, has_pinout, brands
 from .battery_operations import BatteryWorker
 from .battery_widgets import BatterySelector, ConnectorDiagram, MetricCard, CellVoltages, TrendPlot, ConnectionSpinBox
 from .gui_layout import label, button
@@ -130,9 +130,25 @@ class BatteryPage(QWidget):
         header.setColumnMinimumWidth(0, 66)
         header.setColumnStretch(1, 1)
         header.addWidget(label("Battery", "fieldLabel"), 0, 0)
+        self.brand_choice = QComboBox()
+        self.brand_choice.setAccessibleName("Battery brand")
+        self.brand_choice.setToolTip("Filter battery models by brand")
+        self.brand_choice.setFixedWidth(148)
+        self.brand_choice.setMaxVisibleItems(12)
+        self.brand_choice.setStyleSheet("QComboBox { combobox-popup: 0; }")
+        self.brand_choice.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToMinimumContentsLengthWithIcon)
+        self.brand_choice.addItem("All brands", "")
+        for brand in brands():
+            self.brand_choice.addItem(brand, brand)
+        self.brand_choice.view().setMinimumWidth(200)
         self.battery_choice = BatterySelector()
         self.read_button = button("Read battery", lambda: self.start("battery_read"), "primary")
-        header.addWidget(self.battery_choice, 0, 1)
+        choices = QHBoxLayout()
+        choices.setContentsMargins(0, 0, 0, 0)
+        choices.setSpacing(8)
+        choices.addWidget(self.brand_choice)
+        choices.addWidget(self.battery_choice, 1)
+        header.addLayout(choices, 0, 1)
         header.addWidget(self.read_button, 0, 2)
         header.addWidget(label("PINOUT", "sectionLabel"), 1, 0, Qt.AlignmentFlag.AlignVCenter)
         wiring = QHBoxLayout()
@@ -377,7 +393,7 @@ class BatteryPage(QWidget):
         row.addWidget(label("Identification method", "fieldLabel"))
         self.profile = QComboBox()
         self.profile.addItem("Automatic identification", "auto")
-        self.profile.addItem("TI bq40z50-R3 · experimental", "ti_bq40z50")
+        self.profile.addItem("TI bq40z50-R3", "ti_bq40z50")
         self.profile.addItem("Standard SBS · basic readings only", "sbs")
         self.profile.addItem("TI BQ · identify controller", "ti_bq")
         row.addWidget(self.profile, 1)
@@ -440,6 +456,8 @@ class BatteryPage(QWidget):
 
     def _connect_controls(self):
         self.sections.currentChanged.connect(lambda _index: self.stop_monitor())
+        self.brand_choice.currentIndexChanged.connect(
+            lambda _index: self.battery_choice.set_brand(self.brand_choice.currentData()))
         self.battery_choice.entry_selected.connect(self.reference_changed)
         for widget in (self.sda, self.scl, self.address):
             widget.valueChanged.connect(self.configuration_changed)
@@ -491,7 +509,7 @@ class BatteryPage(QWidget):
             self.details.setRowCount(0)
             self.controller_details.setText("Controller not identified · read again.")
             self.render_condition()
-            self.set_feedback("Wiring reference changed · read the connected battery again.")
+            self.set_feedback("Battery reference changed · read the connected battery again.")
         self.update_controls()
 
     def reset_profile(self):
@@ -513,6 +531,12 @@ class BatteryPage(QWidget):
             self.wiring_meta.setToolTip("A battery can still be read using a separately confirmed pinout.")
             return
         entry = self.entry
+        if not has_pinout(entry):
+            self.wiring_meta.setText("Model listed · pinout unavailable")
+            self.wiring_meta.setToolTip(entry.get("notes", "") +
+                                       "\nRight-click to open the model source.")
+            self.connection_hint.setText("Identify battery DATA/CLOCK/GND before connecting.\nB+ stays disconnected")
+            return
         count = len(entry["pins"])
         certainty = "communication verified" if entry["verification"] == "communication_verified" else "source documented"
         if entry.get("pin_count_inferred"):
@@ -525,15 +549,18 @@ class BatteryPage(QWidget):
         if not self.entry:
             return
         menu = QMenu(self)
-        mirror = menu.addAction("Mirror connector")
-        mirror.setCheckable(True)
-        mirror.setChecked(self.diagram.mirrored)
-        mirror.triggered.connect(self.mirror_view)
-        menu.addAction("Connector details…", lambda: self.show_contact())
+        if has_pinout(self.entry):
+            mirror = menu.addAction("Mirror connector")
+            mirror.setCheckable(True)
+            mirror.setChecked(self.diagram.mirrored)
+            mirror.triggered.connect(self.mirror_view)
+        menu.addAction("Connector details…" if has_pinout(self.entry) else "Model details…", lambda: self.show_contact())
         menu.addAction("Open source", self.open_source)
         menu.exec(self.diagram.mapToGlobal(point))
 
     def mirror_view(self, checked=False):
+        if not has_pinout(self.entry):
+            return
         self.diagram.mirrored = not self.diagram.mirrored
         self.diagram.update()
 
@@ -549,8 +576,8 @@ class BatteryPage(QWidget):
             target, purpose = connection_for(pin, self.entry, self.sda.value(), self.scl.value())
             lines.append(f"{pin['number']}: {pin['label']} → {target} · {purpose}")
         message = QMessageBox(self)
-        message.setWindowTitle(self.entry["model"] + " · connector")
-        message.setText(lines[number - 1] if number else self.entry["orientation"])
+        message.setWindowTitle(self.entry["model"] + (" · connector" if has_pinout(self.entry) else " · model reference"))
+        message.setText(lines[number - 1] if number and lines else self.entry["orientation"])
         message.setDetailedText("\n".join(lines) + "\n\n" + self.entry.get("notes", ""))
         message.exec()
 
@@ -568,7 +595,7 @@ class BatteryPage(QWidget):
             self.mark_previous_reading()
             self.set_feedback("Connection settings changed · read the battery again.")
         self.profile_hint.setText(
-            "Experimental R3 profile · identify before access operations; this battery's keys are required."
+            "R3 profile · identify before access operations; this battery's keys are required."
             if self.profile.currentData() == "ti_bq40z50" else
             "Standard SBS only · controller diagnostics disabled." if self.profile.currentData() == "sbs" else
             "Read battery also identifies supported controllers and reads their access state and cell voltages.")
@@ -603,7 +630,7 @@ class BatteryPage(QWidget):
         foreground_busy = busy and not live_read
         configurable = not foreground_busy
         configured = self.port.currentData() is not None and self.pins_valid()
-        for control in (self.battery_choice, self.sda, self.scl,
+        for control in (self.brand_choice, self.battery_choice, self.sda, self.scl,
                         self.address, self.pec, self.pullups, self.profile):
             control.setEnabled(configurable)
         self.read_button.setEnabled(not busy and not self.monitoring and configured)
@@ -910,7 +937,7 @@ class BatteryPage(QWidget):
             "unseal": "Unseal controller settings using the supplied keys? Battery protection faults are unchanged.",
             "full_access": "Request full controller access using the supplied keys?",
             "seal": "Seal controller settings? Battery operational status is unchanged.",
-            "clear_pf": "Experimental bq40z50-R3 recovery: clear stored PF diagnostics and reset the controller after the fault has been repaired? "
+            "clear_pf": "bq40z50-R3 recovery: clear stored PF diagnostics and reset the controller after the fault has been repaired? "
                         "The current diagnostic snapshot is retained in the result. Battery operation must be verified before success is reported.",
         }[action]
         if QMessageBox.question(self, "Confirm controller access", text,
@@ -932,7 +959,9 @@ class BatteryPage(QWidget):
             if not target.suffix:
                 target=target.with_suffix(".json" if "JSON" in chosen else ".csv" if "CSV" in chosen else ".pdf")
             data=snapshot.export()
-            if entry:data["connector_reference"]={key:entry[key] for key in ("model","manufacturer","sources","verification","orientation")}
+            if entry:
+                data["connector_reference"]={key:entry[key] for key in ("model","manufacturer","sources","verification","orientation")}
+                data["connector_reference"]["pinout_available"]=has_pinout(entry)
             if target.suffix.lower()==".json":target.write_text(json.dumps(data,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
             elif target.suffix.lower()==".csv":
                 with target.open("w",newline="",encoding="utf-8-sig") as handle:

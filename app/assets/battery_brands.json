@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "source": {
+    "name": "NLBA Battery Pinout brand selector",
+    "version": "5.2.4",
+    "observed": "2026-11-13"
+  },
+  "brands": [
+    "Acer", "Apple", "Asus", "Clevo", "Dell", "DJI", "eMachines",
+    "Fujifilm", "Fujitsu", "Gateway", "Gigabyte", "Google", "Hansung",
+    "Honor", "HP", "Huawei", "iRobot", "IBM", "Lenovo", "LG", "Medion",
+    "Microsoft", "MSI", "NEC", "Panasonic", "Packard Bell", "Samsung",
+    "Sony", "Thunderobot", "Toshiba", "Xiaomi"
+  ]
+}

@@ -5,6 +5,9 @@ from pathlib import Path
 STYLESHEET = """
 QWidget { color: #e8ebef; font-family: 'Segoe UI'; font-size: 10pt; }
 QMainWindow, QWidget#workspaces, QWidget#root, QScrollArea, QStatusBar { background: #101318; }
+QFrame#sparkTitleBar { background: #151c25; border-bottom: 1px solid #2b3644; }
+QLabel#sparkWindowName { color: #edf4fc; font-size: 11pt; font-weight: 600; }
+QLabel#sparkWindowVersion { color: #8495aa; font-size: 8pt; padding-top: 2px; }
 QScrollArea { border: none; }
 QFrame#panel { background: #191e26; border: 1px solid #2b323d; border-radius: 8px; }
 QLabel { background: transparent; }

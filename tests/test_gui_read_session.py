@@ -88,8 +88,10 @@ class ReadSessionTests(unittest.TestCase):
         self.assertEqual(resolve_read_size(64 * 1024), 64 * 1024)
         self.assertEqual(resolve_read_size(192 * 1024), 192 * 1024)
         self.assertEqual(resolve_read_size(256 * 1024), 256 * 1024)
+        self.assertEqual(resolve_read_size(512 * 1024), 512 * 1024)
+        self.assertEqual(resolve_read_size(1024 * 1024), 1024 * 1024)
         with self.assertRaises(ValueError):
-            resolve_read_size(512 * 1024)
+            resolve_read_size(2048 * 1024)
 
     def test_direct_entry_after_address_nack_avoids_power_cycle(self):
         finished, failed, cycles = self.run_worker(TransportError("ERR ADDRESS_NACK"))

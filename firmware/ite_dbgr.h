@@ -6,6 +6,10 @@
 #include <stdint.h>
 extern uint64_t dbgr_hold_until_us, dbgr_next_feed_us;
 extern unsigned wave_entry_rate;
+extern bool dbgr_ite5, dbgr_extended;
+void dbgr_select_family(bool ite5);
+bool dbgr_target_identity(uint32_t *id, uint8_t *version);
+bool dbgr_feed_watchdog(void);
 void waveform(bool settle, unsigned frequency);
 void wave_at_power_on(void);
 bool dbgr_reg_write(uint8_t reg, uint8_t value);

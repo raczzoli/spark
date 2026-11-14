@@ -22,7 +22,20 @@ def catalog():
     data = json.loads((Path(__file__).parent / "assets/battery_catalog.json").read_text(encoding="utf-8"))
     if data.get("schema") != 1:
         raise ValueError("Unsupported battery catalog format")
-    return tuple(data["entries"])
+    return tuple(sorted(data["entries"], key=lambda entry: (
+        entry["model"].casefold(), entry["manufacturer"].casefold(),
+        len(entry["pins"]), entry["id"])))
+
+
+@lru_cache(maxsize=1)
+def brands():
+    """Keep explicitly listed brands even when no model has been imported yet."""
+    data = json.loads((Path(__file__).parent / "assets/battery_brands.json").read_text(encoding="utf-8"))
+    if data.get("schema") != 1:
+        raise ValueError("Unsupported battery brand format")
+    names = {entry["manufacturer"].casefold(): entry["manufacturer"] for entry in catalog()}
+    names.update((name.casefold(), name) for name in data["brands"])
+    return tuple(sorted(names.values(), key=str.casefold))
 
 
 def search(query=""):
@@ -32,9 +45,7 @@ def search(query=""):
         text = normalized(" ".join([entry["manufacturer"], entry["model"], *entry.get("aliases", [])]))
         if all(term in text for term in terms):
             found.append(entry)
-    key = normalized(query)
-    return sorted(found, key=lambda e: (normalized(e["model"]) != key,
-                  e["verification"] != "communication_verified", e["manufacturer"], e["model"]))
+    return found
 
 
 def connection_for(pin, entry, sda=7, scl=9):
@@ -58,6 +69,14 @@ def connection_for(pin, entry, sda=7, scl=9):
     if role in ("unused", "gap"):
         return "No connection", "Unused contact" if role == "unused" else "Connector key / gap"
     return "Unidentified", "Do not connect this contact"
+
+
+def has_pinout(entry):
+    return bool(entry and entry.get("pins"))
+
+
+def pinout_summary(entry):
+    return f"{len(entry['pins'])} pins" if has_pinout(entry) else "Pinout unavailable"
 
 
 def has_bus_pinout(entry):

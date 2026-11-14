@@ -25,8 +25,8 @@ class Family:
 
 
 FAMILIES = (
-    Family("IT51xx"),
-    Family("IT55xx"),
+    Family("IT51xx", True),
+    Family("IT55xx", True),
     Family("IT8xxx", True),
 )
 

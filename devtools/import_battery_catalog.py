@@ -113,6 +113,52 @@ def pack_entries(path):
             break
 
 
+def reviewed_entries(path):
+    """Import reviewed facts; preserve the source's view and count limitations."""
+    for item in json.loads(path.read_text(encoding="utf-8")):
+        record = entry(item["maker"], item["model"], item["aliases"], item["pins"], item["url"],
+                       item.get("orientation", "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring."),
+                       item["notes"], item.get("pin_count_inferred", False))
+        record["present_to_ground"] = item.get("present_to_ground", False)
+        if item.get("reviewed"):
+            record["sources"][0]["reviewed"] = item["reviewed"]
+        yield record
+
+
+def model_entries(path, connectors):
+    """Add identities without transferring a similar model's connector wiring."""
+    def maker_key(value):
+        key = re.sub(r"[^A-Z0-9]", "", value.upper())
+        return "LENOVO" if key in ("IBM", "IBMLENOVO", "LENOVOIBM") else key
+
+    def name_key(value):
+        return re.sub(r"[^A-Z0-9]", "", value.upper())
+
+    existing = {(maker_key(e["manufacturer"]), name_key(name))
+                for e in connectors for name in (e["model"], *e.get("aliases", []))}
+    data = json.loads(path.read_text(encoding="utf8"))
+    if data.get("schema") != 1:
+        raise ValueError("Unsupported battery model identity schema")
+    for item in data["entries"]:
+        maker, model = item["manufacturer"], item["model"]
+        key = maker_key(maker), name_key(model)
+        aliases = [a for a in item.get("aliases", [])
+                   if (maker_key(maker), name_key(a)) not in existing]
+        promoted_alias = key in existing
+        if promoted_alias:
+            if not aliases:
+                continue
+            # A shared identity listing does not establish the same connector.
+            model, aliases = aliases[0], aliases[1:]
+        record = entry(maker, model, aliases, [], item["sources"][0]["url"],
+                       "No connector pinout is available for this model. Identify the battery contacts independently before connecting it.",
+                       item["notes"] + (f" Listed alongside {item['model']}; its connector wiring is not transferred to this reference." if promoted_alias else ""))
+        # Source aliases identify the model; they never authorize a pin assignment.
+        record.update(manufacturer=maker, verification="model_listed", sources=item["sources"],
+                      identity_kind=item.get("identity_kind", "model"))
+        yield record
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--cache", type=Path, default=ROOT / "build/battery-sources")
@@ -124,11 +170,9 @@ def main():
                  "SDA, SCL and ground communication verified on an AC14B8K on 2026-11-12. Other connector revisions must be matched separately.")
     acer.update(verification="communication_verified", present_to_ground=True)
     records.insert(0, acer)
-    for item in json.loads((ROOT / "devtools/battery_reviewed.json").read_text(encoding="utf-8")):
-        record=entry(item["maker"],item["model"],item["aliases"],item["pins"],item["url"],
-                     "Numbering follows the linked source. Match the B−/B+ landmarks and the battery-versus-cable view before wiring.",item["notes"])
-        record["present_to_ground"]=item.get("present_to_ground",False)
-        records.append(record)
+    for filename in ("battery_reviewed.json", "battery_forum_reviewed.json"):
+        records.extend(reviewed_entries(ROOT / "devtools" / filename))
+    records.extend(model_entries(ROOT / "devtools/battery_models.json", records))
     seen, unique = set(), []
     for record in records:
         key = (record["manufacturer"].lower(), record["model"].lower(), tuple(p["label"] for p in record["pins"]))
@@ -137,8 +181,10 @@ def main():
             unique.append(record)
     output = ROOT / "app/assets/battery_catalog.json"
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps({"schema": 1, "updated": "2026-11-12", "entries": unique}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"Catalog: {len(unique)} connector records, {sum(1 + len(e['aliases']) for e in unique)} searchable names")
+    output.write_text(json.dumps({"schema": 1, "updated": "2026-11-13", "entries": unique}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    connectors = sum(bool(e["pins"]) for e in unique)
+    print(f"Catalog: {len(unique)} entries ({connectors} connector references, {len(unique)-connectors} model-only), "
+          f"{sum(1 + len(e['aliases']) for e in unique)} searchable names")
 
 
 if __name__ == "__main__":

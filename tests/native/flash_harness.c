@@ -20,6 +20,7 @@ static uint64_t now;
 static unsigned writes, fail_at, timing=5;
 static unsigned releases, ene_closes;
 static bool ene_active;
+#include "ite5_model.h"
 /* This EC regression harness never enters the independent SMBus engine. */
 bool smb_command(char *cmd) { (void)cmd; return false; }
 bool smb_active(void) { return false; }
@@ -28,6 +29,7 @@ void smb_tick(void) {}
 uint64_t time_us_64(void) { return ++now; }
 void sleep_us(uint64_t us) { now+=us; }
 bool write_i2c(uint8_t address,const uint8_t *data,size_t count) {
+    if (model_active) return model_write(address, data, count);
     printf("W %02X ",address);
     for (size_t i=0;i<count;++i) printf("%02X",data[i]);
     puts("");
@@ -35,6 +37,7 @@ bool write_i2c(uint8_t address,const uint8_t *data,size_t count) {
     return true;
 }
 bool read_i2c(uint8_t address,uint8_t *data,size_t count) {
+    if (model_active) return model_read_bytes(address, data, count);
     printf("R %02X %u\n",address,(unsigned)count);
     for (size_t i=0;i<count;++i) data[i]=address==0x79 ? (uint8_t)i : 2;
     return true;
@@ -57,7 +60,6 @@ bool bus_set_timing(unsigned us) { if(us!=5 && us!=3 && us!=2) return false; tim
 unsigned bus_timing(void) { return timing; }
 void waveform(bool settle,unsigned frequency) { (void)settle; (void)frequency; }
 void wave_at_power_on(void) {}
-void enter_dbgr_fast(void) {}
 bool ene_open(uint8_t *hw,uint8_t *id) { *hw=0; *id=0; return false; }
 bool ene_open_family(const char *family,uint8_t *hw,uint8_t *id) { (void)family; return ene_open(hw,id); }
 bool ene_close(void) { ++ene_closes; ene_active=false; return true; }
@@ -70,6 +72,11 @@ const uint8_t *ene_last_rx(void) { static uint8_t d[36]; return d; }
 
 int main(int argc,char **argv) {
     if(argc<2) return 2;
+    if (!strcmp(argv[1], "model") && argc == 5) {
+        model_cycle((uint32_t)strtoul(argv[2], NULL, 16),
+                    (unsigned)strtoul(argv[3], NULL, 10), atoi(argv[4]) != 0);
+        return 0;
+    }
     uint8_t data[256];
     for(unsigned i=0;i<256;++i) data[i]=(uint8_t)i;
     dbgr_hold_until_us=30000000;

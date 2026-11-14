@@ -89,10 +89,16 @@ class ECTransport(PicoTransport):
 
     def session(self):
         answer = self.command("SESSION")
-        match = re.fullmatch(r"SESSION CHIPID=([0-9A-F]{4}) CHIPVER=([0-9A-F]{2})", answer)
+        match = re.fullmatch(r"SESSION CHIPID=([0-9A-F]{4,6}) CHIPVER=([0-9A-F]{2})", answer)
         if not match:
             raise TransportError(f"Invalid session response: {answer}")
         return int(match[1],16), int(match[2],16)
+
+    def select_ite_family(self, family):
+        if family not in ("IT51xx", "IT55xx", "IT8xxx"):
+            raise ValueError("Unknown ITE family")
+        if self.command(f"ITEFAMILY {family.upper()}") != "OK":
+            raise TransportError("ITE family configuration failed")
 
     def erase_sector(self, address, opcode):
         if self.command(f"ERASESECTOR {address:06X} {opcode:02X}") != f"ERASESECTOR {address:06X} OK":
@@ -110,7 +116,7 @@ class ECTransport(PicoTransport):
     def enter_dbgr(self):
         answer = self.command("ENTERDBGR")
         match = re.fullmatch(
-            r"ENTERDBGR RATE=\d+ CHIPID=([0-9A-F]{4}) CHIPVER=([0-9A-F]{2}) WDT=[0-9A-F]{2}",
+            r"ENTERDBGR RATE=\d+ CHIPID=([0-9A-F]{4,6}) CHIPVER=([0-9A-F]{2}) WDT=[0-9A-F]{2}",
             answer,
         )
         if not match:
@@ -168,7 +174,7 @@ class ECTransport(PicoTransport):
     def _program_block(self, name, address, data, count):
         if (address < 0 or address > MAX_FLASH_SIZE - count or
                 address % count or len(data) != count):
-            raise ValueError(f"{name} requires an aligned {count}-byte block within 256 KiB")
+            raise ValueError(f"{name} requires an aligned {count}-byte block within 1 MiB")
         answer = self.command(f"{name} {address:06X} {bytes(data).hex().upper()}")
         if answer != f"{name} {address:06X} OK":
             raise TransportError(f"Unexpected {name} response: {answer}")
