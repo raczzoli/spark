@@ -8,7 +8,6 @@ Compatibility groups and sources are documented in docs/ENE.md.
 """
 
 import re
-import time
 from dataclasses import dataclass
 
 from .ec import FlashError
@@ -58,19 +57,7 @@ class EneEC:
             raise FlashError(f"{self.family.name} supports selected ranges of {allowed} KiB")
 
     def _read_page(self, address):
-        for attempt in range(3):
-            try:
-                answer = self.bus.command(f"ENEREADPAGE {address:05X}")
-                break
-            except TransportError as exc:
-                if str(exc) == "ERR EDI_READ_UNSTABLE":
-                    raise FlashError(f"ENE returned inconsistent flash data in page 0x{address:05X}; "
-                                     "check the connection and repeat the read.") from exc
-                # A complete firmware error reply keeps USB synchronized.
-                # Re-reading a page is safe; never replay erase/program commands.
-                if str(exc) != "ERR EDI_NOT_READY" or attempt == 2:
-                    raise
-                time.sleep(0.05)
+        answer = self.bus.command(f"ENEREADPAGE {address:05X}")
         match = re.fullmatch(r"ENEPAGE ([0-9A-F]{5}) ([0-9A-F]{256})", answer)
         if not match or int(match[1], 16) != address:
             raise TransportError(f"Invalid ENE page response at 0x{address:05X}: {answer[:80]}")
@@ -81,18 +68,7 @@ class EneEC:
         result = bytearray()
         for address in range(0, size, PAGE_SIZE):
             result.extend(self._read_page(address))
-            progress(address + PAGE_SIZE, size * 2)
-        # An independently addressed second pass also protects older firmware
-        # and detects divergent, but syntactically valid, USB page replies.
-        # Do not return an image for saving if either pass disagrees.
-        for address in range(0, size, PAGE_SIZE):
-            actual = self._read_page(address)
-            wanted = result[address:address + PAGE_SIZE]
-            if actual != wanted:
-                offset = next(i for i, (a, b) in enumerate(zip(actual, wanted)) if a != b)
-                raise FlashError(f"ENE read is unstable at 0x{address + offset:05X}; "
-                                 "the two complete read passes disagree. Image not saved.")
-            progress(size + address + PAGE_SIZE, size * 2)
+            progress(address + PAGE_SIZE, size)
         return bytes(result)
 
     def erase_flash(self, size, protocol, progress=lambda done, total: None):

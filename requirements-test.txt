@@ -1,2 +1,4 @@
 # Native firmware regression tests on Windows (Linux can use GCC instead).
 ziglang==0.13.0
+# Battery catalog import tests use the same parser as the catalog builder.
+beautifulsoup4==4.15.0

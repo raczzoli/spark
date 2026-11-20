@@ -337,7 +337,7 @@ class BatteryGuiTests(unittest.TestCase):
 
     def test_controller_checks_distinguish_missing_partial_and_active_protections(self):
         for chip, text in (({}, "Not available"), ({"safety": 0}, "Partially checked"),
-                           ({"safety": 1}, "Protection active"),
+                           ({"safety": 1}, "Output blocked"),
                            ({"safety": 0, "permanent_failure": 2}, "Permanent fault reported")):
             self.b.on_finished("battery_read", sample(controller=chip))
             self.assertEqual(self.b.controller_protection.text(), text)

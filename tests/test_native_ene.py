@@ -44,7 +44,16 @@ class NativeEneTests(unittest.TestCase):
                     trace = self.run_c(group.command, hw, ediid, size=max(group.sizes))
                     self.assertIn(f"ROUNDTRIP {max(group.sizes)} ERASES=4 PROGRAMS=4 BOUNDS_OK", trace)
                     self.assertEqual(trace[-1], "CLOSE=1 PINS_RELEASED")
-                    self.assertIn("WDT=1 VALUE=48" if hw==0xF0 else "WDT=0 VALUE=00", trace[0])
+                    expected = "WDT=1 VALUE=48" if hw==0xF0 else "WDT=1 VALUE=00" if hw==0xE0 else "WDT=0 VALUE=00"
+                    self.assertIn(expected, trace[0])
+
+    def test_kb9052qe_rejects_other_revisions_before_reset(self):
+        for hw, ediid in ((0xD0, 0x0B), (0xB0, 0x0B), (0xE0, 0x07), (0x99, 0x0B)):
+            with self.subTest(hw=hw, ediid=ediid):
+                trace = self.run_c("KB9052QE", hw, ediid)
+                self.assertTrue(trace[0].startswith("OPEN_ERROR EDI_"))
+                self.assertIn("RESET=0 WDT=0 CPU=0", trace[0])
+        self.assertIn("ID_CHANGED", self.run_c("KB9052QE", 0xE0, 0x0B, "idchange"))
 
     def test_provisional_kb902fq_roundtrip_bounds_and_identity_retention(self):
         # Synthetic identity: no measured KB902FQ hardware ID is available yet.
@@ -80,8 +89,17 @@ class NativeEneTests(unittest.TestCase):
         self.assertTrue(trace[0].endswith("WDT=0 CPU=0"))
 
     def test_failed_watchdog_configuration_releases_cpu_and_pins(self):
-        trace = self.run_c("KB9542GF", 0xF0, 0x07, "wdtfail", 160*1024)
-        self.assertTrue(trace[0].startswith("OPEN_ERROR EDI_WRITE_IO"))
+        for family, hw, ediid, size in (("KB9542GF", 0xF0, 7, 160*1024), ("KB9052QE", 0xE0, 11, 128*1024)):
+            trace = self.run_c(family, hw, ediid, "wdtfail", size)
+            self.assertTrue(trace[0].startswith("OPEN_ERROR EDI_WRITE_IO"))
+            self.assertTrue(trace[0].endswith("WDT=1 CPU=0"))
+
+    def test_qe_watchdog_reset_is_prevented_and_ignored_disable_is_rejected(self):
+        self.assertIn("WATCHDOG_DISABLED_SESSION_SURVIVES_NO_FLASH_WRITES",
+                      self.run_c("KB9052QE", 0xE0, 11, "watchdog"))
+        self.assertIn("WATCHDOG_RESET_SESSION_LOST", self.run_c(fault="watchdog"))
+        trace = self.run_c("KB9052QE", 0xE0, 11, "wdtignored")
+        self.assertTrue(trace[0].startswith("OPEN_ERROR EDI_WATCHDOG_CONFIG"))
         self.assertTrue(trace[0].endswith("WDT=1 CPU=0"))
 
     def test_session_loss_is_reported_before_or_during_page(self):
@@ -91,12 +109,15 @@ class NativeEneTests(unittest.TestCase):
     def test_busy_timeout_disables_flash_and_preserves_error(self):
         self.assertIn("BUSY_TIMEOUT_WRITE_DISABLED", self.run_c(fault="busy"))
 
-    def test_valid_frames_with_stale_or_corrupt_data_are_rejected(self):
-        for fault in ("stale_latch", "reverse_corrupt"):
-            with self.subTest(fault=fault):
-                trace = self.run_c("KB9542GF", 0xA0, 7, fault, 160*1024)
-                self.assertIn("UNSTABLE_READ_REJECTED_NO_FLASH_WRITES", trace)
-                self.assertEqual(trace[-1], "CLOSE=1 PINS_RELEASED")
+    def test_every_signature_reads_each_flash_byte_once_in_order(self):
+        for group in ENE_FAMILIES:
+            identities = group.identities or {(0x42, 7)}
+            for hw, ediid in identities:
+                with self.subTest(group=group.name, hw=hw):
+                    size = max(group.sizes)
+                    trace = self.run_c(group.command, hw, ediid, "single_read", size)
+                    self.assertIn(f"READ_ONCE {size} BYTES_IN_ASCENDING_ORDER NO_FLASH_WRITES", trace)
+                    self.assertEqual(trace[-1], "CLOSE=1 PINS_RELEASED")
 
     def test_changed_identity_is_not_reused(self):
         self.assertIn("ID_CHANGED", self.run_c(fault="idchange"))

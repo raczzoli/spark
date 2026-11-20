@@ -123,8 +123,8 @@ class GuiLifecycleTests(unittest.TestCase):
     def test_ene_models_fixed_size_and_buttons(self):
         self.window.manufacturer.setCurrentText("ENE")
         self.assertEqual([self.window.model.itemText(i) for i in range(self.window.model.count())],
-                         ["KB9012QF", "KB9022Q", "KB9028Q", "KB902FQ C", "KB9052QD", "KB9548QF2"])
-        for family in ("KB9012QF", "KB9022Q", "KB9028Q", "KB902FQ C", "KB9052QD"):
+                         ["KB9012QF", "KB9022Q", "KB9028Q", "KB902FQ C", "KB9052QD", "KB9052QE", "KB9548QF2"])
+        for family in ("KB9012QF", "KB9022Q", "KB9028Q", "KB902FQ C", "KB9052QD", "KB9052QE"):
             self.window.model.setCurrentText(family)
             self.assertEqual(self.window.flash_size.value(), 128)
             self.assertFalse(self.window.flash_size.isEnabled())
@@ -174,7 +174,7 @@ class GuiLifecycleTests(unittest.TestCase):
         self.window.manufacturer.setCurrentText("ENE")
         self.assertEqual(self.window.ene_wiring.text(), "")
         self.assertIsNone(self.window.create_wiring_dialog())
-        for model in ("KB9012QF", "KB9022Q", "KB9028Q", "KB902FQ C", "KB9052QD"):
+        for model in ("KB9012QF", "KB9022Q", "KB9028Q", "KB902FQ C", "KB9052QD", "KB9052QE"):
             self.window.model.setCurrentText(model)
             self.assertIn("View wiring diagram", self.window.ene_wiring.text())
             from app.wiring_diagram import WiringDiagram

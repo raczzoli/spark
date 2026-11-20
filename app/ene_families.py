@@ -32,6 +32,7 @@ ENE_FAMILIES = (
     EneFamily("KB901x", "KB901X", frozenset({(0xC3, 0x04)}), (128 * 1024,)),
     EneFamily("KB902x", "KB902X", frozenset({(0xB1, 0x07), (0xC0, 0x07)}), (128 * 1024,)),
     EneFamily("KB9052 (B/D)", "KB9052", frozenset({(0xB0, 0x0B), (0xD0, 0x0B)}), (128 * 1024,)),
+    EneFamily("KB9052 (E)", "KB9052QE", frozenset({(0xE0, 0x0B)}), (128 * 1024,)),
     # F0/07 is the upstream KB9542GF signature. A0/07 is the community
     # KB9542 signature; it uses the legacy entry variant, not F0's WDT value.
     EneFamily("KB9542GF", "KB9542GF", frozenset({(0xF0, 0x07), (0xA0, 0x07)}),

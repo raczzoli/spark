@@ -33,7 +33,7 @@ typedef struct {
     bool disable_watchdog;
 } edi_variant;
 /* Match both bytes: EDIID 07 alone does not identify the entry variant.
- * Only F0/07 has evidence for watchdog-disable value 0x48.
+ * F0/07 and user-measured E0/0B need watchdog disable during CPU reset.
  */
 static const edi_variant variants[] = {
     {"KB901X",   0xc3, 0x04, 128u * 1024u, false},
@@ -41,6 +41,8 @@ static const edi_variant variants[] = {
     {"KB902X",   0xc0, 0x07, 128u * 1024u, false},
     {"KB9052",   0xb0, 0x0b, 128u * 1024u, false},
     {"KB9052",   0xd0, 0x0b, 128u * 1024u, false},
+    /* KB9052QE: user-measured E0/0B; retain the KB9052 128-KiB range. */
+    {"KB9052QE", 0xe0, 0x0b, 128u * 1024u, true},
     {"KB9542GF", 0xa0, 0x07, 160u * 1024u, false},
     {"KB9542GF", 0xf0, 0x07, 160u * 1024u, true},
 };
@@ -92,6 +94,12 @@ static bool config_bit(uint16_t address, uint8_t bit, bool set) {
     if (!edi_read(address, &value)) return false;
     value = set ? (uint8_t)(value | bit) : (uint8_t)(value & ~bit);
     return edi_write(address, value);
+}
+bool ene_read_state(uint8_t state[5]) {
+    if (!active) { error_text = "EDI_NOT_OPEN"; return false; }
+    return edi_read(EDI_HWVERSION, &state[0]) && edi_read(EDI_EDIID, &state[1]) &&
+           edi_read(EDI_PXCFG, &state[2]) && edi_read(EDI_EFCFG, &state[3]) &&
+           edi_read(EDI_WDTCFG, &state[4]);
 }
 static bool flash_address(uint32_t address) {
     return edi_write(EDI_EFA0, (uint8_t)address) &&
@@ -215,6 +223,13 @@ bool ene_open_family(const char *family, uint8_t *hwversion, uint8_t *ediid) {
         reset_attempted = true;
         if (config_bit(EDI_PXCFG, 0x01, true) && session_state(false)) {
             if (selected->disable_watchdog && !edi_write(EDI_WDTCFG, 0x48)) goto fail;
+            if (!strcmp(family, "KB9052QE")) {
+                uint8_t wdt;
+                if (!edi_read(EDI_WDTCFG, &wdt)) goto fail;
+                /* Password bits need not echo the written value. Verify the
+                 * reset/interrupt enables instead of comparing the password. */
+                if (wdt & 0x03) { error_text = "EDI_WATCHDOG_CONFIG"; goto fail; }
+            }
             active = true;
             return true;
         }
@@ -256,20 +271,6 @@ bool ene_read_page(uint32_t address, uint8_t data[EDI_PAGE]) {
     for (unsigned i = 0; i < EDI_PAGE && okay; ++i) {
         okay = flash_address(address + i) && edi_write(EDI_EFCMD, 0x03) &&
                edi_read(EDI_EFDAT, &data[i]);
-    }
-    /* READY validates framing, not the flash byte. Reissue every address and
-     * command in reverse order: a stale previous-byte latch then has different
-     * neighbours. Never return a silently repaired or majority-voted page.
-     */
-    for (unsigned remaining = EDI_PAGE; remaining && okay; --remaining) {
-        unsigned i = remaining - 1;
-        uint8_t check;
-        okay = flash_address(address + i) && edi_write(EDI_EFCMD, 0x03) &&
-               edi_read(EDI_EFDAT, &check);
-        if (okay && check != data[i]) {
-            error_text = "EDI_READ_UNSTABLE";
-            okay = false;
-        }
     }
     return finish_page(okay);
 }

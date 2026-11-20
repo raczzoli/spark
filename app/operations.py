@@ -111,8 +111,7 @@ class Worker(QObject):
                 elif self.action == "read":
                     if not self.profile.read_protocol:
                         raise RuntimeError("Read is unavailable for this family")
-                    detail = " (two matching read passes required)" if session.ene else ""
-                    self.status.emit(f"Reading {self.read_size // 1024} KiB from address 0{detail}...")
+                    self.status.emit(f"Reading {self.read_size // 1024} KiB from address 0...")
                     data = self.stage("Read", lambda: ec.read_flash(
                         self.read_size, self.report_progress))
                     result = identity, data

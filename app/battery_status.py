@@ -32,7 +32,11 @@ def battery_status(chip):
     if operation is not None and operation & (1 << 5):
         return state("locked", "Locked", "Controller fuse signal is active; check the pack hardware.")
     if safety or (operation is not None and operation & (1 << 11)):
-        return state("protected", "Protection active", "A safety protection is active; identify and correct its cause.")
+        if safety is not None and safety & (1 << 11):
+            return state("protected", "Locked",
+                         "Short-circuit discharge latch (ASCDL) is active. Discharge is blocked; "
+                         "recovery requires this controller's latch-reset procedure.")
+        return state("protected", "Locked", "A safety protection is active; identify and correct its cause.")
     if operation is None or pf is None or safety is None:
         return state("unknown", "Unknown", "Operation, PF and safety readings are required to confirm battery status.")
     if operation & ((1 << 31) | (1 << 30) | (1 << 29) | (1 << 16) | (1 << 10) | (1 << 6)):
@@ -47,6 +51,8 @@ def battery_status(chip):
 def recovery_unavailable(chip):
     """One reason for refusing PF recovery, shared by UI and worker."""
     status = battery_status(chip)
+    if status["state"] == "protected":
+        return status["reason"]
     if status["state"] != "locked":
         return "No confirmed battery lockout to clear."
     if not chip.get("recovery_supported"):

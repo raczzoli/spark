@@ -45,10 +45,12 @@ Run `release/app/Spark.exe`. The current build is updated directly in
    short test leads, not a replacement for a properly designed interface.
 4. Click **Read battery** beside the model selector. **General info** stays selected
    and shows the basic readings, capacities, identity, battery operation and cells.
-   Missing diagnostics remain unknown. **Locked** means reported PF/fuse lockout;
+   Missing diagnostics remain unknown. **Locked** covers PF/fuse lockout and
+   active safety protections that block battery operation;
    **Unlocked** requires clear PF/safety data and active, uninhibited charge and
-   discharge FETs. Temporary safety trips and disabled outputs have their own
-   states, not a guessed permanent lock. Sealed memory access does not affect this
+   discharge FETs. Reports retain the distinct internal protection states and
+   raw diagnostics; the Locked label does not imply a permanent fault.
+   Sealed memory access does not affect this
    operational status. **Save report** appears with the result
    and offers PDF, JSON and CSV.
 5. **Measurements** contains the graph and **Live readings** toggle (three-second

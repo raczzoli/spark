@@ -47,20 +47,12 @@ class FakeBus:
 
 
 class EneTests(unittest.TestCase):
-    def test_page_read_retries_only_complete_not_ready_replies(self):
-        answer = "ENEPAGE 00000 " + bytes(128).hex().upper()
-        with patch.object(self.bus, "command", side_effect=[TransportError("ERR EDI_NOT_READY"), answer]) as command:
-            self.assertEqual(self.ec._read_page(0), bytes(128))
-            self.assertEqual(command.call_count, 2)
-        for message, count in (("ERR EDI_NOT_READY", 3), ("ERR EDI_SESSION_LOST", 1), ("Timeout USB CDC", 1)):
-            with patch.object(self.bus, "command", side_effect=TransportError(message)) as command:
+    def test_page_read_never_replays_failed_commands(self):
+        for message in ("ERR EDI_NOT_READY", "ERR EDI_SESSION_LOST", "ERR EDI_READ_UNSTABLE", "Timeout USB CDC"):
+            with self.subTest(message=message), patch.object(self.bus, "command", side_effect=TransportError(message)) as command:
                 with self.assertRaises(TransportError):
                     self.ec._read_page(0)
-                self.assertEqual(command.call_count, count)
-        with patch.object(self.bus, "command", side_effect=TransportError("ERR EDI_READ_UNSTABLE")) as command:
-            with self.assertRaisesRegex(FlashError, "inconsistent flash data in page 0x00000"):
-                self.ec._read_page(0)
-            self.assertEqual(command.call_count, 1)
+                command.assert_called_once_with("ENEREADPAGE 00000")
 
     def test_kb9548_measured_revision_and_full_image_guard(self):
         bus = FakeBus()
@@ -94,31 +86,28 @@ class EneTests(unittest.TestCase):
         image = self.ec.read_flash(FLASH_SIZE, lambda done, total: progress.append(done))
         self.assertEqual(len(image), FLASH_SIZE)
         self.assertEqual(image[:128], bytes([0xA5]) * 128)
-        self.assertEqual(progress[-1], FLASH_SIZE * 2)
-        self.assertEqual(sum(c.startswith("ENEREADPAGE ") for c in self.bus.commands), FLASH_SIZE // 128 * 2)
+        self.assertEqual(progress[-1], FLASH_SIZE)
+        self.assertEqual(sum(c.startswith("ENEREADPAGE ") for c in self.bus.commands), FLASH_SIZE // 128)
         self.ec.verify_flash(image)
         with self.assertRaises(FlashError):
             self.ec.verify_flash(bytes(FLASH_SIZE))
 
-    def test_read_rejects_single_wrong_byte_in_otherwise_valid_page_reply(self):
-        self.ec.enter_and_identify()
-        original = self.bus.command
-        for bad_pass in (0, 1):
-            calls = [0]
-            def command(text):
-                reply = original(text)
-                if text.startswith("ENEREADPAGE "):
-                    current_pass = calls[0] // (FLASH_SIZE // 128)
-                    calls[0] += 1
-                    if current_pass == bad_pass and text == "ENEREADPAGE 0C380":
-                        data = bytearray.fromhex(reply.split()[2])
-                        data[63] ^= 0xB4
-                        reply = "ENEPAGE 0C380 " + data.hex().upper()
-                return reply
-            with self.subTest(bad_pass=bad_pass), patch.object(self.bus, "command", side_effect=command):
-                with self.assertRaisesRegex(FlashError, "unstable at 0x0C3BF"):
-                    self.ec.read_flash(FLASH_SIZE)
-        self.assertFalse(any(c.startswith(("ENEERASEPAGE", "ENEWRITEPAGE")) for c in self.bus.commands))
+    def test_every_ene_model_reads_each_page_once_and_counts_image_size(self):
+        for model in ENE_MODELS:
+            with self.subTest(model=model.name):
+                bus = FakeBus()
+                bus.commands = []
+                bus.identity = next(iter(model.identities)) if model.identities else (0x42, 7)
+                ec = EneEC(bus, model.name)
+                ec.enter_and_identify()
+                size = ec.family.sizes[0]
+                progress = []
+                image = ec.read_flash(size, lambda done, total: progress.append((done, total)))
+                expected = [f"ENEREADPAGE {address:05X}" for address in range(0, size, 128)]
+                self.assertEqual([c for c in bus.commands if c.startswith("ENEREADPAGE ")], expected)
+                self.assertEqual(progress, [(address + 128, size) for address in range(0, size, 128)])
+                self.assertEqual(image, bus.memory[:size])
+                self.assertFalse(any(c.startswith(("ENEERASEPAGE", "ENEWRITEPAGE")) for c in bus.commands))
 
     def test_worker_never_returns_a_backup_after_an_unstable_read(self):
         profile = next(p for p in FAMILIES_BY_MANUFACTURER["ENE"] if p.name == "KB9052QD")
@@ -181,6 +170,24 @@ class EneTests(unittest.TestCase):
         bus.identity = (0xC0, 0x07)
         with self.assertRaises(FlashError):
             EneEC(bus, "KB9022Q").enter_and_identify()
+
+    def test_kb9052qe_exact_identity_roundtrip_and_range(self):
+        self.bus.identity = (0xE0, 0x0B)
+        ec = EneEC(self.bus, "KB9052QE")
+        protocol = ec.flash_protocol(ec.enter_and_identify())
+        self.assertIn("ENEOPEN KB9052QE", self.bus.commands)
+        image = bytes(range(256)) * 512
+        ec.erase_flash(FLASH_SIZE, protocol)
+        ec.write_flash(image, protocol)
+        ec.verify_flash(image)
+        self.assertEqual(ec.read_flash(FLASH_SIZE), image)
+        self.assertEqual(self.bus.memory[FLASH_SIZE:], bytes([0xA5]) * (32 * 1024))
+        with self.assertRaises(FlashError):
+            ec.erase_flash(160 * 1024, protocol)
+        for identity in ((0xD0, 0x0B), (0xB0, 0x0B), (0xE0, 0x07), (0, 0x0B), (0xFF, 0x0B)):
+            self.bus.identity = identity
+            with self.subTest(identity=identity), self.assertRaises(FlashError):
+                EneEC(self.bus, "KB9052QE").enter_and_identify()
 
     def test_provisional_kb902fq_identity_and_flash_range(self):
         self.bus.identity = (0x42, 0x07)  # Synthetic, not a measured KB902FQ ID.

@@ -64,6 +64,7 @@ bool ene_open(uint8_t *hw,uint8_t *id) { *hw=0; *id=0; return false; }
 bool ene_open_family(const char *family,uint8_t *hw,uint8_t *id) { (void)family; return ene_open(hw,id); }
 bool ene_close(void) { ++ene_closes; ene_active=false; return true; }
 bool ene_is_open(void) { return ene_active; }
+bool ene_read_state(uint8_t state[5]) { (void)state; return false; }
 bool ene_read_page(uint32_t a,uint8_t d[128]) { (void)a;(void)d;return false; }
 bool ene_erase_page(uint32_t a) { (void)a;return false; }
 bool ene_write_page(uint32_t a,const uint8_t d[128]) { (void)a;(void)d;return false; }

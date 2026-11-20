@@ -16,7 +16,7 @@ the workspace for the connected target; each task has its own wiring and control
 | Model-specific ENE wiring diagrams | Search connector references and see their Pico connections |
 | Stage progress, saved backups and operation log | Controller status and cell voltages where supported |
 
-[Download Spark](release/app/Spark.exe) · [Choose Pico firmware](docs/BOARD_FIRMWARES.md) ·
+[Download Spark 0.5.0](https://github.com/raczzoli/spark/releases/tag/v0.5.0) · [Choose Pico firmware](docs/BOARD_FIRMWARES.md) ·
 [EC wiring guide](docs/HARDWARE.md) · [Battery guide](docs/BATTERIES.md)
 
 ## Get started
@@ -56,7 +56,27 @@ the EC workspace.
 | ENE | KB9028Q | Read, Write, Erase |
 | ENE | KB902FQ C | Read, Write, Erase — 128 KiB |
 | ENE | KB9052QD | Read, Write, Erase |
+| ENE | KB9052QE (E0/0B) | Read, Write, Erase — 128 KiB |
 | ENE | KB9548QF2 (A0/07) | Read, Write, Erase — 160 KiB |
+
+KB9052QE E0/0B identification was reported from the user target. The profile
+uses the KB9052Q wiring reference and 128 KiB range; capacity and physical
+erase/write have not been validated on this revision.
+A physical diagnostic found PXCFG clearing after four seconds while WDTCFG
+remained 83, even without flash reads. The QE entry sequence now disables
+the watchdog using FE80=48 and verifies its reset/interrupt enables are clear.
+The 500 kHz entry trial was below ENE's documented 1?8 MHz activation range;
+the configured SPI rate remains 2 MHz. No physical EC erase/program was issued.
+All 272 automated tests passed, including simulated watchdog reset, ignored
+watchdog-disable writes, session diagnostics, exact single-pass command counts
+for every ENE model and one READ command per flash byte in every ENE signature.
+Earlier physical read validation on QE E0/0B: after six seconds idle with the CPU
+held in reset, both complete 128 KiB read passes matched, including each
+page's forward/reverse check. SHA-256:
+`1edd40be48e7e1a0bad7029ce2ad84223fe7768834ec7cdedbf6faef69d453cd`.
+Current single-pass validation on the same QE target: 131,072 bytes read in
+1,024 page requests, progress ending at 128/128 KiB, in 74 seconds. The result
+matched the previously saved dump above; comparison did not reread the EC.
 
 ITE operations use the detected flash command set: 8315 eFlash uses AAI
 programming and 1 KiB sector erase; KGD eFlash uses page programming and
@@ -106,9 +126,10 @@ keyboard connector positions. See [ENE model pinouts](docs/ENE_PINOUTS.md) and
 4. Choose **Read**, **Write** or **Erase**. Write erases, programs and verifies
    the complete image; it does not create an automatic backup.
 
-ENE Read compares two full read passes before offering a file to save. The
-firmware also checks each page by reading it forwards and backwards; a
-disagreement stops the operation instead of returning an unreliable backup.
+Read performs one pass over the selected range for every EC model. ENE pages
+are read once in firmware, with no automatic page replay or second full pass.
+Progress counts the selected image size. Repeat Read manually to obtain
+another dump for comparison. Write still verifies the complete programmed image.
 Read opens a save dialog. Canceling it keeps the backup in memory until you
 choose **Save…** or **Discard**. Progress shows the current stage, transferred
 KiB and elapsed time. The compact EC log remains visible, and **Open folder**
@@ -179,11 +200,67 @@ do not provide a universal unlock command.
 | --- | --- |
 | Standard SBS | Basic measurements and battery information; no controller-specific unlock |
 | LGC AC14B8K, ID `4555`, firmware `0003` | Verified read-only diagnostics, operational status and cell voltages; no unlock implementation |
+| Asus C41N1906-1, live identity `AS1GWDF3KC / FX50658`, ID `4556`, firmware `0008` | Automatic identification, protection status and four cell voltages; latch recovery and service access are not implemented |
 | TI bq40z50-R3, ID `4500`, firmware `03xx` | Seal/Unseal/Full access and PF recovery using the battery's keys when required |
 
 **Unlock battery** is available only for a supported, confirmed PF lockout.
+The **Locked** display also covers active safety protections that block battery
+operation. Reports retain the exact protection state, cause and raw registers;
+the shared label does not enable an unsupported reset procedure.
 Missing diagnostics stay **Unknown**. See [controller support and recovery
 limits](docs/BATTERIES.md#battery-lockout-and-controller-memory-access) for details.
+
+On 2026-11-16 the connected C41N1906-1 returned device `4556`, firmware
+`45560008000E0003850200`, OperationStatus `00006B81`, SafetyStatus `00000800`
+and PFStatus `00000000`, with verified PEC. The diagnostic compatibility profile
+uses the TI BQ40 status layout: ASCDL indicates a latched discharge short-circuit
+protection, while PF is clear. Cell registers returned 4026/4025/4025/4025 mV.
+These were direct SMBus reads; no reset, key attempt, configuration write,
+charge/discharge test or successful recovery was performed. The existing
+bq40z50-R3 PF reset is not used for this device. Eighty battery/controller/status/UI
+tests passed for this change; UI tests use temporary settings.
+
+Further recovery investigation on 2026-11-16 found a
+[firsthand BQ40Z556 repair case with the same SafetyStatus `00000800`](https://www.laptopu.ro/community/laptop-battery-chip-reset-and-repair/asus-as1gsuc3kc-bq40z556-unlock/paged/2/).
+The owner reports success after Unseal followed by Device Reset `0x0041`;
+this is evidence for a recovery candidate, not verification on C41N1906-1.
+[TI's BQ40Z50 manual](https://www.ti.com/lit/ug/sluua43a/sluua43a.pdf)
+documents the default unseal pair and excludes Device Reset from sealed-mode
+commands. Under the owner's authorization, one default TI unseal pair was
+sent to the connected `4556 / 0008` battery. The controller remained Sealed;
+OperationStatus stayed `00006B81`, SafetyStatus `00000800`, PFStatus `00000000`.
+No retry, full-access attempt, reset, FET forcing or configuration write followed.
+Recovery remains unavailable pending a working pack-specific unseal method and
+validation of the reset procedure. No successful recovery is claimed.
+
+An additional authorized investigation compared the documented
+[BQ40Z50 two-word security protocol](https://www.ti.com/lit/ug/sluua43a/sluua43a.pdf)
+with the different SHA-1/HMAC Unseal protocol in TI's
+[BQ30Z50/55-R1 manual, SLUU852A](https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/399/BQ30Z50,55-R1_TechRef.pdf).
+The exact security mechanism of OEM `4556 / 0008` remains unconfirmed.
+A read-only timing proxy (40 cycles, two SBS reads plus a controller status
+query per cycle) averaged 0.2183 seconds per cycle. At that proxy rate, an
+exhaustive 32-bit search would take about 29.7 years; this is not a measured
+key-attempt rate or a firmware speed limit.
+Thirty-one one-bit variations of the documented TI default key pair were
+then physically tried, excluding candidate words below `0x0100` and waiting
+4.2 seconds between pairs. None changed the controller from Sealed;
+OperationStatus, SafetyStatus and PFStatus remained `00006B81`, `00000800`
+and `00000000`. No reset, full-access attempt, FET-forcing or configuration
+write was performed. This small heuristic search neither exhausts the key
+space nor establishes that the OEM firmware uses the two-word protocol.
+
+Twelve further first-word observations (four previously tried prefixes, three
+rounds) all received ACK and returned unchanged ManufacturerData and
+ManufacturerAccess `6B81`. No useful prefix distinction was observed in this
+set. USB timing cannot resolve internal processing or clock stretching, and no
+known correct OEM first word was available as a positive control.
+Further static NLBA analysis also corrected the initial transport-only inference:
+the BQ40Z50 service class calls an HTTP request path and processes its FU reply.
+The earlier serial control bytes do not establish where the complete Unseal
+algorithm or battery key resides. No server request, license operation, additional
+full key-pair attempt or battery reset was performed in this follow-up. No key
+or functioning independent Unseal procedure has been recovered.
 
 ## Supported Pico boards
 
@@ -198,6 +275,11 @@ Waveshare RP2350-USB-A, connect the PC through **USB-C**. Board-specific photos
 and printed pin labels do not replace the GPIO mapping for the selected task.
 
 ## Testing and feedback
+
+Release 0.5.0 validation (2026-11-20): 274 automated tests passed on Windows,
+including native C firmware regressions. All ten board profiles compiled and
+passed UF2 board/family/build validation; packaged startup passed with temporary
+settings. This release preparation did not include physical target tests.
 
 Report EC, battery or interface results in [GitHub Issues](https://github.com/raczzoli/spark/issues).
 Include the Pico model, application/firmware versions, target model and operation.

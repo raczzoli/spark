@@ -1,7 +1,7 @@
 {
-  "version": "0.4.0",
-  "build_id": "9b9993d792fa",
-  "source_sha256": "9b9993d792fae7e97a9dd01be8481b6e5fbc77ea1f6fc687bd578fe9dd8188df",
+  "version": "0.5.0",
+  "build_id": "1b2399f9bb5d",
+  "source_sha256": "1b2399f9bb5dff0638b6c78cb49dd0db289919929cb1c5972104c9677a622312",
   "boards": [
     "pico",
     "pico_w",

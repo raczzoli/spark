@@ -11,6 +11,7 @@ has succeeded on hardware. KB9548QF2 A0/07 has two matching 160 KiB physical rea
 | KB901x | KB9010, KB9012, KB9016, KB9018 | C3 / 04 | 128 KiB |
 | KB902x | KB9022; KB9028 | B1 / 07; C0 / 07 | 128 KiB |
 | KB9052 (B/D) | KB9052 interface variants B and D | B0 / 0B; D0 / 0B | 128 KiB |
+| KB9052QE | User-identified KB9052QE | E0 / 0B | 128 KiB reference range |
 | KB9542GF | upstream KB9542GF; community KB9542 revision | F0 / 07; A0 / 07 | 160 KiB |
 
 The group names do not claim support for every possible matching model number.
@@ -45,10 +46,13 @@ FEA8-FEAD and PXCFG FF14 bit 0 to hold the 8051 in reset. Flash commands are
 Entry runs SPI0 in mode 0 at 2 MHz, with a dummy read to activate EDI and
 bounded retries while the EC firmware is still running.
 
-Only **F0/07** uses the upstream hardware-tested WDTCFG FE80 = 48 sequence.
-This value is not applied to A0/07 or the KB90xx groups. The upstream source
-notes a different watchdog-disable value for KB9010; therefore EDIID alone
-must not select a watchdog write. Other groups retain the base entry sequence.
+**F0/07** uses the upstream WDTCFG FE80 = 48 sequence. **KB9052QE E0/0B**
+also uses this password after physical diagnostics showed CPU reset clearing
+after four seconds while WDTCFG remained 83. QE reads back WDTCFG as 00;
+entry checks that reset/interrupt enables (bits 0/1) are cleared, rather than
+requiring the password bits to echo. The KB9012 datasheet, section 4.12.3,
+documents the 1001b disable password in bits 6:3 (48 hex). This handling is
+scoped to these exact signatures; A0/07 and the other KB90xx profiles are unchanged.
 CPU reset is confirmed before a session is accepted. Page operations check
 that CPU reset and flash command enable remain asserted. Failures attempt
 flash disable and session cleanup; close returns the GPIOs to inputs even
@@ -58,7 +62,7 @@ needed after a communication failure.
 ## Firmware and wiring
 
 Use the new matching UF2: the GUI requires capability **ENE_EDI_V2** and sends
-`ENEOPEN KB901X`, `ENEOPEN KB902X`, `ENEOPEN KB9052`, or `ENEOPEN KB9542GF`.
+`ENEOPEN KB901X`, `ENEOPEN KB902X`, `ENEOPEN KB9052`, `ENEOPEN KB9052QE`, or `ENEOPEN KB9542GF`.
 The original bare `ENEOPEN` remains a KB9052-only command for old clients.
 The reply remains `ENEOPEN HW=xx EDI=xx`; page command formats are unchanged.
 An older UF2 is rejected before opening an ENE session. No ITE waveform or
@@ -118,47 +122,56 @@ If the chip reports another EDI ID, capture it before extending this rule.
 Two complete 163,840-byte readouts matched SHA-256
 `ca0601d34a3223f75e1424d0b187274aea963e3afbcb3b58004cd6831781c6ee`.
 The upper 32 KiB contains nonuniform data and differs from the first 32 KiB.
-An intervening read stopped on EDI_NOT_READY; the host now retries that exact
-complete firmware error at most twice for page reads only. USB timeouts and
-session-loss errors stop immediately. Erase/program commands are never retried.
+An intervening read stopped on EDI_NOT_READY. Page failures now stop the
+operation without automatic page replay. Erase/program commands are never retried.
 No physical erase or program operation was run. The selectable KB9548QF2 profile
 uses the existing simulator-tested legacy A0/07 engine and full 160 KiB image
 guard. Write erases, programs and verifies the complete image.
 
-## Read integrity
+## Single-pass Read
 
-One independently saved read differed from four matching dumps at 0x0C3BF
-(E0 versus 54). E0 also equals the preceding byte, which suggests stale data
-as one possible explanation, but does not establish a timing fault or prove
-that the flash contents changed. No factory reference image is available.
+Every EC Read makes one pass over the selected image range. ENE requests each
+128-byte page once and firmware issues one flash READ per byte, in ascending
+address order. There is no reverse page pass, second complete pass, automatic
+page replay or readback comparison within Read. Progress ends at the selected
+image size (128 KiB for a 128 KiB image). ITE also reads its selected range once.
+Protocol framing and session-state checks still stop on transport/session errors.
+A single read cannot detect a syntactically valid wrong byte. Repeat Read
+manually and compare saved dumps when an independent comparison is wanted.
+Write still erases, programs and verifies the complete image; its readback is
+an explicit Verification stage. The QE watchdog fix is retained.
 
-The EDI command sequence was compared with upstream flashrom: upstream also
-reads EFDAT directly after EFCMD READ, so an unconditional busy wait is not
-introduced on the basis of this discrepancy alone.
+Earlier versions added reverse page and second full passes after an intermittent
+KB9548QF2 byte mismatch. These automatic repetitions were removed at the user's
+request on 2026-11-15. Earlier matching-dump measurements describe those prior
+builds and do not imply repeated reads in the current Read operation.
 
-The firmware now reissues every flash address and READ command in reverse
-page order and compares the results with the forward pass. A valid READY
-frame containing a different byte returns EDI_READ_UNSTABLE, disables flash
-access and returns no page. It does not vote, repair data or retry away a
-mismatch. The host reports the page and stops.
+Physical validation of single-pass build `4509d1e36543` on KB9052QE E0/0B:
+one 131,072-byte read issued exactly 1,024 page requests, completed in 74
+seconds and ended at progress 131,072/131,072 bytes. Comparing its result
+in memory with the previously stored dump matched SHA-256
+`1edd40be48e7e1a0bad7029ce2ad84223fe7768834ec7cdedbf6faef69d453cd`.
+This comparison issued no additional target reads. All 272 automated tests
+passed, including ascending single-read counts for every ENE signature.
 
-The application independently reads the entire selected range twice and
-compares every byte before returning an image to the save dialog, including
-when connected to older firmware. A mismatch reports its first exact address.
-Progress includes both passes. This increases read time; repeated agreement
-detects intermittent errors but cannot prove correctness against a persistent,
-identically repeating fault. Erase/program sequences remain unchanged.
+## KB9052QE
 
-Regression tests inject a validly framed stale EFDAT byte, corruption on the
-reverse pass and a single wrong byte in either full host pass. They require
-failure without a returned backup and without flash erase/program commands.
+`ENEOPEN KB9052QE` accepts only E0/0B, reported from the user target on
+2026-11-15. It holds the CPU in reset, disables the watchdog with FE80=48
+and checks that WDTCFG bits 0/1 read back clear. It uses 128-byte pages and
+the KB9052 reference range of 128 KiB. The old
+`ENEOPEN KB9052` B/D identities remain unchanged. See README for validation
+status and ENE_PINOUTS.md for the wiring reference.
 
-Physical validation on the attached KB9548QF2 A0/07 with Pico W build
-`538700cfcb83`: 128 repeated reads of page 0x0C380 passed the firmware's
-forward/reverse check. Both complete 160 KiB host passes also matched, and
-the resulting image matched the prior stable SHA-256
-`ca0601d34a3223f75e1424d0b187274aea963e3afbcb3b58004cd6831781c6ee`.
-The complete test including the spot reads took 290 seconds, versus 101
-seconds for the previous firmware's single full pass plus 128 spot reads.
-All 262 automated tests passed. No physical EC erase/program was performed;
-the original intermittent error's root cause remains unconfirmed.
+On 2026-11-15, QE diagnostics at 2 MHz showed WDTCFG=83 and PXCFG changing
+from 01 to 00 after approximately four seconds even without flash reads.
+With FE80=48, WDTCFG read back as 00 and PXCFG remained 01 after six seconds
+idle and throughout two complete matching 128 KiB read passes. Physical
+read validation used build `a2dd5abaf32e`; the final build retains the same
+production fix and adds regression tests. The image SHA-256 is
+`1edd40be48e7e1a0bad7029ce2ad84223fe7768834ec7cdedbf6faef69d453cd`.
+No physical EC erase/program was performed.
+
+`ENESTATE` reads HWVERSION, EDIID, PXCFG, EFCFG and WDTCFG in an open
+session without changing registers or issuing flash commands. It remains
+available after a session-state failure to inspect the target before closing.

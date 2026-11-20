@@ -3,6 +3,7 @@ import unittest
 from unittest.mock import Mock, patch
 from app.battery import BatteryTransport, BatteryError, read_snapshot
 from app.battery_controllers import identify_controller
+from app.battery_status import battery_status, recovery_unavailable
 from app.transport import TransportError
 from tests.test_battery import Gauge, sample
 
@@ -33,6 +34,47 @@ class TiGauge(Gauge):
 
 
 class ControllerDiagnosticsTests(unittest.TestCase):
+    def asus_gauge(self):
+        bus = TiGauge()
+        bus.responses.update({1: bytes.fromhex("5645"),
+                              2: bytes.fromhex("45560008000E0003850200"),
+                              0x54: bytes.fromhex("816B0000"),
+                              0x51: bytes.fromhex("00080000")})
+        bus.cells = {0x3F: 4026, 0x3E: 4025, 0x3D: 4025, 0x3C: 4025}
+        return bus
+
+    def test_asus_live_identity_reads_discharge_latch_without_service_writes(self):
+        bus = self.asus_gauge()
+        snapshot = sample(strings={"manufacturer": "AS1GWDF3KC", "device": "FX50658"})
+        snapshot.words["09"] = 16103
+        chip = identify_controller(bus, snapshot)
+        self.assertEqual((chip["device_type"], chip["firmware"]), ("4556", "0008"))
+        self.assertEqual(chip["security"], "Sealed")
+        self.assertEqual(chip["cells_mV"], [4026, 4025, 4025, 4025])
+        self.assertEqual(chip["imbalance_mV"], 1)
+        self.assertEqual(chip["permanent_failure"], 0)
+        self.assertFalse(chip["service_supported"])
+        self.assertFalse(chip["recovery_supported"])
+        status = battery_status(chip)
+        self.assertEqual(status["state"], "protected")
+        self.assertEqual(status["label"], "Locked")
+        self.assertIn("ASCDL", status["reason"])
+        self.assertFalse(status["discharge_fet"])
+        self.assertIn("latch-reset", recovery_unavailable(chip))
+        self.assertEqual(bus.queries, [1, 2, 0x54, 0x51, 0x53])
+
+    def test_asus_unknown_firmware_or_wrong_device_never_decodes_status(self):
+        for device, firmware in (("5645", "45560009000E0003850200"),
+                                 ("5545", "4555000300030003850200")):
+            bus = self.asus_gauge()
+            bus.responses.update({1: bytes.fromhex(device), 2: bytes.fromhex(firmware)})
+            result = identify_controller(bus, sample(strings={
+                "manufacturer": "AS1GWDF3KC", "device": "FX50658"}))
+            self.assertNotIn("status_layout", result)
+            self.assertNotIn("security", result)
+            self.assertFalse(result["service_supported"])
+            self.assertFalse(any(selector >= 0x51 for selector in bus.queries))
+
     def test_read_battery_auto_identifies_live_pack_access_and_all_four_cells(self):
         bus = TiGauge()
         result = read_snapshot(bus, "auto")

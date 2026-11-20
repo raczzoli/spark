@@ -10,6 +10,7 @@ protocol does not establish the same physical pinout.
 | KB9022Q | LQFP-128 | KB902x | B1 / 07 | 128 KiB |
 | KB9028Q | LQFP-128 (documented C revision) | KB902x | C0 / 07 | 128 KiB |
 | KB9052QD | LQFP-128 (Q-D) | KB9052 | D0 / 0B | 128 KiB |
+| KB9052QE | LQFP-128 (Q-E), KB9052Q wiring reference | KB9052QE | E0 / 0B | 128 KiB reference range |
 | KB9548QF2 | LQFP-128, bench-tested wiring | KB9542GF legacy engine | A0 / 07 | 160 KiB reference range |
 
 These entries share this physical EDI wiring:
@@ -74,3 +75,11 @@ Only this measured revision is accepted. The profile uses the existing 160 KiB
 legacy EDI range, not a capacity register measurement.
 Write uses the existing erase/program/verify flow
 and requires a complete 163,840-byte image. Other revisions are rejected.
+
+## KB9052QE
+
+The user identified the target as KB9052QE and reported HW=E0 / EDI=0B
+on 2026-11-15. This exact signature has its own profile and firmware command.
+The diagram uses the KB9052Q LQFP-128 reference mapping above; confirm
+continuity on the target board. The profile retains the KB9052 128 KiB range;
+it is not a capacity measurement.

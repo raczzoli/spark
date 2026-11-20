@@ -709,7 +709,7 @@ class BatteryPage(QWidget):
         self.access_value.setText(state["label"])
         tone = "success" if state["state"] == "unlocked" else "" if state["state"] == "unknown" else "warning"
         self._tone(self.access_value, tone)
-        self.access_hint.setText(state["reason"])
+        self.access_hint.setText("Battery output is blocked." if state["state"] == "protected" else state["reason"])
         self.access_hint.setToolTip(state["reason"])
         self.identify_link.setVisible(state["state"] == "unknown")
         supported = bool(chip.get("service_supported"))
@@ -753,11 +753,12 @@ class BatteryPage(QWidget):
         self.controller_access_value.setText(state["label"] if self.latest_valid else "Not read")
         self._tone(self.controller_access_value, "success" if state["state"] == "unlocked" else
                    "" if state["state"] == "unknown" else "warning")
-        self.controller_access_help.setText(state["reason"])
+        self.controller_access_help.setText("Battery output is blocked." if state["state"] == "protected" else state["reason"])
+        self.controller_access_help.setToolTip(state["reason"])
         self.controller_service_note.setText(
             recovery_unavailable(chip) or "Unlock resets PF diagnostics, resets the controller and verifies the result."
             if state["state"] == "locked" else
-            "Safety protections follow their own recovery conditions; Unseal does not clear them."
+            "Unlock is not available for this battery condition."
             if state["state"] == "protected" else "")
         self.controller_service_note.setVisible(bool(self.controller_service_note.text()))
         self._tone(self.controller_service_note, "warning" if state["state"] == "locked" else "")
@@ -767,7 +768,7 @@ class BatteryPage(QWidget):
             "1 cell read" if cells else "Not available" if self.latest_valid else "Not read")
         safety, failure = chip.get("safety"), chip.get("permanent_failure")
         self.controller_protection.setText(
-            "Permanent fault reported" if failure else "Protection active" if safety else
+            "Permanent fault reported" if failure else "Output blocked" if safety else
             "No faults reported" if safety == 0 and failure == 0 else
             "Partially checked" if safety is not None or failure is not None else
             "Not available" if self.latest_valid else "Not read")

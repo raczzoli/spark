@@ -2,7 +2,8 @@
 """Verified controller discovery and diagnostic layouts, independent of pinouts.
 
 TI SLUUBU5A sections 15.1, 15.35–15.38; live ID 4555 / firmware 0003
-diagnostics were checked on the connected LGC AC14B8K. This is a diagnostic
+diagnostics were checked on LGC AC14B8K and ID 4556 / firmware 0008 on
+Asus C41N1906-1 (live AS1GWDF3KC / FX50658). This is a diagnostic
 compatibility profile, not an assertion that all BQ40 parts share service keys.
 """
 from .battery import BatteryError, read_ti_diagnostics
@@ -24,7 +25,8 @@ def identify_controller(bus, snapshot, explicit=False):
     """
     maker = snapshot.strings.get("manufacturer", "").casefold().strip()
     model = snapshot.strings.get("device", "").casefold().strip()
-    expected = {("lgc", "ac14b8k"): 0x4555}.get((maker, model))
+    expected = {("lgc", "ac14b8k"): 0x4555,
+                ("as1gwdf3kc", "fx50658"): 0x4556}.get((maker, model))
     if model.startswith("bq40z50") and maker in ("ti", "texas inst.", "texas instruments"):
         expected = 0x4500
     if expected is None and not explicit:
@@ -38,7 +40,7 @@ def identify_controller(bus, snapshot, explicit=False):
         if expected is not None and code != expected:
             raise BatteryError(f"Controller ID 0x{code:04X} differs from the verified identity. "
                                "No controller-specific status or service request was sent.")
-        if code not in (0x4500, 0x4555):
+        if code not in (0x4500, 0x4555, 0x4556):
             return {"device_type": f"{code:04X}", "name": f"Controller ID 0x{code:04X}",
                     "note": "Controller identity read; its diagnostic profile is not implemented."}
         if code == 0x4500:
@@ -51,13 +53,14 @@ def identify_controller(bus, snapshot, explicit=False):
         if len(fw) != 11 or int.from_bytes(fw[:2], "big") != code:
             raise BatteryError("Firmware identity does not match the detected controller")
         version = int.from_bytes(fw[2:4], "big")
-        result = {"name": "TI controller 0x4555", "device_type": "4555",
+        result = {"name": f"TI controller 0x{code:04X}", "device_type": f"{code:04X}",
                   "firmware": f"{version:04X}", "firmware_display": f"{version >> 8}.{version & 255:02X}",
                   "firmware_raw": fw.hex().upper(), "service_supported": False, "recovery_supported": False,
                   "identified_by": "TI DeviceType + FirmwareVersion",
-                  "note": "Diagnostic layout verified on LGC AC14B8K, ID 4555 / firmware 0003. "
-                          "PF recovery and service access require their own controller-specific profile."}
-        if version != 0x0003:
+                  "note": ("Diagnostic profile: LGC AC14B8K, ID 4555 / firmware 0003. " if code == 0x4555 else
+                           "Diagnostic profile: Asus C41N1906-1, live AS1GWDF3KC / FX50658, ID 4556 / firmware 0008. ") +
+                          "Latch recovery, PF recovery and service access require their own controller-specific profile."}
+        if version != {0x4555: 0x0003, 0x4556: 0x0008}[code]:
             result["note"] = "Controller identified; this firmware revision's diagnostic layout is not verified."
             return result
         result["status_layout"] = "ti_bq40"

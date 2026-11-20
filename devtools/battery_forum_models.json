@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-13",
+  "updated": "2026-11-16",
   "entries": [
     {
       "manufacturer": "Acer",
@@ -257,6 +257,18 @@
       "sources": [
         {
           "url": "https://www.laptopu.ro/community/laptop-battery-chip-reset-and-repair/pinout-unlock-asus-c32n1305/"
+        }
+      ],
+      "aliases": [],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Asus",
+      "model": "C41N1906-1",
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/laptop-battery-chip-reset-and-repair/asus-c41n1906-1-cant-discharge-error-64-to-low-discharging-current/"
         }
       ],
       "aliases": [],

@@ -38,6 +38,8 @@ ENE_MODELS = (
              "ASUS X541NA rev 2.1 BoardView, U3001, KB902FQ C LQFP128"),
     EneModel("KB9052QD", "KB9052 (B/D)", frozenset({(0xD0, 0x0B)}),
              "Compal FH5LI LA-J801P rev 1.0, EC_ENE KB9052Q, KB9052Q-D_LQFP128"),
+    EneModel("KB9052QE", "KB9052 (E)", frozenset({(0xE0, 0x0B)}),
+             "User-identified KB9052QE, measured E0/0B on 2026-11-15; KB9052Q LQFP-128 wiring reference"),
     EneModel("KB9548QF2", "KB9542GF", frozenset({(0xA0, 0x07)}),
              "KB9548QF2 bench identification A0/07 and direct EC-pin wiring, 2026-11-13; 160 KiB legacy EDI range"),
 )

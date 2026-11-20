@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-13",
+  "updated": "2026-11-16",
   "source_files": {
     "lenovo.xlsx": {
       "url": "https://www.lenovo.com/content/dam/lenovo/site-design/esg-document-library/global/battery-msds/BatteryInformationFinder.xlsx",
@@ -24,7 +24,7 @@
     },
     "battery_forum_models.json": {
       "url": "https://www.laptopu.ro/community/",
-      "sha256": "8c14da251d789fe97d94ba7338e7755777cbb2cfb47afb4ce5f400b852af07da"
+      "sha256": "c88ee4b098f8fdff6220276178192708cb4237d8631faa5d6d701976c1b6059b"
     }
   },
   "entries": [
@@ -1468,6 +1468,18 @@
       "sources": [
         {
           "url": "https://www.laptopu.ro/community/laptop-battery-chip-reset-and-repair/pinout-unlock-asus-c32n1305/"
+        }
+      ],
+      "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",
+      "identity_kind": "forum_reference"
+    },
+    {
+      "manufacturer": "Asus",
+      "model": "C41N1906-1",
+      "aliases": [],
+      "sources": [
+        {
+          "url": "https://www.laptopu.ro/community/laptop-battery-chip-reset-and-repair/asus-c41n1906-1-cant-discharge-error-64-to-low-discharging-current/"
         }
       ],
       "notes": "Model/part number explicitly mentioned in a public battery repair or pinout-request topic. This is an identity reference; the thread is not evidence of a reviewed connector or controller support.",

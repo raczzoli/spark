@@ -11,6 +11,8 @@ bool ene_open(uint8_t *hwversion, uint8_t *ediid);
 bool ene_open_family(const char *family, uint8_t *hwversion, uint8_t *ediid);
 bool ene_close(void);
 bool ene_is_open(void);
+/* Read-only session diagnostics: HW, EDI, PXCFG, EFCFG, WDTCFG. */
+bool ene_read_state(uint8_t state[5]);
 bool ene_read_page(uint32_t address, uint8_t data[128]);
 bool ene_erase_page(uint32_t address);
 bool ene_write_page(uint32_t address, const uint8_t data[128]);

@@ -18,7 +18,8 @@ static uint8_t regs[65536], flash[160*1024], latch[128];
 static uint64_t now;
 static unsigned output_mask, functions[8], reads, reset_writes, wdt_writes;
 static unsigned flash_commands, latches, erases, programs, release_attempts;
-static unsigned suspect_reads;
+static unsigned sequential_reads;
+static bool record_read_addresses;
 static bool initialized, cs_high = true, busy;
 static const char *fault;
 static bool is(const char *name) { return !strcmp(fault,name); }
@@ -51,7 +52,13 @@ int spi_write_blocking(spi_inst_t *spi,const uint8_t *src,size_t len) {
         if(value&1) { if(is("resetfail")) return 5; }
         else { ++release_attempts; if(is("closefail")) return 5; }
     }
-    if(reg==0xfe80) { ++wdt_writes; if(is("wdtfail")) return -1; }
+    if(reg==0xfe80) {
+        ++wdt_writes;
+        if(is("wdtfail")) return -1;
+        if(is("wdtignored")) return 5;
+        /* On QE, password bits read as zero after disabling the watchdog. */
+        if(regs[0xff00]==0xe0 && value==0x48) value=0;
+    }
     regs[reg]=value;
     if(reg==0xfeac) {
         ++flash_commands;
@@ -60,10 +67,8 @@ int spi_write_blocking(spi_inst_t *spi,const uint8_t *src,size_t len) {
         /* Real targets may ignore commands after an asynchronous reset. */
         if(!(regs[0xff14]&1) || !(regs[0xfead]&8)) return 5;
         if(value==0x03) {
-            bool stale=is("stale_latch") && addr==63 && ++suspect_reads==1;
-            if(!stale) regs[0xfeab]=flash[addr];
-            if(is("reverse_corrupt") && addr==63 && ++suspect_reads==2)
-                regs[0xfeab]^=0xb4;
+            if(record_read_addresses) assert(addr==sequential_reads++);
+            regs[0xfeab]=flash[addr];
             if(is("midreset")) { regs[0xff14]&=~1u; regs[0xfead]=0; }
         } else if(value==0x20) {
             assert(!(addr%128)); memset(flash+addr,0,128); ++erases; busy=is("busy");
@@ -83,6 +88,9 @@ int spi_write_read_blocking(spi_inst_t *spi,const uint8_t *src,uint8_t *dst,size
     assert(len==36 && src[0]==0x30 && src[1]==0);
     for(size_t i=4;i<len;++i) assert(src[i]==0xff);
     now+=100; ++reads;
+    if(is("watchdog") && now >= 4000000 && (regs[0xfe80]&1)) {
+        regs[0xff14]=0; regs[0xfead]=0;
+    }
     uint16_t reg=(uint16_t)((src[2]<<8)|src[3]);
     memset(dst,0x5f,len);
     if(is("short")) return (int)len-1;
@@ -105,6 +113,7 @@ int main(int argc,char **argv) {
     regs[0xff00]=(uint8_t)strtoul(argv[2],NULL,16);
     regs[0xff24]=(uint8_t)strtoul(argv[3],NULL,16);
     fault=argv[4];
+    if(is("watchdog") || is("wdtignored")) regs[0xfe80]=0x83;
     memset(flash,0xa5,sizeof flash);
     uint8_t hw=0,id=0,data[128],expected[128];
     if(!ene_open_family(family,&hw,&id)) {
@@ -115,12 +124,32 @@ int main(int argc,char **argv) {
     printf("OPEN %02X/%02X WDT=%u VALUE=%02X\n",hw,id,wdt_writes,regs[0xfe80]);
     unsigned capacity=argc>5 ? (unsigned)strtoul(argv[5],NULL,0) : 128*1024;
     unsigned before=flash_commands;
-    if(is("stale_latch") || is("reverse_corrupt")) {
-        for(unsigned i=0;i<128;++i) flash[i]=(uint8_t)(i*17+3);
-        assert(!ene_read_page(0,data) && !strcmp(ene_error(),"EDI_READ_UNSTABLE"));
-        assert(!(regs[0xfead]&8) && !erases && !programs);
-        assert(ene_read_page(0,data) && !memcmp(data,flash,128));
-        puts("UNSTABLE_READ_REJECTED_NO_FLASH_WRITES");
+    if(is("single_read")) {
+        record_read_addresses=true;
+        for(unsigned addr=0;addr<capacity;addr+=128) {
+            assert(ene_read_page(addr,data));
+            for(unsigned i=0;i<128;++i) assert(data[i]==flash[addr+i]);
+        }
+        assert(sequential_reads==capacity && flash_commands-before==capacity);
+        assert(!erases && !programs);
+        printf("READ_ONCE %u BYTES_IN_ASCENDING_ORDER NO_FLASH_WRITES\n",capacity);
+    } else if(is("watchdog")) {
+        sleep_us(6000000);
+        uint8_t state[5];
+        unsigned prior_reset=reset_writes, prior_wdt=wdt_writes;
+        assert(ene_read_state(state));
+        assert(state[0]==hw && state[1]==id);
+        assert(reset_writes==prior_reset && wdt_writes==prior_wdt && flash_commands==before);
+        if(!strcmp(family,"KB9052QE")) {
+            assert((state[2]&1) && !(state[4]&3));
+            assert(ene_read_page(0,data));
+            puts("WATCHDOG_DISABLED_SESSION_SURVIVES_NO_FLASH_WRITES");
+        } else {
+            assert(!(state[2]&1));
+            assert(!ene_read_page(0,data) && !strcmp(ene_error(),"EDI_SESSION_LOST"));
+            puts("WATCHDOG_RESET_SESSION_LOST");
+        }
+        assert(!erases && !programs);
     } else if(is("lost")) {
         regs[0xff14]=0;
         assert(!ene_read_page(0,data) && !strcmp(ene_error(),"EDI_SESSION_LOST"));

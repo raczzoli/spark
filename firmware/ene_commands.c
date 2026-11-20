@@ -11,6 +11,13 @@
 
 bool ene_command(char *cmd) {
     unsigned a; size_t len; int used;
+    if (!strcmp(cmd,"ENESTATE")) {
+        uint8_t state[5];
+        if (!ene_read_state(state)) { usb_printf("ERR %s\n", ene_error()); return true; }
+        usb_printf("ENESTATE HW=%02X EDI=%02X PXCFG=%02X EFCFG=%02X WDTCFG=%02X\n",
+                   state[0], state[1], state[2], state[3], state[4]);
+        return true;
+    }
     if (!strcmp(cmd,"ENERX")) {
         const uint8_t *rx = ene_last_rx();
         usb_printf("ENERX ");
