@@ -270,12 +270,13 @@ class GuiLifecycleTests(unittest.TestCase):
             w.save_read()
         self.assertEqual(target.read_bytes(), bytes(range(128)))
         self.assertIsNone(w.pending_read)
-        self.assertEqual(w.last_directory("images"), target.parent)
+        # Windows temporary paths may use an 8.3 alias; the app resolves it.
+        self.assertEqual(w.last_directory("images"), target.parent.resolve())
         self.assertEqual(w.status.text(), "Read saved")
         self.assertTrue(w.write.isEnabled())
         with patch("app.gui.QDesktopServices.openUrl", return_value=True) as open_url:
             w.open_saved_folder()
-        self.assertEqual(open_url.call_args.args[0].toLocalFile(), target.parent.as_posix())
+        self.assertEqual(open_url.call_args.args[0].toLocalFile(), target.parent.resolve().as_posix())
 
     def test_same_interface_preserves_connection_missing_device_invalidates_it(self):
         w = self.window
