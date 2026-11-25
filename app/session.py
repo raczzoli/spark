@@ -48,6 +48,10 @@ class DeviceSession:
 
     def connect(self, action):
         self._open()
+        # Include board/build metadata even when the target never acknowledges
+        # debug entry; an application version alone does not identify the UF2.
+        if action == "connect" and hasattr(self.bus, "firmware_info"):
+            self.status(self.bus.firmware_info())
         if self.ene or not self.profile.read_protocol:
             return self.ec.enter_and_identify()
         try:

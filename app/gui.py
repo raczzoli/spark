@@ -227,7 +227,7 @@ class Window(SparkWindow):
 
     def set_transfer(self, done, total):
         self._phase_done, self._phase_total = done, total
-        self.transfer.setText(f"{done / 1024:g} / {total / 1024:g} KiB")
+        self.transfer.setText(f"{done // 1024} / {total // 1024} KiB")
         self.update_timing()
 
     def update_timing(self):
@@ -512,6 +512,7 @@ class Window(SparkWindow):
         self.power_prompt = QMessageBox(
             QMessageBox.Icon.Information,
             "Power cycle the EC",
+            "Disconnect the main battery if it is connected. "
             "Pico is ready. If the laptop adapter is plugged in, unplug it for "
             "5 seconds, then reconnect it. If it is already unplugged, connect it now. "
             "Keep Pico and the EC wires connected. "

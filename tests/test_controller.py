@@ -7,7 +7,7 @@ os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 import threading
 import time
 import unittest
-from PySide6.QtCore import QObject, QThread, Signal, Slot
+from PySide6.QtCore import QObject, QThread, Signal, Slot, Qt
 from PySide6.QtWidgets import QApplication
 from app.controller import OperationController
 
@@ -76,6 +76,58 @@ class ControllerTests(unittest.TestCase):
                 self.assertTrue(controller.start(next_worker))
                 self.wait_idle(controller)
                 controller.deleteLater()
+
+    def test_finished_signal_does_not_release_worker_before_native_cleanup(self):
+        controller = OperationController()
+        finish_entered = threading.Event()
+        finish_release = threading.Event()
+        tail_done = threading.Event()
+        run_ready = threading.Event()
+        observations = []
+        gui_thread = self.app.thread()
+
+        class GatedWorker(QObject):
+            finished = Signal(str, object)
+            failed = Signal(str)
+
+            @Slot()
+            def run(self):
+                run_ready.wait(3)
+                self.finished.emit("read", None)
+
+        def finish_tail():
+            finish_entered.set()
+            finish_release.wait(3)
+            tail_done.set()
+
+        def destroyed():
+            observations.append(("destroyed_on_gui", QThread.currentThread() == gui_thread))
+
+        worker = GatedWorker()
+        worker.destroyed.connect(destroyed, Qt.ConnectionType.DirectConnection)
+        controller.start(worker)
+        thread = controller.thread
+        worker.finished.connect(thread.quit, Qt.ConnectionType.DirectConnection)
+        thread.finished.connect(finish_tail, Qt.ConnectionType.DirectConnection)
+        controller.idle.connect(lambda: observations.append(("idle_after_tail", tail_done.is_set())))
+        # The controller must hold the only Python reference through native
+        # cleanup, just as it does between consecutive application operations.
+        del worker
+        run_ready.set()
+        release_timer = threading.Timer(.1, finish_release.set)
+        try:
+            self.assertTrue(finish_entered.wait(3))
+            release_timer.start()
+            self.wait_idle(controller)
+            self.assertIn(("idle_after_tail", True), observations)
+            self.assertIn(("destroyed_on_gui", False), observations)
+        finally:
+            finish_release.set()
+            if release_timer.ident is not None:
+                release_timer.join()
+            thread.wait(3000)
+            self.wait_idle(controller)
+            controller.deleteLater()
 
 
 if __name__ == "__main__":

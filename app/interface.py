@@ -189,6 +189,9 @@ class InterfaceDiscovery(QObject):
 
     @Slot()
     def _thread_finished(self):
+        # The worker's deferred deletion can still be running after finished().
+        # Retain its Python wrapper until the native thread has fully exited.
+        self.thread.wait()
         self.thread.deleteLater()
         self.thread = None
         self.worker = None

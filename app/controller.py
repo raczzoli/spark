@@ -40,6 +40,9 @@ class OperationController(QObject):
 
     @Slot()
     def _on_thread_finished(self):
+        # finished() precedes deferred worker deletion and thread-local cleanup.
+        # Keep its Python wrapper alive until C++ destruction has completed.
+        self.thread.wait()
         self.thread.deleteLater()
         self.thread = None
         self.worker = None

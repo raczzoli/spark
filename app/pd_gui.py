@@ -328,7 +328,7 @@ class PDPage(QScrollArea):
         value = done * 100 // total if total else 0
         self.progress.setValue(value)
         self.percent.setText(f"{value}%")
-        self.transfer.setText(f"{done / 1024:g} / {total / 1024:g} KiB")
+        self.transfer.setText(f"{done // 1024} / {total // 1024} KiB")
         self.update_timing()
 
     def update_timing(self):

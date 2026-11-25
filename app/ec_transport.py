@@ -41,7 +41,7 @@ class ECTransport(PicoTransport):
                     continue
                 answer = raw.decode("ascii", errors="replace").strip()
                 if answer == "READY WAVEPOWER WAIT_POWER_OFF":
-                    status("Pico is armed: unplug laptop power for 5 seconds, then reconnect it.")
+                    status("Pico is armed: disconnect the main battery if connected, unplug external power for 5 seconds, then reconnect external power.")
                 elif answer == "POWER_OFF_DETECTED WAIT_POWER_ON":
                     status("Power off detected: reconnect laptop power now.")
                 elif answer.startswith("WAVEPOWER "):

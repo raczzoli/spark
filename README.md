@@ -17,7 +17,7 @@ has its own wiring and controls.
 | Model-specific ENE wiring diagrams | Model selection, configurable GPIOs and automatic host-address discovery | Search connector references and see their Pico connections |
 | Stage progress, saved backups and operation log | Stage progress, saved backups and operation log | Controller status and cell voltages where supported |
 
-[Download Spark 0.5.0](https://github.com/raczzoli/spark/releases/tag/v0.5.0) · [Choose Pico firmware](docs/BOARD_FIRMWARES.md) ·
+[Download Spark 0.6.0](https://github.com/raczzoli/spark/releases/tag/v0.6.0) · [Choose Pico firmware](docs/BOARD_FIRMWARES.md) ·
 [EC wiring guide](docs/HARDWARE.md) · [Battery guide](docs/BATTERIES.md)
 
 ## Get started
@@ -133,7 +133,7 @@ Progress counts the selected image size. Repeat Read manually to obtain
 another dump for comparison. Write still verifies the complete programmed image.
 Read opens a save dialog. Canceling it keeps the backup in memory until you
 choose **Save…** or **Discard**. Progress shows the current stage, transferred
-KiB and elapsed time. The compact EC log remains visible, and **Open folder**
+whole KiB and elapsed time. The compact EC log remains visible, and **Open folder**
 locates a saved backup.
 
 ## PD Controller
@@ -177,7 +177,7 @@ detection.
 Save a backup before Write or Erase; these operations do not automatically save
 one. Each saved read includes a `.pd.json` file with the controller identity,
 selected size and image checksum. Progress shows the operation stage, transferred
-KiB and elapsed time; **Open folder** locates the saved image.
+whole KiB and elapsed time; **Open folder** locates the saved image.
 
 Keep target power connected through programming and verification. Only one
 workspace can own Pico at a time, and unsaved EC or PD reads must be saved or

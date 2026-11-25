@@ -1,8 +1,8 @@
 # Firmware files by board
 
 The local release has `app/Spark.exe` for the Windows GUI and `pico-firmwares/`
-for board-specific UF2 files. Every supplied UF2 contains both **EC Programmer**
-and **Battery Analyzer**; choose one for the exact board, not a different firmware
+for board-specific UF2 files. Every supplied UF2 contains **EC Programmer**,
+**PD Controller** and **Battery Analyzer**; choose one for the exact board, not a different firmware
 for each workspace:
 
 | UF2 | Board and Pico SDK profile |
@@ -27,10 +27,11 @@ The board used during EC protocol development was the Waveshare RP2350-USB-A.
 | Task | Default Pico GPIOs | Target |
 | --- | --- | --- |
 | ITE EC programming | GP3 SDA, GP2 SCL, common GND | Board's confirmed EC programming signals |
+| PD Controller | GP3 SDA, GP2 SCL, common GND | PD controller's TI 4CC I²C host interface |
 | ENE EC programming | GP2 CLK, GP3 DI, GP4 DO, GP5 CS, common GND | Model-specific EDI pins and KSO3 strap |
 | Battery Analyzer | GP7 DATA, GP9 CLOCK, common GND | Confirmed battery D, C and B− contacts; B+ stays disconnected from Pico |
 
-The EC and battery workspaces retain their own GPIO settings. Use GPIO numbers
+Each workspace retains its own GPIO settings. Use GPIO numbers
 rather than a board's printed I2C labels. ITE uses the same GP2/GP3 pair as
 ENE CLK/DI: GP2 goes to EC SCL and GP3 goes to EC SDA.
 The GUI permits another adjacent GPIO pair.

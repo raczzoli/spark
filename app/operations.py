@@ -90,8 +90,6 @@ class Worker(QObject):
                 if self.action != "connect" and identity != self.expected_identity:
                     raise RuntimeError(f"EC identity changed: 0x{identity[0]:04X}/0x{identity[1]:02X}")
                 if self.action == "connect":
-                    if hasattr(bus, "firmware_info"):
-                        self.status.emit(bus.firmware_info())
                     protocol = None
                     if self.profile.read_protocol:
                         try:

@@ -16,7 +16,9 @@ IT8xxx retains revision-based selection. Host and firmware ranges extend to
   the OS; maximized client bounds respect the monitor work area. Close always
   delegates to the existing operation and unsaved-backup guards in `Window.closeEvent`.
 - `app/controller.py`: shared operation ownership. One worker runs at a time;
-  the controller stays busy until the worker thread has exited, including cleanup.
+  the controller waits for native thread exit before releasing the Python worker
+  wrapper or reporting idle. The `finished` signal alone precedes deferred object
+  deletion and thread-local cleanup. USB inventory shutdown uses the same rule.
   It has no EC commands, target models or widget dependencies.
 - `app/operations.py`: a worker owns an entire connect/read/erase/write operation,
   including USB cleanup. It emits one terminal result. Cleanup warnings do not

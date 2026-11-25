@@ -4,6 +4,7 @@
 import os
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 import time
+import gc
 import unittest
 import tempfile
 from pathlib import Path
@@ -119,6 +120,108 @@ class GuiLifecycleTests(unittest.TestCase):
             self.window.controller._on_thread_finished()
             start.assert_called_once_with("erase", None, confirmed=True)
         self.assertIsNone(self.window._pending_operation)
+
+    def test_ite51_read_save_write_with_keepalive_during_confirmation(self):
+        from app.flash_protocols import protocol_for
+        w = self.window
+        w.model.setCurrentText("IT51xx")
+        w.flash_size.setValue(128)
+        identity = (0x5122, 2)
+        protocol = protocol_for(identity, bytes.fromhex("FFFFFE"))
+        original = bytes(range(256)) * 512
+        memory = bytearray(original)
+        actions = []
+        w.connected_identity, w.connected_protocol = identity, protocol
+        w.update_buttons()
+
+        class EC:
+            def flash_protocol(self, _identity):
+                return protocol
+
+            def read_flash(self, size, progress):
+                progress(size, size)
+                return bytes(memory[:size])
+
+            def erase_flash(self, size, _protocol, progress):
+                memory[:] = b"\xff" * size
+                progress(size, size)
+
+            def write_flash(self, image, _protocol, progress):
+                memory[:] = image
+                progress(len(image), len(image))
+
+            def verify_flash(self, image, progress):
+                if memory != image:
+                    raise RuntimeError("Readback differs from the saved dump")
+                progress(len(image), len(image))
+
+        class Session:
+            def __init__(self, *args):
+                self.bus, self.ec, self.ene = SimpleNamespace(), EC(), False
+
+            def connect(self, action):
+                actions.append(action)
+                return identity
+
+            def refresh(self, expected):
+                actions.append("keepalive")
+                return identity
+
+            def prepare_destructive(self):
+                pass
+
+            def close(self):
+                pass
+
+        def wait_idle():
+            deadline = time.monotonic() + 5
+            while (w.controller.busy or w._pending_operation is not None) and time.monotonic() < deadline:
+                self.app.processEvents()
+                time.sleep(.001)
+            self.assertFalse(w.controller.busy)
+            self.assertIsNone(w._pending_operation)
+
+        def finish_tail():
+            # Leave native cleanup pending briefly after finished() so every
+            # cycle exercises the lifetime boundary that caused the crash.
+            time.sleep(.005)
+
+        def add_cleanup_tail():
+            w.controller.thread.finished.connect(finish_tail, Qt.ConnectionType.DirectConnection)
+
+        def confirm(*args):
+            w.refresh_debug_hold()
+            self.assertTrue(w.controller.busy)
+            return QMessageBox.StandardButton.Yes
+
+        w.controller.started.connect(add_cleanup_tail)
+        try:
+            with patch("app.operations.DeviceSession", Session), \
+                    patch("app.gui.QMessageBox.question", side_effect=confirm), \
+                    patch("app.gui.QMessageBox.critical") as critical:
+                for cycle in range(3):
+                    target = Path(self.temp.name) / f"ite51-{cycle}.bin"
+
+                    def choose_file(*args):
+                        self.app.processEvents()
+                        gc.collect()
+                        return str(target), ""
+
+                    with patch("app.gui.QFileDialog.getSaveFileName", side_effect=choose_file):
+                        w.start("read")
+                        wait_idle()
+                    self.assertEqual(target.read_bytes(), original)
+                    self.assertTrue(w.write.isEnabled())
+                    with patch("app.gui.QFileDialog.getOpenFileName", side_effect=choose_file):
+                        w.start("write")
+                        wait_idle()
+                    self.assertEqual(w.status.text(), "Write completed - Verify OK")
+                    self.assertEqual(memory, original)
+                critical.assert_not_called()
+            self.assertEqual(actions, ["read", "keepalive", "write"] * 3)
+        finally:
+            w.controller.started.disconnect(add_cleanup_tail)
+            wait_idle()
 
     def test_ene_models_fixed_size_and_buttons(self):
         self.window.manufacturer.setCurrentText("ENE")

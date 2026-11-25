@@ -26,14 +26,18 @@ a GPIO. Connect the Pico to the PC through its USB device port.
 RP2350 A2 silicon has a GPIO high-impedance erratum (E9) relevant to this
 open-drain interface; Raspberry Pi reports it fixed in A4. See the
 [Raspberry Pi RP2350 A4 notice](https://www.raspberrypi.com/news/rp2350-a4-rp2354-and-a-new-hacking-challenge/).
+Power-cycle detection waits for SCL to go LOW. A line that stays HIGH when the
+target is unpowered prevents this detection; the power-cycle prompt alone does
+not identify a wiring fault.
 
 1. Flash the UF2 matching your Pico board through BOOTSEL.
 2. Connect GND, SDA, and SCL; power the target board as required by its design.
 3. Wait for the shared **Interface** bar to show Connected. Open **EC Programmer**,
    then select ITE, the EC family, the two GPIO numbers, and **Size**
    (64, 128, 192, 256, 384, 512 or 1024 KiB).
-4. Click **Connect to EC**. If asked, remove target power for about five
-   seconds and reconnect it while keeping the Pico attached.
+4. Click **Connect to EC**. If asked, disconnect the main battery if connected,
+   remove external power for about five seconds, then reconnect external power
+   while keeping the Pico attached.
 5. **Read** starts at address 0 and saves exactly the selected range. Select
    the size for the physical EC; the program does not determine it from this
    choice.

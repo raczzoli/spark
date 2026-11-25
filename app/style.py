@@ -35,7 +35,7 @@ QComboBox { padding: 2px 36px 2px 12px; }
 QComboBox::drop-down { subcontrol-origin: padding; subcontrol-position: top right; width: 28px; border-left: 1px solid #303946; border-top-right-radius: 5px; border-bottom-right-radius: 5px; background: #1d242e; }
 QComboBox::down-arrow { image: url(APP_ARROW_URL); width: 12px; height: 12px; }
 QSpinBox { padding: 2px 28px 2px 10px; }
-QSpinBox::up-button, QSpinBox::down-button { subcontrol-origin: border; width: 23px; border-left: 1px solid #303946; background: #1d242e; }
+QSpinBox::up-button, QSpinBox::down-button { subcontrol-origin: padding; width: 23px; border: none; border-left: 1px solid #303946; background: #1d242e; }
 QSpinBox::up-button { subcontrol-position: top right; border-top-right-radius: 5px; border-bottom: 1px solid #303946; }
 QSpinBox::down-button { subcontrol-position: bottom right; border-bottom-right-radius: 5px; }
 QSpinBox::up-arrow { image: url(APP_UP_ARROW_URL); width: 10px; height: 10px; }
