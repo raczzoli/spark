@@ -32,7 +32,7 @@ class NativeFirmwareTests(unittest.TestCase):
                    "firmware/ite_session.c", "firmware/ite_bus.c",
                    "firmware/usb_commands.c", "firmware/usb_output.c",
                    "firmware/ec_commands.c", "firmware/ite_commands.c",
-                   "firmware/ene_commands.c", "firmware/device_runtime.c"]
+                   "firmware/ene_commands.c", "firmware/device_runtime.c", "firmware/pd_commands.c"]
         subprocess.run(compiler + ["-std=c11", "-Wall", "-Wextra", "-Werror",
                        "-Itests/native", "-Ifirmware", *sources, "-o", str(cls.exe)],
                        cwd=ROOT, check=True, capture_output=True, text=True, timeout=180)

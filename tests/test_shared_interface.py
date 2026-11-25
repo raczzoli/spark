@@ -48,7 +48,7 @@ class SharedInterfaceTests(unittest.TestCase):
         self.assertEqual(w.interface_bar.findChildren(QToolButton), [])
         self.assertLessEqual(w.interface_bar.height(), 38)
         self.assertLess(w.interface_bar.geometry().bottom(), w.workspaces.tabBar().y())
-        for index in (0, 1):
+        for index in (0, 1, 2):
             w.workspaces.setCurrentIndex(index)
             self.app.processEvents()
             self.assertTrue(w.interface_bar.isVisible())
@@ -58,7 +58,7 @@ class SharedInterfaceTests(unittest.TestCase):
         w = self.w
         self.connect_pico("COM12")
         with patch.object(w.discovery, "request_scan") as discover:
-            w.workspaces.setCurrentIndex(1)
+            w.workspaces.setCurrentIndex(2)
             self.assertEqual(w.battery.port.currentData(), "COM12")
             w.workspaces.setCurrentIndex(0)
             self.assertEqual(w.port.currentData(), "COM12")
@@ -103,7 +103,7 @@ class SharedInterfaceTests(unittest.TestCase):
         w.update_buttons()
         self.assertTrue(w.interface_bar.isEnabled())
         w.pending_read = None
-        w.workspaces.setCurrentIndex(1)
+        w.workspaces.setCurrentIndex(2)
         w.battery.sections.setCurrentIndex(1)
         with patch.object(w.battery, "start"):
             w.battery.toggle_monitor()

@@ -1,9 +1,14 @@
-Spark - EC Programmer + Battery Analyzer 0.5.0 / 64b51fae743f
+Spark - EC Programmer + PD Controller + Battery Analyzer 0.5.0 / 69d36ca5dfd5
 
 Automated tests passed. See docs/ENE.md for protocol details.
 Run app/Spark.exe; pico-firmwares/ contains board-specific UF2 files.
 Install only the UF2 matching your board. Pico 2 H uses Pico-2-RP2350.uf2.
 Default ITE pins: GP3 SDA, GP2 SCL, common GND. Default timing is unchanged.
+PD Controller: TI 4CC host interface; read, erase, write and complete verification of external SPI flash.
+Default PD pins: GP3 SDA, GP2 SCL, common GND; target powered separately.
+Select the PD model; its host address is discovered automatically.
+External SPI: locate the flash chip, determine its capacity and select Size manually; no size is preselected.
+Size stays visible beside SDA/SCL; profiles with known internal flash capacity show it with editing disabled.
 Battery tab: offline connector search, SBS readings, monitoring, PDF/JSON/CSV reports.
 Default battery pins: GP7 DATA, GP9 CLOCK, common GND; battery B+ stays off Pico.
 Physical pin numbers are shown only for the standard 40-pin Pico footprint.

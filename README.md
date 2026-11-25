@@ -1,20 +1,21 @@
 # Spark
 
-**EC Programmer + Battery Analyzer. One Windows application. One Raspberry Pi Pico.**
+**EC Programmer + PD Controller + Battery Analyzer. One Windows application. One Raspberry Pi Pico.**
 
-Spark combines laptop EC programming and SMBus smart battery diagnostics in two
-workspaces. Both use the same USB interface and combined Pico firmware. Choose
-the workspace for the connected target; each task has its own wiring and controls.
+Spark combines laptop EC programming, PD controller flash access and SMBus smart
+battery diagnostics in three workspaces. All use the same USB interface and
+combined Pico firmware. Choose the workspace for the connected target; each task
+has its own wiring and controls.
 
-![Spark connection overview: ITE EC uses GP3 for SDA and GP2 for SCL; Battery Analyzer uses GP7 for DATA and GP9 for CLOCK. Both use common ground. Battery B+ stays disconnected from Pico.](docs/images/spark-connections.svg)
+![Spark connections: ITE EC and PD Controller use GP3 for SDA and GP2 for SCL; Battery Analyzer uses GP7 for DATA and GP9 for CLOCK. All use common ground. Battery B+ stays disconnected from Pico.](docs/images/spark-connections.svg)
 
-| EC Programmer | Battery Analyzer |
-| --- | --- |
-| Identify supported ITE and ENE controllers | Read standard SBS battery information |
-| Read, erase and write supported EC flash | View voltage, current, temperature, charge and capacities |
-| Verify the complete written image | Plot live readings and save PDF, CSV or JSON reports |
-| Model-specific ENE wiring diagrams | Search connector references and see their Pico connections |
-| Stage progress, saved backups and operation log | Controller status and cell voltages where supported |
+| EC Programmer | PD Controller | Battery Analyzer |
+| --- | --- | --- |
+| Identify supported ITE and ENE controllers | Identify a TI 4CC host interface | Read standard SBS battery information |
+| Read, erase and write supported EC flash | Read, erase and write external SPI through the PD controller | View voltage, current, temperature, charge and capacities |
+| Verify the complete written image | Verify the complete written image and erased contents | Plot live readings and save PDF, CSV or JSON reports |
+| Model-specific ENE wiring diagrams | Model selection, configurable GPIOs and automatic host-address discovery | Search connector references and see their Pico connections |
+| Stage progress, saved backups and operation log | Stage progress, saved backups and operation log | Controller status and cell voltages where supported |
 
 [Download Spark 0.5.0](https://github.com/raczzoli/spark/releases/tag/v0.5.0) · [Choose Pico firmware](docs/BOARD_FIRMWARES.md) ·
 [EC wiring guide](docs/HARDWARE.md) · [Battery guide](docs/BATTERIES.md)
@@ -27,10 +28,10 @@ the workspace for the connected target; each task has its own wiring and control
    board from **[release/pico-firmwares](release/pico-firmwares)** to its USB drive.
 4. Reconnect normally and wait for **Interface: COMx — Pico… | Connected**.
    Spark detects the interface at startup and when it is plugged in.
-5. Choose **EC Programmer** or **Battery Analyzer**, then follow that tool's
+5. Choose **EC Programmer**, **PD Controller** or **Battery Analyzer**, then follow that tool's
    wiring instructions below.
 
-The same supplied UF2 supports both tools; changing workspaces does not require
+The same supplied UF2 supports all three tools; changing workspaces does not require
 reflashing Pico. Use one target at a time and disconnect power before changing
 the wiring. Use the GPIO numbers shown in Spark rather than a board's printed
 I²C function labels. GPIO signals use **3.3 V logic**.
@@ -134,6 +135,55 @@ Read opens a save dialog. Canceling it keeps the backup in memory until you
 choose **Save…** or **Discard**. Progress shows the current stage, transferred
 KiB and elapsed time. The compact EC log remains visible, and **Open folder**
 locates a saved backup.
+
+## PD Controller
+
+The **PD Controller** tab reads, writes and erases external SPI flash through
+the PD controller's **TI 4CC I²C host interface**. Connect Pico to the PD
+controller's SDA/SCL pins; the SPI flash stays connected to the controller.
+
+| Pico default | Target signal |
+| --- | --- |
+| **GP3** | Host-interface **SDA** |
+| **GP2** | Host-interface **SCL** |
+| **GND** | Board **GND** |
+
+Power the target separately and confirm its host-interface pinout, bus pull-ups
+and 3.3 V logic. The SDA/SCL GPIOs are selectable in the PD workspace.
+
+1. Choose the exact **Model** from the **Select model** field.
+2. Locate the external SPI flash on the target board and determine its capacity
+   from its marking or datasheet. Select that capacity in **Size**, beside SDA/SCL.
+3. Click **Connect to PD**. Spark discovers the I²C address automatically and
+   displays the controller's firmware version.
+4. Choose **Read**, **Write** or **Erase**.
+
+**Size** starts empty and remains editable. External SPI capacity can vary
+between boards using the same PD controller, so Spark does not preselect it from
+the model, previous settings or backups. Changing the model, wiring or USB
+connection clears the selection; identifying a different controller also clears
+it. The current TI host interface does not expose automatic flash-capacity
+detection.
+
+- **Read** reads the entire selected range from address zero and opens a save
+  dialog. Canceling the dialog retains the image until **Save…** or **Discard**.
+  Existing backup files are never overwritten.
+- **Write** accepts a complete binary image matching the selected flash capacity,
+  erases that range, programs the image and verifies every byte. Use a full SPI
+  image including its headers, rather than a patch bundle intended for RAM loading.
+- **Erase** erases the selected range and reads it back to verify that every byte
+  is `FF`. It does not restart the PD controller.
+
+Save a backup before Write or Erase; these operations do not automatically save
+one. Each saved read includes a `.pd.json` file with the controller identity,
+selected size and image checksum. Progress shows the operation stage, transferred
+KiB and elapsed time; **Open folder** locates the saved image.
+
+Keep target power connected through programming and verification. Only one
+workspace can own Pico at a time, and unsaved EC or PD reads must be saved or
+discarded before switching tools. This workspace accesses external SPI flash;
+internal ROM extraction, internal-flash programming and RAM patch loading are
+not provided.
 
 ## Battery Analyzer
 

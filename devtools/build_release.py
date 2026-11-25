@@ -99,34 +99,49 @@ def main():
     parser.add_argument("--toolchain", help="Arm GNU toolchain root, if not on PATH")
     parser.add_argument("--picotool", help="Directory containing picotoolConfig.cmake")
     parser.add_argument("--firmware-only", action="store_true")
+    parser.add_argument("--app-only", action="store_true", help="Update the app and retain the existing Pico firmware files")
     parser.add_argument("--output", type=Path, default=ROOT / "release",
                         help="Distribution directory (default: release/, updated in place)")
     args = parser.parse_args()
+    if args.app_only and args.firmware_only:
+        parser.error("Choose either --app-only or --firmware-only")
     if not args.firmware_only and os.name != "nt":
         parser.error("Build the Windows GUI on Windows, or use --firmware-only")
-    if not (args.sdk / "external/pico_sdk_import.cmake").is_file():
+    if not args.app_only and not (args.sdk / "external/pico_sdk_import.cmake").is_file():
         parser.error("Pico SDK missing; provide --sdk or PICO_SDK_PATH")
+    output = args.output.resolve()
+    firmware_hashes = None
+    previous = None
+    if args.app_only:
+        previous = json.loads((output / "build-info.json").read_text(encoding="utf-8"))
+        firmware_hashes = {p.relative_to(output).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
+                           for p in (output / "pico-firmwares").rglob("*") if p.is_file()}
+        if not firmware_hashes:
+            parser.error("--app-only requires the existing Pico firmware distribution")
     run([sys.executable, "-m", "unittest", "discover", "-s", "tests"])
     identity = source_identity()
-    output = args.output.resolve()
+    identity["firmware_build_id"] = (previous.get("firmware_build_id", previous["build_id"])
+                                     if previous else identity["build_id"])
     output.mkdir(parents=True, exist_ok=True)
     print(f"Release: {output}", flush=True)
-    boards = list(BOARDS) if args.board == "all" else [args.board]
+    boards = [] if args.app_only else list(BOARDS) if args.board == "all" else [args.board]
     for board in boards:
         print(f"Building {board}", flush=True)
         build_firmware(board, args.sdk.resolve(), identity, output / "pico-firmwares", args.toolchain, args.picotool)
     firmware_licenses = output / "pico-firmwares/licenses"
-    firmware_licenses.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(ROOT / "LICENSE", output / "pico-firmwares/LICENSE.txt")
-    shutil.copy2(ROOT / "docs/THIRD_PARTY.md", output / "pico-firmwares/THIRD_PARTY.txt")
+    if not args.app_only:
+        firmware_licenses.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(ROOT / "LICENSE", output / "pico-firmwares/LICENSE.txt")
+        shutil.copy2(ROOT / "docs/THIRD_PARTY.md", output / "pico-firmwares/THIRD_PARTY.txt")
     shutil.copy2(ROOT / "docs/BATTERIES.md", output / "Battery-Guide.md")
-    shutil.copy2(ROOT / "docs/licenses/Chromium-OS-EC-BSD.txt", firmware_licenses)
-    shutil.copy2(args.sdk / "LICENSE.TXT", firmware_licenses / "Raspberry-Pi-Pico-SDK.txt")
-    shutil.copy2(args.sdk / "lib/tinyusb/LICENSE", firmware_licenses / "TinyUSB-MIT.txt")
+    if not args.app_only:
+        shutil.copy2(ROOT / "docs/licenses/Chromium-OS-EC-BSD.txt", firmware_licenses)
+        shutil.copy2(args.sdk / "LICENSE.TXT", firmware_licenses / "Raspberry-Pi-Pico-SDK.txt")
+        shutil.copy2(args.sdk / "lib/tinyusb/LICENSE", firmware_licenses / "TinyUSB-MIT.txt")
     if not args.firmware_only:
         metadata = ROOT / "build/package_metadata/build-info.json"
         metadata.parent.mkdir(parents=True, exist_ok=True)
-        metadata.write_text(json.dumps(identity, indent=2) + "\n")
+        metadata.write_text(json.dumps(identity, indent=2) + "\n", encoding="utf-8", newline="\n")
         env = dict(os.environ, EC_BUILD_INFO_FILE=str(metadata))
         run([sys.executable, "-m", "PyInstaller", "--noconfirm", "--distpath", output / "app",
              "Spark.spec"], env=env)
@@ -140,18 +155,28 @@ def main():
         shutil.copytree(ROOT / "docs/licenses", output / "app/licenses", dirs_exist_ok=True)
     if source_identity()["build_id"] != identity["build_id"]:
         raise RuntimeError("Source changed during the build; rebuild the release")
+    if firmware_hashes is not None:
+        retained = {p.relative_to(output).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
+                    for p in (output / "pico-firmwares").rglob("*") if p.is_file()}
+        if retained != firmware_hashes:
+            raise RuntimeError("Existing firmware files changed during an app-only build")
     identity["boards"] = [board for board, filename in BOARDS.items()
                           if (output / "pico-firmwares" / filename).exists()]
     identity["python"] = sys.version.split()[0]
     identity["packages"] = {name: importlib.metadata.version(name)
                             for name in ("PySide6", "pyserial", "pyinstaller")}
-    (output / "build-info.json").write_text(json.dumps(identity, indent=2) + "\n")
+    (output / "build-info.json").write_text(json.dumps(identity, indent=2) + "\n", encoding="utf-8", newline="\n")
     (output / "README.txt").write_text(
-        f"Spark - EC Programmer + Battery Analyzer {identity['version']} / {identity['build_id']}\n\n"
+        f"Spark - EC Programmer + PD Controller + Battery Analyzer {identity['version']} / {identity['build_id']}\n\n"
         "Automated tests passed. See docs/ENE.md for protocol details.\n"
         "Run app/Spark.exe; pico-firmwares/ contains board-specific UF2 files.\n"
         "Install only the UF2 matching your board. Pico 2 H uses Pico-2-RP2350.uf2.\n"
         "Default ITE pins: GP3 SDA, GP2 SCL, common GND. Default timing is unchanged.\n"
+        "PD Controller: TI 4CC host interface; read, erase, write and complete verification of external SPI flash.\n"
+        "Default PD pins: GP3 SDA, GP2 SCL, common GND; target powered separately.\n"
+        "Select the PD model; its host address is discovered automatically.\n"
+        "External SPI: locate the flash chip, determine its capacity and select Size manually; no size is preselected.\n"
+        "Size stays visible beside SDA/SCL; profiles with known internal flash capacity show it with editing disabled.\n"
         "Battery tab: offline connector search, SBS readings, monitoring, PDF/JSON/CSV reports.\n"
         "Default battery pins: GP7 DATA, GP9 CLOCK, common GND; battery B+ stays off Pico.\n"
         "Physical pin numbers are shown only for the standard 40-pin Pico footprint.\n"
@@ -164,8 +189,8 @@ def main():
         "ENE: GP2 CLK, GP3 DI, GP4 DO, GP5 CS, common GND; confirm target strap/pins.\n"
         "ENE models: KB9012QF, KB9022Q, KB9028Q, KB902FQ C, KB9052QD, KB9052QE (128 KiB).\n"
         "KB9548QF2 A0/07: 160 KiB, model-specific EDI wiring.\n"
-        "Source and instructions: https://github.com/raczzoli/spark\n"
-    )
+        "Source and instructions: https://github.com/raczzoli/spark\n",
+        encoding="utf-8", newline="\n")
     entries = []
     release_files = [output / "README.txt", output / "build-info.json", output / "Battery-Guide.md"]
     for folder in ("app", "pico-firmwares"):
@@ -173,7 +198,7 @@ def main():
     for path in sorted(release_files):
         if path.is_file():
             entries.append(f"{hashlib.sha256(path.read_bytes()).hexdigest()}  {path.relative_to(output).as_posix()}")
-    (output / "SHA256SUMS.txt").write_text("\n".join(entries) + "\n")
+    (output / "SHA256SUMS.txt").write_text("\n".join(entries) + "\n", encoding="utf-8", newline="\n")
     print(f"Release ready: {output}", flush=True)
 
 

@@ -37,6 +37,14 @@ IT8xxx retains revision-based selection. Host and firmware ranges extend to
 - `app/ene.py`: common ENE EDI flash engine; compatibility groups
   and selected ranges are in `app/ene_families.py`. Physical models, pinouts and
   identity restrictions are in `app/ene_models.py`. See [ENE](ENE.md).
+- `app/pd.py`: TI 4CC host-interface discovery, identity, external SPI read,
+  erase, programming and full readback verification. It selects native Pico
+  mailbox commands or the generic I2C transport without a silicon-ID allowlist.
+- `app/pd_operations.py`: PD workers using the shared operation controller;
+  identity is checked again before each operation.
+- `app/pd_gui.py`, `app/pd_models.py`: PD workspace and model storage profiles.
+  Model selection starts empty. External SPI capacity is selected manually;
+  internal-capacity profiles provide a fixed, disabled Size field.
 
 The worker negotiates required capabilities before erase. Write remains
 erase → program → full verification, without an automatic backup or erased-flash
@@ -45,10 +53,10 @@ the GUI's connected state; a completed read remains available even if cleanup fa
 Flash operations selected in a file/confirmation dialog wait for any in-flight
 keepalive before acquiring USB.
 
-Spark starts with EC Programmer and Battery Analyzer tabs. A compact
+Spark starts with EC Programmer, PD Controller and Battery Analyzer tabs. A compact
 `InterfaceBar` above their `QTabBar` displays the automatically confirmed USB interface;
 `WorkspaceTabs` composes that bar with a `QStackedWidget` for the pages. The
-window owns discovery, persistence and invalidation for both tools. `app/interface.py`
+window owns discovery, persistence and invalidation for all three tools. `app/interface.py`
 enumerates USB inventory every 800 ms on a separate thread, filtering the SDK CDC
 VID/PIDs for RP2040/RP2350. Identification uses only HELLO/CAPS/INFO through the
 same operation controller as tool IO. Ordinary UART, Bluetooth, BOOTSEL and
@@ -58,15 +66,15 @@ ports retry with backoff. A confirmed device is retained while present, with its
 USB serial preferred after reconnecting; if several devices are present, the last
 used serial/port wins, otherwise the first compatible port. Generation checks
 prevent late worker results from restoring a disconnected target session. Finished
-EC backup data and previous battery readings remain available. Inventory monitoring
+EC/PD backup data and previous battery readings remain available. Inventory monitoring
 continues during tool operations, but metadata probes wait for the controller.
 Shutdown joins inventory and operation lifecycles asynchronously before disposing
 the window. Tool changes do not change the interface. Each tool owns its target settings
-and command adapter, and both use the same controller. Foreground operations
+and command adapter, and all use the same controller. Foreground operations
 disable workspace changes; live battery reads keep navigation and configuration
-available. An unsaved EC read also prevents entering the battery
-workspace. Leaving EC ends its debug session before battery controls become
-available. EC keepalive never runs in battery mode or during live battery capture.
+available. An unsaved EC or PD read prevents switching to another
+workspace. Leaving EC ends its debug session before PD or battery controls become
+available. EC keepalive runs only in the EC workspace.
 Changing either workspace or battery section stops capture; the current battery
 transaction finishes before another operation can acquire USB. Each operation still opens
 and closes its own USB connection.
@@ -74,8 +82,8 @@ and closes its own USB connection.
 USB startup retries HELLO up to three times on the same serial handle, within
 the original timeout. Partial greeting fragments are accumulated; stale replies
 are ignored until a complete known greeting arrives. CAPS ignores duplicate
-HELLO replies before negotiating tagged framing. No target command is retried,
-and handshake recovery never sends a leading newline that could complete a
+HELLO replies before negotiating tagged framing. Handshake recovery sends no
+target commands or leading newline that could complete a
 previously interrupted target command. Failure identifies the port and reports
 startup/busy/incompatible firmware as possibilities rather than asserting that
 a previous command is still running.
@@ -129,6 +137,10 @@ shared battery header remains the single read action.
 - `ec_commands.c`: EC routing, capability response, timeout budgets and ITE/ENE
   coexistence rules. `ite_commands.c` and `ene_commands.c` parse their respective
   command sets. Existing command strings, replies and ordering are preserved.
+- `pd_commands.c`: `PD4CC1` mailbox operations. `PDTASK` executes a complete
+  4CC task with bounded register lengths, idle/completion polling and I2C errors;
+  `PDREAD` groups 16-byte `FLrd` tasks into reads of up to 256 bytes. Erase and
+  programming commands are never replayed after an unknown USB outcome.
 - `device_runtime.c`: the main loop's tool lifecycle boundary, including independent
   battery idle expiry and release/end-session cleanup.
 - `smbus.c`, `smbus_commands.c`: independent open-drain battery engine and USB
@@ -183,9 +195,16 @@ Host tests cover units/scaling, missing values, identity/security gates and clea
 GUI tests cover tab isolation, filtering, all connector positions, plot rendering
 and all three report formats. These tests never access physical USB.
 
+PD tests execute the production C mailbox handler against a scripted I2C target
+and cover discovery, transport framing, flash contents, write verification and
+errors. GUI checks use temporary settings for model selection, manual external
+capacity, fixed internal-capacity presentation, unsaved backups, USB loss and
+shared-worker exclusion. Read-only flash blocks can retry reported bus faults;
+erase/program operations and commands with unknown USB outcomes are not replayed.
+
 The release builder supports ten board profiles and checks UF2 metadata. A successful
 compile or simulation is not hardware validation. Build output is updated in release/;
 the manifest does not imply that it has been exercised on a physical ITE target.
 SBS reading was separately exercised on an AC14B8K through a RAM-only combined
 firmware build; see [battery validation](BATTERIES.md). No TI access operation
-has been performed on physical hardware.
+has been performed on physical battery hardware.

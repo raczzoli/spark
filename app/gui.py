@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2026 R89 Repairs and contributors
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-"""Spark: EC programming and battery diagnostics in one Windows application."""
+"""Spark: EC and PD programming and battery diagnostics in one application."""
 
 import sys
 import time
@@ -22,6 +22,7 @@ from .wiring_diagram import WiringDiagram
 from .style import STYLESHEET
 from .gui_layout import build_layout, InterfaceBar, WorkspaceTabs
 from .battery_gui import BatteryPage
+from .pd_gui import PDPage
 from .interface import InterfaceState, InterfaceDiscovery
 
 from .operations import Worker, resolve_read_size
@@ -72,6 +73,9 @@ class Window(SparkWindow):
         ec_page = self.takeCentralWidget()
         self.workspaces = WorkspaceTabs(self.interface_bar)
         self.workspaces.addTab(ec_page, "EC Programmer")
+        self.pd = PDPage(self.controller, self.settings, self.interface_bar)
+        self.pd.state_changed.connect(self.update_buttons)
+        self.workspaces.addTab(self.pd, "PD Controller")
         self.battery = BatteryPage(self.controller, self.settings, self.interface_bar)
         self.battery.state_changed.connect(self.update_buttons)
         self.workspaces.addTab(self.battery, "Battery Analyzer")
@@ -103,6 +107,7 @@ class Window(SparkWindow):
             self.settings.setValue("interface/port", self.port.currentData())
             self.settings.setValue("interface/serial", self.port.device.usb.serial)
         self.reset_identity()
+        self.pd.port_changed()
         self.battery.port_changed()
 
     def update_buttons(self):
@@ -111,8 +116,10 @@ class Window(SparkWindow):
         ui_ready = idle or background_read
         if hasattr(self, "workspaces"):
             self.workspaces.tabBar().setEnabled(ui_ready)
-            if self.workspaces.count() > 1:
-                self.workspaces.setTabEnabled(1, self.pending_read is None)
+            for index in range(self.workspaces.count()):
+                self.workspaces.setTabEnabled(index, (self.pending_read is None or index == 0)
+                                              and (self.pd.pending_read is None or index == 1))
+            self.pd.update_controls()
         config_enabled = ui_ready and self.pending_read is None and self._pending_operation is None
         port_selected = self.port.currentData() is not None
         profile = self.model.currentData()
@@ -629,7 +636,7 @@ class Window(SparkWindow):
 
     def on_workspace_changed(self, index):
         self.battery.stop_monitor()
-        if index == 1:
+        if index != 0:
             self.keepalive.stop()
             if self.connected_identity is not None:
                 self.start("disconnect")
@@ -656,6 +663,13 @@ class Window(SparkWindow):
             else:
                 QMessageBox.information(self, "Operation in progress", "Wait for it to finish.")
             event.ignore()
+        elif self.pd.pending_read is not None:
+            answer = QMessageBox.question(self, "Unsaved PD backup", "The PD read is not saved. Close and discard it?")
+            if answer != QMessageBox.StandardButton.Yes:
+                event.ignore()
+            else:
+                self.pd.pending_read = None
+                self.closeEvent(event)
         elif self.pending_read is not None:
             answer = QMessageBox.question(
                 self, "Unsaved backup", "The read is not saved. Close and discard it?"

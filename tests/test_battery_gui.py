@@ -30,7 +30,7 @@ class BatteryGuiTests(unittest.TestCase):
         settings = QSettings(str(Path(self.temp.name) / "ui.ini"), QSettings.Format.IniFormat)
         self.w = Window(settings, auto_discovery=False)
         self.w.port.set_device(DetectedInterface(UsbCandidate("TEST"), "pico_w"))
-        self.w.workspaces.setCurrentIndex(1)
+        self.w.workspaces.setCurrentIndex(2)
         self.b = self.w.battery
 
     def tearDown(self):
@@ -437,7 +437,7 @@ class BatteryGuiTests(unittest.TestCase):
         self.w.workspaces.setCurrentIndex(0)
         self.w.connected_identity = (0x8227, 3)
         with patch.object(self.w, "start") as start:
-            self.w.workspaces.setCurrentIndex(1)
+            self.w.workspaces.setCurrentIndex(2)
             start.assert_called_once_with("disconnect")
         self.assertFalse(self.w.keepalive.isActive())
 
@@ -445,10 +445,10 @@ class BatteryGuiTests(unittest.TestCase):
         self.w.workspaces.setCurrentIndex(0)
         self.w.pending_read = b"dump"
         self.w.update_buttons()
-        self.assertFalse(self.w.workspaces.isTabEnabled(1))
+        self.assertFalse(self.w.workspaces.isTabEnabled(2))
         self.w.pending_read = None
         self.w.update_buttons()
-        self.assertTrue(self.w.workspaces.isTabEnabled(1))
+        self.assertTrue(self.w.workspaces.isTabEnabled(2))
 
     def test_tab_changes_stop_live_reading_without_restarting_on_return(self):
         self.assertFalse(self.b.header.isAncestorOf(self.b.monitor_button))
@@ -488,7 +488,7 @@ class BatteryGuiTests(unittest.TestCase):
         self.w.show()
         for previous_read, stop_via in product((False, True), ("button", "section", "workspace")):
             with self.subTest(previous_read=previous_read, stop_via=stop_via):
-                self.w.workspaces.setCurrentIndex(1)
+                self.w.workspaces.setCurrentIndex(2)
                 self.b.sections.setCurrentIndex(1)
                 if previous_read:
                     self.b.on_finished("battery_read", sample())
@@ -540,7 +540,7 @@ class BatteryGuiTests(unittest.TestCase):
                         self.assertEqual(self.b.monitor_button.text(), "Stopping…")
                         self.assertEqual(self.b.read_button.text(), "Read battery")
                         self.assertTrue(self.w.workspaces.tabBar().isEnabled())
-                        self.w.workspaces.setCurrentIndex(1)
+                        self.w.workspaces.setCurrentIndex(2)
                         self.b.sections.setCurrentIndex(1)
                         self.assertFalse(self.b.monitoring)
                     finally:

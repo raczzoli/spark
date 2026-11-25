@@ -19,7 +19,7 @@ configure_file(version.h.in generated/version.h @ONLY)
 add_executable(pico_ec_probe
   main.c i2c_bus.c device_runtime.c usb_commands.c usb_output.c
   ec_commands.c ite_commands.c ene_commands.c
-  smbus.c smbus_commands.c
+  smbus.c smbus_commands.c pd_commands.c
   ite_bus.c ite_dbgr.c ite_session.c ite_flash.c ene_edi.c)
 target_include_directories(pico_ec_probe PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/generated")
 target_compile_options(pico_ec_probe PRIVATE -Wall -Wextra)
