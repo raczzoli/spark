@@ -1,7 +1,7 @@
 {
-  "version": "0.6.0",
-  "build_id": "0e962d84ecec",
-  "source_sha256": "0e962d84ecec7d3df7007d306494c5d65c5f89b1e5f1db5620d873ee888cadfc",
+  "version": "0.6.1",
+  "build_id": "39cf1597b42e",
+  "source_sha256": "39cf1597b42e68e35d750e9bc488504062d425c9c58f6f591d08eadbc02d0727",
   "firmware_build_id": "60ba2f221e3c",
   "boards": [
     "pico",

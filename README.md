@@ -17,7 +17,7 @@ has its own wiring and controls.
 | Model-specific ENE wiring diagrams | Model selection, configurable GPIOs and automatic host-address discovery | Search connector references and see their Pico connections |
 | Stage progress, saved backups and operation log | Stage progress, saved backups and operation log | Controller status and cell voltages where supported |
 
-[Download Spark 0.6.0](https://github.com/raczzoli/spark/releases/tag/v0.6.0) · [Choose Pico firmware](docs/BOARD_FIRMWARES.md) ·
+[Download Spark 0.6.1](https://github.com/raczzoli/spark/releases/tag/v0.6.1) · [Choose Pico firmware](docs/BOARD_FIRMWARES.md) ·
 [EC wiring guide](docs/HARDWARE.md) · [Battery guide](docs/BATTERIES.md)
 
 ## Get started
@@ -374,4 +374,4 @@ link their public sources. See [source attribution](docs/THIRD_PARTY.md).
 Bundled libraries retain their own licenses; Qt/PySide6 notices are included
 with the Windows application.
 
-Software by **R89 Repairs** | [www.r89-repairs.ro](https://www.r89-repairs.ro)
+Developed by **R89 Repairs** | [www.r89-repairs.ro](https://www.r89-repairs.ro)

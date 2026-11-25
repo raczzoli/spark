@@ -1,4 +1,4 @@
-Spark - EC Programmer + PD Controller + Battery Analyzer 0.6.0 / 0e962d84ecec
+Spark - EC Programmer + PD Controller + Battery Analyzer 0.6.1 / 39cf1597b42e
 
 Automated tests passed. See docs/ENE.md for protocol details.
 Run app/Spark.exe; pico-firmwares/ contains board-specific UF2 files.
